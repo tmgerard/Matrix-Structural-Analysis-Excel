@@ -1,5 +1,5 @@
 # Excel Matrix Structural Analysis
-The purpose of this project is to learn techniques of solving linear systems and create an object-oriented matrix structural analysis program within Microsoft Excel using VBA and to gain a better understanding of how commercial analysis software works. Excel was chosen as the platform for this project because by many structural engineers use it in practice.
+The purpose of this project is to learn techniques of solving linear systems and create an object-oriented matrix structural analysis program within Microsoft Excel using VBA and to gain a better understanding of how commercial analysis software works. Excel was chosen as the platform for this project because many structural engineers use it in practice.
 ## Goal
 The ultimate goal is to create a simple structural analysis engine that uses the direct stiffness method to solve plane and space trusses and frames, that can be extended through proper use of object-oriented concepts.
 ## Desired Features
