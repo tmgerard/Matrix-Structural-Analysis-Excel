@@ -7,7 +7,6 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Attribute VB_Ext_KEY = "Rubberduck" ,"Predeclared Class Module"
 '@Folder("Model.Matrix.Factory")
 Option Explicit
 
@@ -34,18 +33,19 @@ End Function
 '@Description("Create a matrix storage factory based on an existing matrix storage object")
 Public Function CreateFactoryMatchingObject(ByVal MatrixStorage As IMatrixStorage) As IMatrixStorageFactory
 
-    Select Case MatrixStorage
-    
-        Case TypeOf MatrixStorage Is DenseColumnMajorMatrixStorage
-            Set CreateFactoryMatchingObject = New DenseColMajMatrixStorageFactory
+    If TypeOf MatrixStorage Is DenseColumnMajorMatrixStorage Then
         
-        Case TypeOf MatrixStorage Is DenseRowMajorMatrixStorage
-            Set CreateFactoryMatchingObject = New DenseRowMajMatrixStorageFactory
+        Set CreateFactoryMatchingObject = New DenseColMajMatrixStorageFactory
         
-        Case Else
-            MatrixErrors.ThrowStorageSchemeError CLASS_NAME
+    ElseIf TypeOf MatrixStorage Is DenseRowMajorMatrixStorage Then
     
-    End Select
+        Set CreateFactoryMatchingObject = New DenseRowMajMatrixStorageFactory
+    
+    Else
+        
+        MatrixErrors.ThrowStorageSchemeError CLASS_NAME
+    
+    End If
 
 End Function
 
