@@ -44,8 +44,8 @@ End Property
 '@Description("Return element at a given index.")
 Public Property Let Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal Value As Double)
     
-    If rowIndex > this.Rows - 1 Then MatrixErrors.ThrowRowRangeError ErrorSource:=CLASS_NAME
-    If columnIndex > this.Columns - 1 Then MatrixErrors.ThrowColumnRangeError ErrorSource:=CLASS_NAME
+    If rowIndex < 0 Or rowIndex > this.Rows - 1 Then MatrixErrors.ThrowRowRangeError ErrorSource:=CLASS_NAME
+    If columnIndex < 0 Or columnIndex > this.Columns - 1 Then MatrixErrors.ThrowColumnRangeError ErrorSource:=CLASS_NAME
     
     this.Data(ElementIndex(rowIndex, columnIndex)) = Value
     
@@ -54,8 +54,8 @@ End Property
 '@Description("Set element at a given index.")
 Public Property Get Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
 
-    If rowIndex > this.Rows - 1 Then MatrixErrors.ThrowRowRangeError ErrorSource:=CLASS_NAME
-    If columnIndex > this.Columns - 1 Then MatrixErrors.ThrowColumnRangeError ErrorSource:=CLASS_NAME
+    If rowIndex < 0 Or rowIndex > this.Rows - 1 Then MatrixErrors.ThrowRowRangeError ErrorSource:=CLASS_NAME
+    If columnIndex < 0 Or columnIndex > this.Columns - 1 Then MatrixErrors.ThrowColumnRangeError ErrorSource:=CLASS_NAME
     
     Element = this.Data(ElementIndex(rowIndex, columnIndex))
 
