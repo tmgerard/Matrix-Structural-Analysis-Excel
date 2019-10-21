@@ -206,6 +206,35 @@ TestFail:
     End If
 End Sub
 
+'@TestMethod("Expected Error")
+Public Sub TestElementPropertyBadColumnIndexNegative()
+    Const ExpectedError As Long = MatrixError.ColumnRange
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim Matrix As DenseRowMajorMatrixStorage
+    Set Matrix = New DenseRowMajorMatrixStorage
+
+    'Act:
+    With Matrix
+        .SetSize Rows:=CREATE_ROWS, Columns:=CREATE_COLUMNS
+        .Element(0, -1) = ELEMENT_VALUE
+    End With
+
+Assert:
+    Assert.Fail "Expected error was not raised."
+
+TestExit:
+    Assert.Succeed
+    Exit Sub
+TestFail:
+    If Err.Number = ExpectedError Then
+        Resume TestExit
+    Else
+        Resume Assert
+    End If
+End Sub
+
 '@TestMethod("Property")
 Public Sub TestGetRows()
     On Error GoTo TestFail
