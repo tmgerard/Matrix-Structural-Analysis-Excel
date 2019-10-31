@@ -16,20 +16,22 @@ Private Type TDenseMatrix
     MatrixData As IMatrixStorage
 End Type
 
-Dim this As TDenseMatrix
+Private this As TDenseMatrix
 Private Const CLASS_NAME As String = "DenseMatrix"
 
 Private Sub Class_Initialize()
     With this
-        .MatrixData = New IMatrixStorage
+        Set .MatrixData = New IMatrixStorage
     End With
 End Sub
 
 Private Sub Class_Terminate()
     With this
-        .MatrixData = Nothing
+        Set .MatrixData = Nothing
     End With
 End Sub
+
+' IMatrix Implementation
 
 '@Description("Returns the sum of two matrices.")
 Private Function IMatrix_Add(ByVal otherMatrix As IMatrix) As IMatrix

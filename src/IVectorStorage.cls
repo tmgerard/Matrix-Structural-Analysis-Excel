@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("Model.Matrix.Interface")
+'@Folder("Model.Vector.Interface")
 Option Explicit
 
 '@Description("Returns number of elements in vector.")

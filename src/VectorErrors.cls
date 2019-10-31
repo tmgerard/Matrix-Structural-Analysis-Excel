@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'@Folder("Model.Matrix.Errors")
+'@Folder("Model.Vector.Errors")
 
 Option Explicit
 
@@ -17,6 +17,8 @@ Public Enum VectorError
     Subtraction
     BadLength
     StorageScheme
+    DotProduct
+    CrossProduct
 End Enum
 
 Public Sub ThrowAdditionError(Optional ByVal ErrorSource As String = vbNullString)
@@ -64,5 +66,20 @@ Public Sub ThrowSubtractionError(Optional ByVal ErrorSource As String = vbNullSt
               Description:=ErrorMessage
 End Sub
 
+Public Sub ThrowDotProductError(Optional ByVal ErrorSource As String = vbNullString)
 
+    Const ErrorMessage As String = "Vectors not compatible for dot product."
+    
+    Err.Raise Number:=VectorError.DotProduct, _
+              Source:=ErrorSource, _
+              Description:=ErrorMessage
+End Sub
 
+Public Sub ThrowCrossProductError(Optional ByVal ErrorSource As String = vbNullString)
+
+    Const ErrorMessage As String = "Vectors not compatible for cross product."
+    
+    Err.Raise Number:=VectorError.CrossProduct, _
+              Source:=ErrorSource, _
+              Description:=ErrorMessage
+End Sub

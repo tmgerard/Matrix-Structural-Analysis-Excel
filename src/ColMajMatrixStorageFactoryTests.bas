@@ -4,7 +4,7 @@ Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests")
+'@Folder("Tests.Matrix")
 
 #If LateBind Then
     Private Assert As Object
@@ -62,6 +62,7 @@ Public Sub TestCreate()
     'Assert:
     Assert.IsTrue TypeOf MatrixData Is DenseColumnMajorMatrixStorage
 
+'@Ignore LineLabelNotUsed
 TestExit:
     Exit Sub
 TestFail:

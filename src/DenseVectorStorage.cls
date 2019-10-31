@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("Model.Matrix.Storage")
+'@Folder("Model.Vector.Storage")
 Option Explicit
 Implements IVectorStorage
 Implements ICloneable

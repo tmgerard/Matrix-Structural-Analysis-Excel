@@ -9,7 +9,7 @@ Private Const BAD_COLUMNS As Long = 0
 Private Const ELEMENT_VALUE As Double = 5#
 
 '@TestModule
-'@Folder("Tests")
+'@Folder("Tests.Matrix")
 
 #If LateBind Then
     Private Assert As Object

@@ -4,7 +4,7 @@ Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests")
+'@Folder("Tests.Matrix")
 
 #If LateBind Then
     Private Assert As Object
@@ -16,7 +16,6 @@ Option Private Module
 
 Private factory As IMatrixStorageFactory
 Const CREATE_ROWS As Long = 3
-Const CREATE_COLUMNS As Long = 3
 
 '@ModuleInitialize
 Public Sub ModuleInitialize()

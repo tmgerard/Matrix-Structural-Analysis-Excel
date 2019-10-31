@@ -97,6 +97,7 @@ Public Function Clone() As DenseRowMajorMatrixStorage
 End Function
 
 '@Description("Check that value at a given index can be changed")
+'@Ignore ParameterNotUsed
 Public Function IsMutable(ByVal rowIndex As Long, ByVal columnIndex As Long) As Boolean
     IsMutable = True
 End Function

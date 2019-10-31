@@ -24,11 +24,11 @@ Private Sub IMatrixOutput_ToImmediateWindow(ByVal MatrixData As IMatrixStorage, 
     
     For row = 0 To MatrixData.Rows - 1
     
-        RowString = Format(CStr(MatrixData.Element(row, 0)), OutputFormat)
+        RowString = Format$(CStr(MatrixData.Element(row, 0)), OutputFormat)
     
         For column = 1 To MatrixData.Columns - 1
         
-            RowString = RowString & vbTab & Format(CStr(MatrixData.Element(row, column)), OutputFormat)
+            RowString = RowString & vbTab & Format$(CStr(MatrixData.Element(row, column)), OutputFormat)
         
         Next column
         
@@ -58,11 +58,11 @@ Private Sub IMatrixOutput_ToFile(ByVal MatrixData As IMatrixStorage, Optional By
     
     For row = 0 To MatrixData.Rows - 1
     
-        RowString = Format(CStr(MatrixData.Element(row, 0)), OutputFormat)
+        RowString = Format$(CStr(MatrixData.Element(row, 0)), OutputFormat)
     
         For column = 1 To MatrixData.Columns - 1
         
-            RowString = RowString & vbTab & Format(CStr(MatrixData.Element(row, column)), OutputFormat)
+            RowString = RowString & vbTab & Format$(CStr(MatrixData.Element(row, column)), OutputFormat)
         
         Next column
         
@@ -106,3 +106,7 @@ Private Sub IMatrixOutput_ToWorksheet(ByVal MatrixData As IMatrixStorage, ByVal 
     End With
 
 End Sub
+
+
+
+
