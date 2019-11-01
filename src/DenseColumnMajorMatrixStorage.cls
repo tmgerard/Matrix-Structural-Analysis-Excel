@@ -14,7 +14,7 @@ Implements ICloneable
 
 Private Type TDenseColumnMajorMatrixStorage
     Rows As Long
-    Columns As Long
+    COLUMNS As Long
     Data() As Double
 End Type
 
@@ -24,28 +24,28 @@ Private Const CLASS_NAME As String = "DenseColumnMajorMatrixStorage"
 Private Sub Class_Initialize()
     With this
         .Rows = 0
-        .Columns = 0
+        .COLUMNS = 0
     End With
 End Sub
 
 Private Sub Class_Terminate()
     With this
         .Rows = 0
-        .Columns = 0
+        .COLUMNS = 0
         Erase .Data
     End With
 End Sub
 
 '@Description("Return the number of columns in matrix")
-Public Property Get Columns() As Long
-    Columns = this.Columns
+Public Property Get COLUMNS() As Long
+    COLUMNS = this.COLUMNS
 End Property
 
 '@Description("Return element at a given index.")
 Public Property Let Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal Value As Double)
     
     If rowIndex < 0 Or rowIndex > this.Rows - 1 Then MatrixErrors.ThrowRowRangeError ErrorSource:=CLASS_NAME
-    If columnIndex < 0 Or columnIndex > this.Columns - 1 Then MatrixErrors.ThrowColumnRangeError ErrorSource:=CLASS_NAME
+    If columnIndex < 0 Or columnIndex > this.COLUMNS - 1 Then MatrixErrors.ThrowColumnRangeError ErrorSource:=CLASS_NAME
     
     this.Data(ElementIndex(rowIndex, columnIndex)) = Value
     
@@ -55,7 +55,7 @@ End Property
 Public Property Get Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
 
     If rowIndex < 0 Or rowIndex > this.Rows - 1 Then MatrixErrors.ThrowRowRangeError ErrorSource:=CLASS_NAME
-    If columnIndex < 0 Or columnIndex > this.Columns - 1 Then MatrixErrors.ThrowColumnRangeError ErrorSource:=CLASS_NAME
+    If columnIndex < 0 Or columnIndex > this.COLUMNS - 1 Then MatrixErrors.ThrowColumnRangeError ErrorSource:=CLASS_NAME
     
     Element = this.Data(ElementIndex(rowIndex, columnIndex))
 
@@ -82,12 +82,12 @@ Public Function Clone() As DenseColumnMajorMatrixStorage
     Dim NewMatrix As DenseColumnMajorMatrixStorage
     Set NewMatrix = New DenseColumnMajorMatrixStorage
     
-    NewMatrix.SetSize Me.Rows, Me.Columns
+    NewMatrix.SetSize Me.Rows, Me.COLUMNS
     
     Dim rowIndex As Long
     Dim columnIndex As Long
     For rowIndex = 0 To this.Rows - 1
-        For columnIndex = 0 To this.Columns - 1
+        For columnIndex = 0 To this.COLUMNS - 1
             NewMatrix.Element(rowIndex, columnIndex) = Me.Element(rowIndex, columnIndex)
         Next columnIndex
     Next rowIndex
@@ -103,15 +103,15 @@ Public Function IsMutable(ByVal rowIndex As Long, ByVal columnIndex As Long) As 
 End Function
 
 '@Description("Set the size of the matrix.")
-Public Sub SetSize(ByVal Rows As Long, ByVal Columns As Long)
+Public Sub SetSize(ByVal Rows As Long, ByVal COLUMNS As Long)
 
     If Rows <= 0 Then MatrixErrors.ThrowRowSizeError
-    If Columns <= 0 Then MatrixErrors.ThrowColumnSizeError
+    If COLUMNS <= 0 Then MatrixErrors.ThrowColumnSizeError
     
     With this
         .Rows = Rows
-        .Columns = Columns
-        ReDim .Data(Rows * Columns - 1)
+        .COLUMNS = COLUMNS
+        ReDim .Data(Rows * COLUMNS - 1)
     End With
 
 End Sub
@@ -134,7 +134,7 @@ Private Sub IMatrixStorage_Clear()
 End Sub
 
 Private Property Get IMatrixStorage_Columns() As Long
-    IMatrixStorage_Columns = Me.Columns
+    IMatrixStorage_Columns = Me.COLUMNS
 End Property
 
 Private Property Let IMatrixStorage_Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal Value As Double)
@@ -145,12 +145,16 @@ Private Property Get IMatrixStorage_Element(ByVal rowIndex As Long, ByVal column
     IMatrixStorage_Element = Me.Element(rowIndex, columnIndex)
 End Property
 
+Private Function IMatrixStorage_IsDense() As Boolean
+    IMatrixStorage_IsDense = True
+End Function
+
 Private Function IMatrixStorage_IsMutable(ByVal rowIndex As Long, ByVal columnIndex As Long) As Boolean
     IMatrixStorage_IsMutable = Me.IsMutable(rowIndex, columnIndex)
 End Function
 
-Private Sub IMatrixStorage_SetSize(ByVal Rows As Long, ByVal Columns As Long)
-    Me.SetSize Rows:=Rows, Columns:=Columns
+Private Sub IMatrixStorage_SetSize(ByVal Rows As Long, ByVal COLUMNS As Long)
+    Me.SetSize Rows:=Rows, COLUMNS:=COLUMNS
 End Sub
 
 Private Property Get IMatrixStorage_Rows() As Long

@@ -31,12 +31,9 @@ Private Sub Class_Terminate()
     End With
 End Sub
 
-' IMatrix Implementation
+Public Function Add(ByVal otherMatrix As IMatrix) As DenseMatrix
 
-'@Description("Returns the sum of two matrices.")
-Private Function IMatrix_Add(ByVal otherMatrix As IMatrix) As IMatrix
-    
-    If Not this.MatrixData.Rows = otherMatrix.Rows And Not this.MatrixData.Columns = otherMatrix.Columns Then
+    If Not this.MatrixData.Rows = otherMatrix.Rows And Not this.MatrixData.COLUMNS = otherMatrix.COLUMNS Then
         MatrixErrors.ThrowAdditionError CLASS_NAME
     End If
     
@@ -44,14 +41,14 @@ Private Function IMatrix_Add(ByVal otherMatrix As IMatrix) As IMatrix
     Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.MatrixData)
     
     Dim NewData As IMatrixStorage
-    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.Columns)
+    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.COLUMNS)
     
     Set factory = Nothing
     
     Dim row As Long
     Dim column As Long
     For row = 0 To this.MatrixData.Rows - 1
-        For column = 0 To this.MatrixData.Columns - 1
+        For column = 0 To this.MatrixData.COLUMNS - 1
             NewData.Element(row, column) = this.MatrixData.Element(row, column) _
                 + otherMatrix.Element(row, column)
         Next column
@@ -60,47 +57,65 @@ Private Function IMatrix_Add(ByVal otherMatrix As IMatrix) As IMatrix
     Dim Result As IMatrix
     Set Result = New DenseMatrix
     
-    Result.Create NewData
+    Result.MatrixStorage = NewData
     
-    Set IMatrix_Add = Result
+    Set Add = Result
     
 End Function
 
-'@Description("Returns the number of columns in matrix.")
-Private Function IMatrix_Columns() As Long
-    IMatrix_Columns = this.MatrixData.Columns
+Public Function COLUMNS() As Long
+    COLUMNS = this.MatrixData.COLUMNS
 End Function
 
-'@Description("Inject matrix data storage object.")
-Private Sub IMatrix_Create(ByVal MatrixData As IMatrixStorage)
+Public Property Let MatrixStorage(ByVal MatrixData As IMatrixStorage)
     Set this.MatrixData = MatrixData
-End Sub
+End Property
 
-'@Description("Sets element value at specified location.")
-Private Property Let IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal Value As Double)
+Public Property Get MatrixStorage() As IMatrixStorage
+    Set MatrixStorage = this.MatrixData
+End Property
+
+Public Property Let Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal Value As Double)
     this.MatrixData.Element(rowIndex, columnIndex) = Value
 End Property
 
-'@Description("Returns element value at specified location.")
-Private Property Get IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
-    IMatrix_Element = this.MatrixData.Element(rowIndex, columnIndex)
+Public Property Get Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
+    Element = this.MatrixData.Element(rowIndex, columnIndex)
 End Property
 
-'@Description("Returns true if the matrix is square.")
-Private Function IMatrix_IsSquare() As Boolean
-    IMatrix_IsSquare = (this.MatrixData.Rows = this.MatrixData.Columns)
+Public Function Equals(ByVal otherMatrix As IMatrix) As Boolean
+    
+    If Not Me.Rows = otherMatrix.Rows Or Not Me.COLUMNS = otherMatrix.COLUMNS Then
+        Equals = False
+    End If
+    
+    Dim row As Long
+    Dim column As Long
+    For row = 0 To this.MatrixData.Rows - 1
+        For column = 0 To this.MatrixData.COLUMNS - 1
+            If Not Me.Element(row, column) = otherMatrix.Element(row, column) Then
+                Equals = False
+            End If
+        Next column
+    Next row
+    
+    Equals = True
+    
 End Function
 
-'@Description("Returns the product of two matrices.")
-Private Function IMatrix_Multiply(ByVal otherMatrix As IMatrix) As IMatrix
+Public Function IsSquare() As Boolean
+    IsSquare = (this.MatrixData.Rows = this.MatrixData.COLUMNS)
+End Function
 
-    If Not this.MatrixData.Columns = otherMatrix.Rows Then MatrixErrors.ThrowAdditionError CLASS_NAME
+Public Function Multiply(ByVal otherMatrix As IMatrix) As DenseMatrix
+    
+    If Not this.MatrixData.COLUMNS = otherMatrix.Rows Then MatrixErrors.ThrowAdditionError CLASS_NAME
     
     Dim factory As IMatrixStorageFactory
     Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.MatrixData)
     
     Dim NewData As IMatrixStorage
-    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.Columns)
+    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.COLUMNS)
     
     Set factory = Nothing
     
@@ -109,8 +124,8 @@ Private Function IMatrix_Multiply(ByVal otherMatrix As IMatrix) As IMatrix
     Dim InnerProduct As Long
     
     For row = 0 To this.MatrixData.Rows - 1
-        For column = 0 To otherMatrix.Columns - 1
-            For InnerProduct = 0 To this.MatrixData.Columns - 1
+        For column = 0 To otherMatrix.COLUMNS - 1
+            For InnerProduct = 0 To this.MatrixData.COLUMNS - 1
                 NewData.Element(row, column) = this.MatrixData.Element(row, InnerProduct) _
                     * otherMatrix.Element(InnerProduct, column)
             Next InnerProduct
@@ -120,32 +135,26 @@ Private Function IMatrix_Multiply(ByVal otherMatrix As IMatrix) As IMatrix
     Dim Result As IMatrix
     Set Result = New DenseMatrix
     
-    Result.Create NewData
+    Result.MatrixStorage = NewData
     
-    Set IMatrix_Multiply = Result
+    Set Multiply = Result
     
 End Function
 
-'@Description("Returns the number of rows in matrix.")
-Private Function IMatrix_Rows() As Long
-    IMatrix_Rows = this.MatrixData.Rows
-End Function
-
-'@Description("Returns the product of scalar and matrix.")
-Private Function IMatrix_ScalarMultiply(ByVal ScalarValue As Double) As IMatrix
+Public Function ScalarMultiply(ByVal ScalarValue As Double) As DenseMatrix
 
     Dim factory As IMatrixStorageFactory
     Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.MatrixData)
     
     Dim NewData As IMatrixStorage
-    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.Columns)
+    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.COLUMNS)
     
     Set factory = Nothing
     
     Dim row As Long
     Dim column As Long
     For row = 0 To this.MatrixData.Rows - 1
-        For column = 0 To this.MatrixData.Columns - 1
+        For column = 0 To this.MatrixData.COLUMNS - 1
             NewData.Element(row, column) = this.MatrixData.Element(row, column) * ScalarValue
         Next column
     Next row
@@ -153,16 +162,15 @@ Private Function IMatrix_ScalarMultiply(ByVal ScalarValue As Double) As IMatrix
     Dim Result As IMatrix
     Set Result = New DenseMatrix
     
-    Result.Create NewData
+    Result.MatrixStorage = NewData
     
-    Set IMatrix_ScalarMultiply = Result
-    
+    Set ScalarMultiply = Result
+
 End Function
 
-'@Description("Returns the difference of two matrices.")
-Private Function IMatrix_Subtract(ByVal otherMatrix As IMatrix) As IMatrix
+Public Function Subtract(ByVal otherMatrix As IMatrix) As DenseMatrix
 
-    If Not this.MatrixData.Rows = otherMatrix.Rows And Not this.MatrixData.Columns = otherMatrix.Columns Then
+    If Not this.MatrixData.Rows = otherMatrix.Rows And Not this.MatrixData.COLUMNS = otherMatrix.COLUMNS Then
         MatrixErrors.ThrowAdditionError CLASS_NAME
     End If
     
@@ -170,14 +178,14 @@ Private Function IMatrix_Subtract(ByVal otherMatrix As IMatrix) As IMatrix
     Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.MatrixData)
     
     Dim NewData As IMatrixStorage
-    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.Columns)
+    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.COLUMNS)
     
     Set factory = Nothing
     
     Dim row As Long
     Dim column As Long
     For row = 0 To this.MatrixData.Rows - 1
-        For column = 0 To this.MatrixData.Columns - 1
+        For column = 0 To this.MatrixData.COLUMNS - 1
             NewData.Element(row, column) = this.MatrixData.Element(row, column) _
                 - otherMatrix.Element(row, column)
         Next column
@@ -186,43 +194,45 @@ Private Function IMatrix_Subtract(ByVal otherMatrix As IMatrix) As IMatrix
     Dim Result As IMatrix
     Set Result = New DenseMatrix
     
-    Result.Create NewData
+    Result.MatrixStorage = NewData
     
-    Set IMatrix_Subtract = Result
+    Set Subtract = Result
     
 End Function
 
-'@Description("Exchange the position of two rows within a matrix")
-Private Sub IMatrix_SwapRows(ByVal FirstRowIndex As Long, ByVal SecondRowIndex As Long)
+Public Function Rows() As Long
+    Rows = this.MatrixData.Rows
+End Function
+
+Public Sub SwapRows(ByVal firstRowIndex As Long, ByVal secondRowIndex As Long)
 
     Dim Temp As Double
     Dim column As Long
     
-    For column = 0 To this.MatrixData.Columns - 1
+    For column = 0 To this.MatrixData.COLUMNS - 1
         With this.MatrixData
-            Temp = .Element(SecondRowIndex, column)
-            .Element(SecondRowIndex, column) = .Element(FirstRowIndex, column)
-            .Element(FirstRowIndex, column) = Temp
+            Temp = .Element(secondRowIndex, column)
+            .Element(secondRowIndex, column) = .Element(firstRowIndex, column)
+            .Element(firstRowIndex, column) = Temp
         End With
     Next column
 
 End Sub
 
-'@Description("Return the transposes of a matrix")
-Private Function IMatrix_Transpose() As IMatrix
+Public Function Transpose() As DenseMatrix
 
     Dim factory As IMatrixStorageFactory
     Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.MatrixData)
     
     Dim NewData As IMatrixStorage
-    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.Columns)
+    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.COLUMNS)
     
     Set factory = Nothing
     
     Dim row As Long
     Dim column As Long
     
-    For row = 0 To this.MatrixData.Columns - 1
+    For row = 0 To this.MatrixData.COLUMNS - 1
         For column = 0 To this.MatrixData.Rows - 1
             NewData.Element(row, column) = this.MatrixData(column, row)
         Next column
@@ -231,9 +241,78 @@ Private Function IMatrix_Transpose() As IMatrix
     Dim Result As IMatrix
     Set Result = New DenseMatrix
     
-    Result.Create NewData
+    Result.MatrixStorage = NewData
     
-    Set IMatrix_Transpose = Result
-    
+    Set Transpose = Result
+
+End Function
+
+' IMatrix Implementation
+
+'@Description("Returns the sum of two matrices.")
+Private Function IMatrix_Add(ByVal otherMatrix As IMatrix) As IMatrix
+    Set IMatrix_Add = Me.Add(otherMatrix)
+End Function
+
+'@Description("Returns the number of columns in matrix.")
+Private Function IMatrix_Columns() As Long
+    IMatrix_Columns = Me.COLUMNS
+End Function
+
+Private Function IMatrix_Equals(ByVal otherMatrix As IMatrix) As Boolean
+    IMatrix_Equals = Me.Equals(otherMatrix)
+End Function
+
+Private Property Let IMatrix_MatrixStorage(ByVal MatrixStorage As IMatrixStorage)
+    Me.MatrixStorage = MatrixStorage
+End Property
+
+Private Property Get IMatrix_MatrixStorage() As IMatrixStorage
+    IMatrix_MatrixStorage = Me.MatrixStorage
+End Property
+
+'@Description("Sets element value at specified location.")
+Private Property Let IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal Value As Double)
+    Me.Element(rowIndex, columnIndex) = Value
+End Property
+
+'@Description("Returns element value at specified location.")
+Private Property Get IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
+    IMatrix_Element = Me.Element(rowIndex, columnIndex)
+End Property
+
+'@Description("Returns true if the matrix is square.")
+Private Function IMatrix_IsSquare() As Boolean
+    IMatrix_IsSquare = Me.IsSquare
+End Function
+
+'@Description("Returns the product of two matrices.")
+Private Function IMatrix_Multiply(ByVal otherMatrix As IMatrix) As IMatrix
+    Set IMatrix_Multiply = Me.Multiply(otherMatrix)
+End Function
+
+'@Description("Returns the number of rows in matrix.")
+Private Function IMatrix_Rows() As Long
+    IMatrix_Rows = Me.Rows
+End Function
+
+'@Description("Returns the product of scalar and matrix.")
+Private Function IMatrix_ScalarMultiply(ByVal ScalarValue As Double) As IMatrix
+    Set IMatrix_ScalarMultiply = Me.ScalarMultiply(ScalarValue)
+End Function
+
+'@Description("Returns the difference of two matrices.")
+Private Function IMatrix_Subtract(ByVal otherMatrix As IMatrix) As IMatrix
+    Set IMatrix_Subtract = Me.Subtract(otherMatrix)
+End Function
+
+'@Description("Exchange the position of two rows within a matrix")
+Private Sub IMatrix_SwapRows(ByVal firstRowIndex As Long, ByVal secondRowIndex As Long)
+    Me.SwapRows firstRowIndex, secondRowIndex
+End Sub
+
+'@Description("Return the transposes of a matrix")
+Private Function IMatrix_Transpose() As IMatrix
+    Set IMatrix_Transpose = Me.Transpose
 End Function
 

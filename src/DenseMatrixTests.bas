@@ -48,11 +48,41 @@ Private Sub TestAdd()
     On Error GoTo TestFail
     
     'Arrange:
+    Const Rows As Long = 2
+    Const COLUMNS As Long = 2
+    Const EXPECTEDVALUE As Double = 3
+    
+    Dim MatrixA As DenseMatrix
+    Set MatrixA = New DenseMatrix
+    
+    With MatrixA
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, COLUMNS)
+        .Element(0, 0) = 1
+        .Element(0, 1) = 1
+        .Element(1, 0) = 1
+        .Element(1, 1) = 1
+    End With
+    
+    Dim MatrixB As DenseMatrix
+    Set MatrixB = New DenseMatrix
+    
+    With MatrixB
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, COLUMNS)
+        .Element(0, 0) = 2
+        .Element(0, 1) = 2
+        .Element(1, 0) = 2
+        .Element(1, 1) = 2
+    End With
 
     'Act:
+    Dim MatrixC As DenseMatrix
+    Set MatrixC = MatrixA.Add(MatrixB)
 
     'Assert:
-    Assert.Succeed
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(0, 0)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(0, 1)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(1, 0)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(1, 1)
 
 TestExit:
     Exit Sub
@@ -62,12 +92,30 @@ End Sub
 
 '@TestMethod("Expected Error")
 Private Sub TestAddMismatchedMatrixDimensions()
-    Const ExpectedError As Long = MatrixErrors.ThrowAdditionError
+    Const ExpectedError As Long = MatrixError.Addition
     On Error GoTo TestFail
     
     'Arrange:
+    Const Rows As Long = 2
+    Const COLUMNS As Long = 2
+    
+    Dim MatrixA As DenseMatrix
+    Set MatrixA = New DenseMatrix
+    
+    With MatrixA
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, COLUMNS)
+    End With
+    
+    Dim MatrixB As DenseMatrix
+    Set MatrixB = New DenseMatrix
+    
+    With MatrixB
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows + 1, COLUMNS + 1)
+    End With
 
     'Act:
+    Dim MatrixC As DenseMatrix
+    Set MatrixC = MatrixA.Add(MatrixB)
 
 Assert:
     Assert.Fail "Expected error was not raised"
@@ -82,84 +130,25 @@ TestFail:
     End If
 End Sub
 
-'@TestMethod("Property")
-Private Sub TestGetColumns()
-    On Error GoTo TestFail
-    
-    'Arrange:
-
-    'Act:
-
-    'Assert:
-    Assert.Succeed
-
-TestExit:
-    Exit Sub
-TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
-End Sub
-
-'@TestMethod("Constructor")
-Private Sub TestCreate()
-    On Error GoTo TestFail
-    
-    'Arrange:
-
-    'Act:
-
-    'Assert:
-    Assert.Succeed
-
-TestExit:
-    Exit Sub
-TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
-End Sub
-
-'@TestMethod("Property")
-Private Sub TestGetElement()
-    On Error GoTo TestFail
-    
-    'Arrange:
-
-    'Act:
-
-    'Assert:
-    Assert.Succeed
-
-TestExit:
-    Exit Sub
-TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
-End Sub
-
-'@TestMethod("Property")
-Private Sub TestSetElement()
-    On Error GoTo TestFail
-    
-    'Arrange:
-
-    'Act:
-
-    'Assert:
-    Assert.Succeed
-
-TestExit:
-    Exit Sub
-TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
-End Sub
-
 '@TestMethod("Matrix Operation")
 Private Sub TestIsSquareTrue()
     On Error GoTo TestFail
     
     'Arrange:
+    Const Rows As Long = 2
+    Const COLUMNS As Long = 2
+    
+    Dim MatrixA As DenseMatrix
+    Set MatrixA = New DenseMatrix
+    
+    With MatrixA
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, COLUMNS)
+    End With
 
     'Act:
 
     'Assert:
-    Assert.Succeed
+    Assert.IsTrue MatrixA.IsSquare
 
 TestExit:
     Exit Sub
@@ -172,11 +161,20 @@ Private Sub TestIsSquareFalse()
     On Error GoTo TestFail
     
     'Arrange:
+    Const Rows As Long = 2
+    Const COLUMNS As Long = 4
+    
+    Dim MatrixA As DenseMatrix
+    Set MatrixA = New DenseMatrix
+    
+    With MatrixA
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, COLUMNS)
+    End With
 
     'Act:
 
     'Assert:
-    Assert.Succeed
+    Assert.IsFalse MatrixA.IsSquare
 
 TestExit:
     Exit Sub
@@ -189,11 +187,51 @@ Private Sub TestMultiply()
     On Error GoTo TestFail
     
     'Arrange:
+    Dim MatrixA As DenseMatrix
+    Set MatrixA = New DenseMatrix
+    
+    With MatrixA
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(3, 2)
+        .Element(0, 0) = 5
+        .Element(0, 1) = 3
+        .Element(1, 0) = 4
+        .Element(1, 1) = 1
+        .Element(2, 0) = -2
+        .Element(2, 1) = 8
+    End With
+    
+    Dim MatrixB As DenseMatrix
+    Set MatrixB = New DenseMatrix
+    
+    With MatrixB
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(2, 2)
+        .Element(0, 0) = 2
+        .Element(0, 1) = 7
+        .Element(1, 0) = -3
+        .Element(1, 1) = 4
+    End With
 
     'Act:
+    Dim MatrixC As DenseMatrix
+    Set MatrixC = MatrixA.Multiply(MatrixB)
+    
+    Dim output As IMatrixOutput
+    Set output = New DenseMatrixOutput
+    
+    Debug.Print
+    output.ToImmediateWindow MatrixA.MatrixStorage
+    Debug.Print
+    output.ToImmediateWindow MatrixB.MatrixStorage
+    Debug.Print
+    output.ToImmediateWindow MatrixC.MatrixStorage
 
     'Assert:
-    Assert.Succeed
+    Assert.AreEqual 1#, MatrixC.Element(0, 0)
+    Assert.AreEqual 47#, MatrixC.Element(0, 1)
+    Assert.AreEqual 5#, MatrixC.Element(1, 0)
+    Assert.AreEqual 32#, MatrixC.Element(1, 1)
+    Assert.AreEqual -28#, MatrixC.Element(2, 0)
+    Assert.AreEqual 18#, MatrixC.Element(2, 1)
 
 TestExit:
     Exit Sub
@@ -232,7 +270,7 @@ Private Sub TestGetRows()
     'Act:
 
     'Assert:
-    Assert.Succeed
+    Assert.Fail
 
 TestExit:
     Exit Sub
@@ -266,7 +304,7 @@ Private Sub TestSubtraction()
     'Act:
 
     'Assert:
-    Assert.Succeed
+    Assert.Fail
 
 TestExit:
     Exit Sub
@@ -305,7 +343,7 @@ Private Sub TestSwapRows()
     'Act:
 
     'Assert:
-    Assert.Succeed
+    Assert.Fail
 
 TestExit:
     Exit Sub
@@ -313,7 +351,7 @@ TestFail:
     Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
 End Sub
 
-'@TestMethod("MatrixOperation")
+'@TestMethod("Matrix Operation")
 Private Sub TestTranspose()
     On Error GoTo TestFail
     
@@ -322,7 +360,7 @@ Private Sub TestTranspose()
     'Act:
 
     'Assert:
-    Assert.Succeed
+    Assert.Fail
 
 TestExit:
     Exit Sub

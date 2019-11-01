@@ -16,12 +16,15 @@ Public Function Add(ByVal otherMatrix As IMatrix) As IMatrix
 End Function
 
 '@Description("Returns the number of columns in matrix.")
-Public Function Columns() As Long
+Public Function COLUMNS() As Long
 End Function
 
 '@Description("Inject matrix data storage object.")
-Public Sub Create(ByVal MatrixData As IMatrixStorage)
-End Sub
+Public Property Let MatrixStorage(ByVal MatrixData As IMatrixStorage)
+End Property
+
+Public Property Get MatrixStorage() As IMatrixStorage
+End Property
 
 '@Description("Returns element value at specified location.")
 Public Property Get Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
@@ -30,6 +33,10 @@ End Property
 '@Description("Set element value at specified location.")
 Public Property Let Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal Value As Double)
 End Property
+
+'@Description("Check equality of two matrices")
+Public Function Equals(ByVal otherMatrix As IMatrix) As Boolean
+End Function
 
 '@Description("Returns true if the matrix is square.")
 Public Function IsSquare() As Boolean
@@ -52,7 +59,7 @@ Public Function Subtract(ByVal otherMatrix As IMatrix) As IMatrix
 End Function
 
 '@Description("Exchange the position of two rows within a matrix")
-Public Sub SwapRows(ByVal FirstRowIndex As Long, ByVal SecondRowIndex As Long)
+Public Sub SwapRows(ByVal firstRowIndex As Long, ByVal secondRowIndex As Long)
 End Sub
 
 '@Description("Return the transposes of a matrix")

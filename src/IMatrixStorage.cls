@@ -16,7 +16,7 @@ Public Property Get Rows() As Long
 End Property
 
 '@Description("Returns number of columns in matrix.")
-Public Property Get Columns() As Long
+Public Property Get COLUMNS() As Long
 End Property
 
 '@Description("Returns element value at specified location.")
@@ -31,10 +31,14 @@ End Property
 Public Function IsMutable(ByVal rowIndex As Long, ByVal columnIndex As Long) As Boolean
 End Function
 
+'@Description("Check that matrix is dense.")
+Public Function IsDense() As Boolean
+End Function
+
 '@Description("Clear all matrix elements.")
 Public Sub Clear()
 End Sub
 
 '@Description("Set the size of the matrix")
-Public Sub SetSize(ByVal Rows As Long, ByVal Columns As Long)
+Public Sub SetSize(ByVal Rows As Long, ByVal COLUMNS As Long)
 End Sub
