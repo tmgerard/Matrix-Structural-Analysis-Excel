@@ -16,7 +16,7 @@ Public Function Add(ByVal otherMatrix As IMatrix) As IMatrix
 End Function
 
 '@Description("Returns the number of columns in matrix.")
-Public Function COLUMNS() As Long
+Public Function Columns() As Long
 End Function
 
 '@Description("Inject matrix data storage object.")

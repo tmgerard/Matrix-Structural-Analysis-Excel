@@ -49,14 +49,14 @@ Private Sub TestAdd()
     
     'Arrange:
     Const Rows As Long = 2
-    Const COLUMNS As Long = 2
+    Const Columns As Long = 2
     Const EXPECTEDVALUE As Double = 3
     
     Dim MatrixA As DenseMatrix
     Set MatrixA = New DenseMatrix
     
     With MatrixA
-        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, COLUMNS)
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
         .Element(0, 0) = 1
         .Element(0, 1) = 1
         .Element(1, 0) = 1
@@ -67,7 +67,7 @@ Private Sub TestAdd()
     Set MatrixB = New DenseMatrix
     
     With MatrixB
-        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, COLUMNS)
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
         .Element(0, 0) = 2
         .Element(0, 1) = 2
         .Element(1, 0) = 2
@@ -97,20 +97,20 @@ Private Sub TestAddMismatchedMatrixDimensions()
     
     'Arrange:
     Const Rows As Long = 2
-    Const COLUMNS As Long = 2
+    Const Columns As Long = 2
     
     Dim MatrixA As DenseMatrix
     Set MatrixA = New DenseMatrix
     
     With MatrixA
-        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, COLUMNS)
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
     End With
     
     Dim MatrixB As DenseMatrix
     Set MatrixB = New DenseMatrix
     
     With MatrixB
-        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows + 1, COLUMNS + 1)
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows + 1, Columns + 1)
     End With
 
     'Act:
@@ -136,13 +136,13 @@ Private Sub TestIsSquareTrue()
     
     'Arrange:
     Const Rows As Long = 2
-    Const COLUMNS As Long = 2
+    Const Columns As Long = 2
     
     Dim MatrixA As DenseMatrix
     Set MatrixA = New DenseMatrix
     
     With MatrixA
-        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, COLUMNS)
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
     End With
 
     'Act:
@@ -162,13 +162,13 @@ Private Sub TestIsSquareFalse()
     
     'Arrange:
     Const Rows As Long = 2
-    Const COLUMNS As Long = 4
+    Const Columns As Long = 4
     
     Dim MatrixA As DenseMatrix
     Set MatrixA = New DenseMatrix
     
     With MatrixA
-        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, COLUMNS)
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
     End With
 
     'Act:
@@ -214,16 +214,6 @@ Private Sub TestMultiply()
     'Act:
     Dim MatrixC As DenseMatrix
     Set MatrixC = MatrixA.Multiply(MatrixB)
-    
-    Dim output As IMatrixOutput
-    Set output = New DenseMatrixOutput
-    
-    Debug.Print
-    output.ToImmediateWindow MatrixA.MatrixStorage
-    Debug.Print
-    output.ToImmediateWindow MatrixB.MatrixStorage
-    Debug.Print
-    output.ToImmediateWindow MatrixC.MatrixStorage
 
     'Assert:
     Assert.AreEqual 1#, MatrixC.Element(0, 0)
@@ -245,8 +235,33 @@ Private Sub TestMultiplyMismatchedSizes()
     On Error GoTo TestFail
     
     'Arrange:
+    Dim MatrixA As DenseMatrix
+    Set MatrixA = New DenseMatrix
+    
+    With MatrixA
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(3, 2)
+        .Element(0, 0) = 5
+        .Element(0, 1) = 3
+        .Element(1, 0) = 4
+        .Element(1, 1) = 1
+        .Element(2, 0) = -2
+        .Element(2, 1) = 8
+    End With
+    
+    Dim MatrixB As DenseMatrix
+    Set MatrixB = New DenseMatrix
+    
+    With MatrixB
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(2, 2)
+        .Element(0, 0) = 2
+        .Element(0, 1) = 7
+        .Element(1, 0) = -3
+        .Element(1, 1) = 4
+    End With
 
     'Act:
+    Dim MatrixC As DenseMatrix
+    Set MatrixC = MatrixB.Multiply(MatrixA)
 
 Assert:
     Assert.Fail "Expected error was not raised"
@@ -261,33 +276,35 @@ TestFail:
     End If
 End Sub
 
-'@TestMethod("Property")
-Private Sub TestGetRows()
-    On Error GoTo TestFail
-    
-    'Arrange:
-
-    'Act:
-
-    'Assert:
-    Assert.Fail
-
-TestExit:
-    Exit Sub
-TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
-End Sub
-
 '@TestMethod("Matrix Operation")
 Private Sub TestScalarMultiply()
     On Error GoTo TestFail
     
     'Arrange:
+    Const Rows As Long = 2
+    Const Columns As Long = 2
+    Const EXPECTED_VALUE As Double = 3
+    
+    Dim MatrixA As DenseMatrix
+    Set MatrixA = New DenseMatrix
+    
+    With MatrixA
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
+        .Element(0, 0) = 1
+        .Element(0, 1) = 1
+        .Element(1, 0) = 1
+        .Element(1, 1) = 1
+    End With
 
     'Act:
+    Dim MatrixC As DenseMatrix
+    Set MatrixC = MatrixA.ScalarMultiply(EXPECTED_VALUE)
 
     'Assert:
-    Assert.Succeed
+    Assert.AreEqual EXPECTED_VALUE, MatrixC.Element(0, 0)
+    Assert.AreEqual EXPECTED_VALUE, MatrixC.Element(0, 1)
+    Assert.AreEqual EXPECTED_VALUE, MatrixC.Element(1, 0)
+    Assert.AreEqual EXPECTED_VALUE, MatrixC.Element(1, 1)
 
 TestExit:
     Exit Sub
@@ -300,11 +317,41 @@ Private Sub TestSubtraction()
     On Error GoTo TestFail
     
     'Arrange:
+    Const Rows As Long = 2
+    Const Columns As Long = 2
+    Const EXPECTEDVALUE As Double = -1
+    
+    Dim MatrixA As DenseMatrix
+    Set MatrixA = New DenseMatrix
+    
+    With MatrixA
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
+        .Element(0, 0) = 1
+        .Element(0, 1) = 1
+        .Element(1, 0) = 1
+        .Element(1, 1) = 1
+    End With
+    
+    Dim MatrixB As DenseMatrix
+    Set MatrixB = New DenseMatrix
+    
+    With MatrixB
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
+        .Element(0, 0) = 2
+        .Element(0, 1) = 2
+        .Element(1, 0) = 2
+        .Element(1, 1) = 2
+    End With
 
     'Act:
+    Dim MatrixC As DenseMatrix
+    Set MatrixC = MatrixA.Subtract(MatrixB)
 
     'Assert:
-    Assert.Fail
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(0, 0)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(0, 1)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(1, 0)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(1, 1)
 
 TestExit:
     Exit Sub
@@ -318,8 +365,26 @@ Private Sub TestSubtractionMismatchedSizes()
     On Error GoTo TestFail
     
     'Arrange:
+    Const Rows As Long = 2
+    Const Columns As Long = 2
+    
+    Dim MatrixA As DenseMatrix
+    Set MatrixA = New DenseMatrix
+    
+    With MatrixA
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
+    End With
+    
+    Dim MatrixB As DenseMatrix
+    Set MatrixB = New DenseMatrix
+    
+    With MatrixB
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows + 1, Columns + 1)
+    End With
 
     'Act:
+    Dim MatrixC As DenseMatrix
+    Set MatrixC = MatrixA.Subtract(MatrixB)
 
 Assert:
     Assert.Fail "Expected error was not raised"
@@ -339,11 +404,30 @@ Private Sub TestSwapRows()
     On Error GoTo TestFail
     
     'Arrange:
+    Const Rows As Long = 2
+    Const Columns As Long = 2
+    Const ROW_ONE_EXPECTED_VALUE As Double = 2#
+    Const ROW_TWO_EXPECTED_VALUE As Double = 1#
+    
+    Dim MatrixA As DenseMatrix
+    Set MatrixA = New DenseMatrix
+    
+    With MatrixA
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
+        .Element(0, 0) = 1
+        .Element(0, 1) = 1
+        .Element(1, 0) = 2
+        .Element(1, 1) = 2
+    End With
 
     'Act:
+    MatrixA.SwapRows 0, 1
 
     'Assert:
-    Assert.Fail
+    Assert.AreEqual ROW_ONE_EXPECTED_VALUE, MatrixA.Element(0, 0)
+    Assert.AreEqual ROW_ONE_EXPECTED_VALUE, MatrixA.Element(0, 1)
+    Assert.AreEqual ROW_TWO_EXPECTED_VALUE, MatrixA.Element(1, 0)
+    Assert.AreEqual ROW_TWO_EXPECTED_VALUE, MatrixA.Element(1, 1)
 
 TestExit:
     Exit Sub
@@ -356,11 +440,33 @@ Private Sub TestTranspose()
     On Error GoTo TestFail
     
     'Arrange:
+    Const Rows As Long = 3
+    Const Columns As Long = 2
+    
+    Dim MatrixA As DenseMatrix
+    Set MatrixA = New DenseMatrix
+    
+    With MatrixA
+        .MatrixStorage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
+        .Element(0, 0) = 1#
+        .Element(0, 1) = 2#
+        .Element(1, 0) = 3#
+        .Element(1, 1) = 4#
+        .Element(2, 0) = 5#
+        .Element(2, 1) = 6#
+    End With
 
     'Act:
+    Dim MatrixC As DenseMatrix
+    Set MatrixC = MatrixA.Transpose
 
     'Assert:
-    Assert.Fail
+    Assert.AreEqual 1#, MatrixC.Element(0, 0)
+    Assert.AreEqual 3#, MatrixC.Element(0, 1)
+    Assert.AreEqual 5#, MatrixC.Element(0, 2)
+    Assert.AreEqual 2#, MatrixC.Element(1, 0)
+    Assert.AreEqual 4#, MatrixC.Element(1, 1)
+    Assert.AreEqual 6#, MatrixC.Element(1, 2)
 
 TestExit:
     Exit Sub

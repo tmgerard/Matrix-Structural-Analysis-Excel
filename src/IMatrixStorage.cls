@@ -16,7 +16,7 @@ Public Property Get Rows() As Long
 End Property
 
 '@Description("Returns number of columns in matrix.")
-Public Property Get COLUMNS() As Long
+Public Property Get Columns() As Long
 End Property
 
 '@Description("Returns element value at specified location.")
@@ -40,5 +40,5 @@ Public Sub Clear()
 End Sub
 
 '@Description("Set the size of the matrix")
-Public Sub SetSize(ByVal Rows As Long, ByVal COLUMNS As Long)
+Public Sub SetSize(ByVal Rows As Long, ByVal Columns As Long)
 End Sub

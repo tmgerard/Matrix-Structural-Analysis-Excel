@@ -88,7 +88,7 @@ Private Sub TestCreateFactoryMatchingDenseColumnMajorStorageObject()
     'Arrange:
     Dim storage As IMatrixStorage
     Set storage = New DenseColumnMajorMatrixStorage
-    storage.SetSize Rows:=2, COLUMNS:=2
+    storage.SetSize Rows:=2, Columns:=2
     
     Dim factory As IMatrixStorageFactory
     
@@ -111,7 +111,7 @@ Private Sub TestCreateFactoryMatchingDenseRowMajorStorageObject()
     'Arrange:
     Dim storage As IMatrixStorage
     Set storage = New DenseRowMajorMatrixStorage
-    storage.SetSize Rows:=2, COLUMNS:=2
+    storage.SetSize Rows:=2, Columns:=2
     
     Dim factory As IMatrixStorageFactory
     

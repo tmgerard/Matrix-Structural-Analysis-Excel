@@ -29,9 +29,9 @@ Private Sub Class_Terminate()
 End Sub
 
 '@Description("Create an empty matrix of a given size.")
-Public Function Create(ByVal Rows As Long, ByVal COLUMNS As Long) As DenseColumnMajorMatrixStorage
+Public Function Create(ByVal Rows As Long, ByVal Columns As Long) As DenseColumnMajorMatrixStorage
     
-    this.MatrixData.SetSize Rows:=Rows, COLUMNS:=COLUMNS
+    this.MatrixData.SetSize Rows:=Rows, Columns:=Columns
     Set Create = this.MatrixData
     
 End Function
@@ -39,13 +39,13 @@ End Function
 '@Description("Create matrix from a worksheet range")
 Public Function CreateFromRange(ByVal WorksheetRange As Range) As DenseColumnMajorMatrixStorage
 
-    this.MatrixData.SetSize Rows:=WorksheetRange.Rows.count, COLUMNS:=WorksheetRange.COLUMNS.count
+    this.MatrixData.SetSize Rows:=WorksheetRange.Rows.count, Columns:=WorksheetRange.Columns.count
     
     Dim row As Long
     Dim column As Long
     
     For row = 0 To this.MatrixData.Rows - 1
-        For column = 0 To this.MatrixData.COLUMNS - 1
+        For column = 0 To this.MatrixData.Columns - 1
             ' NOTE: Worksheet ranges are base 1 indexed
             this.MatrixData.Element(row, column) = WorksheetRange.Cells(row + 1, column + 1).Value2
         
@@ -61,7 +61,7 @@ Public Function CreateIdentity(ByVal Rows As Long) As DenseColumnMajorMatrixStor
 
     Const DIAGONAL_VALUE As Double = 1#
     
-    this.MatrixData.SetSize Rows:=Rows, COLUMNS:=Rows
+    this.MatrixData.SetSize Rows:=Rows, Columns:=Rows
     
     Dim index As Long
     For index = 0 To this.MatrixData.Rows - 1
@@ -74,15 +74,15 @@ End Function
 
 Public Function CreateSquare(ByVal Rows As Long) As DenseColumnMajorMatrixStorage
 
-    this.MatrixData.SetSize Rows:=Rows, COLUMNS:=Rows
+    this.MatrixData.SetSize Rows:=Rows, Columns:=Rows
     Set CreateSquare = this.MatrixData
     
 End Function
 
 ' IMatrixStorageFactor Implementation
 
-Private Function IMatrixStorageFactory_Create(ByVal Rows As Long, ByVal COLUMNS As Long) As IMatrixStorage
-    Set IMatrixStorageFactory_Create = Me.Create(Rows, COLUMNS)
+Private Function IMatrixStorageFactory_Create(ByVal Rows As Long, ByVal Columns As Long) As IMatrixStorage
+    Set IMatrixStorageFactory_Create = Me.Create(Rows, Columns)
 End Function
 
 Private Function IMatrixStorageFactory_CreateFromRange(ByVal WorksheetRange As Range) As IMatrixStorage

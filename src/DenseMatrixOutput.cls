@@ -26,7 +26,7 @@ Private Sub IMatrixOutput_ToImmediateWindow(ByVal MatrixData As IMatrixStorage, 
     
         RowString = Format$(CStr(MatrixData.Element(row, 0)), OutputFormat)
     
-        For column = 1 To MatrixData.COLUMNS - 1
+        For column = 1 To MatrixData.Columns - 1
         
             RowString = RowString & vbTab & Format$(CStr(MatrixData.Element(row, column)), OutputFormat)
         
@@ -60,7 +60,7 @@ Private Sub IMatrixOutput_ToFile(ByVal MatrixData As IMatrixStorage, Optional By
     
         RowString = Format$(CStr(MatrixData.Element(row, 0)), OutputFormat)
     
-        For column = 1 To MatrixData.COLUMNS - 1
+        For column = 1 To MatrixData.Columns - 1
         
             RowString = RowString & vbTab & Format$(CStr(MatrixData.Element(row, column)), OutputFormat)
         
@@ -89,19 +89,19 @@ End Sub
 Private Sub IMatrixOutput_ToWorksheet(ByVal MatrixData As IMatrixStorage, ByVal OutputCell As Range, Optional ByVal OutputFormat As String = DEFAULT_NUMBER_FORMAT)
 
     Dim OutputArray() As Double
-    ReDim OutputArray(MatrixData.Rows - 1, MatrixData.COLUMNS - 1)
+    ReDim OutputArray(MatrixData.Rows - 1, MatrixData.Columns - 1)
     
     Dim row As Long
     Dim column As Long
     
     For row = 0 To MatrixData.Rows - 1
-        For column = 0 To MatrixData.COLUMNS - 1
+        For column = 0 To MatrixData.Columns - 1
             OutputArray(row, column) = MatrixData.Element(row, column)
         Next column
     Next row
     
     With OutputCell
-        .Resize(MatrixData.Rows, MatrixData.COLUMNS).NumberFormat = OutputFormat
+        .Resize(MatrixData.Rows, MatrixData.Columns).NumberFormat = OutputFormat
         .Value2 = OutputArray
     End With
 

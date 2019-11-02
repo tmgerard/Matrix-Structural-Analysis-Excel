@@ -18,7 +18,7 @@ Public Enum MatrixStorageScheme
 End Enum
 
 '@Description("Create empty matrix.")
-Public Function Create(ByVal Rows As Long, ByVal COLUMNS As Long) As IMatrixStorage
+Public Function Create(ByVal Rows As Long, ByVal Columns As Long) As IMatrixStorage
 End Function
 
 '@Description("Create matrix with values from worksheet range.")

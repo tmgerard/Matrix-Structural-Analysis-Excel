@@ -89,7 +89,7 @@ Public Sub ThrowSubtractionError(Optional ByVal ErrorSource As String = vbNullSt
 
     Const ErrorMessage As String = "Matrices not compatible for subtraction."
     
-    Err.Raise Number:=MatrixError.Addition, _
+    Err.Raise Number:=MatrixError.Subtraction, _
               Source:=ErrorSource, _
               Description:=ErrorMessage
 End Sub
