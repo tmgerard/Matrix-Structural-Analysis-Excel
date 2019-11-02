@@ -38,6 +38,16 @@ Public Property Get Length() As Long
     Length = this.Length
 End Property
 
+'@Description("Set the number of elements to store in the vector")
+Public Property Let Length(ByVal Length As Long)
+    If Length <= 0 Then VectorErrors.ThrowBadLengthError
+    
+    With this
+        .Length = Length
+        ReDim .Data(Length - 1)
+    End With
+End Property
+
 '@Description("Return element at a given index")
 Public Property Get Element(ByVal index As Long) As Double
     If index < 0 Or index > this.Length - 1 Then VectorErrors.ThrowBadRangeError ErrorSource:=CLASS_NAME
@@ -50,23 +60,13 @@ Public Property Let Element(ByVal index As Long, ByVal Value As Double)
     this.Data(index) = Value
 End Property
 
-'@Description("Set the number of elements to store in the vector")
-Public Sub SetLength(ByVal Length As Long)
-    If Length <= 0 Then VectorErrors.ThrowBadLengthError
-    
-    With this
-        .Length = Length
-        ReDim .Data(Length - 1)
-    End With
-End Sub
-
 '@Description("Create a copy of vector object.")
 Public Function Clone() As Object
 
     Dim NewVector As DenseVectorStorage
     Set NewVector = New DenseVectorStorage
     
-    NewVector.SetLength Me.Length
+    NewVector.Length = Me.Length
     
     Dim index As Long
     For index = LBound(this.Data) To UBound(this.Data)
@@ -110,6 +110,6 @@ Private Property Get IVectorStorage_Length() As Long
     IVectorStorage_Length = Me.Length
 End Property
 
-Private Sub IVectorStorage_SetLength(ByVal Length As Long)
-    Me.SetLength Length:=Length
-End Sub
+Private Property Let IVectorStorage_Length(ByVal Length As Long)
+    Me.Length = Length
+End Property

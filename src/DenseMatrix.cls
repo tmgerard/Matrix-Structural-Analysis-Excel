@@ -10,6 +10,8 @@ Attribute VB_Exposed = False
 Option Explicit
 Implements IMatrix
 
+' TODO: Implement a vector multiply function
+
 '@Folder("Model.Matrix")
 
 Private Type TDenseMatrix

@@ -14,6 +14,10 @@ Option Explicit
 Public Property Get Length() As Long
 End Property
 
+'@Description("Set the length of the vector")
+Public Property Let Length(ByVal Length As Long)
+End Property
+
 '@Description("Returns element value at specified location.")
 Public Property Get Element(ByVal index As Long) As Double
 End Property
@@ -24,8 +28,4 @@ End Property
 
 '@Description("Clear all vector elements.")
 Public Sub Clear()
-End Sub
-
-'@Description("Set the length of the vector")
-Public Sub SetLength(ByVal Length As Long)
 End Sub
