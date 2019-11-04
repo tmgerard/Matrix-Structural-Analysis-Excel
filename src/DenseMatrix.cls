@@ -35,7 +35,7 @@ End Sub
 
 Public Function Add(ByVal otherMatrix As IMatrix) As DenseMatrix
 
-    If Not this.MatrixData.Rows = otherMatrix.Rows Or Not this.MatrixData.Columns = otherMatrix.Columns Then
+    If Not this.MatrixData.rows = otherMatrix.rows Or Not this.MatrixData.columns = otherMatrix.columns Then
         MatrixErrors.ThrowAdditionError CLASS_NAME
     End If
     
@@ -43,14 +43,14 @@ Public Function Add(ByVal otherMatrix As IMatrix) As DenseMatrix
     Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.MatrixData)
     
     Dim NewData As IMatrixStorage
-    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.Columns)
+    Set NewData = factory.Create(this.MatrixData.rows, this.MatrixData.columns)
     
     Set factory = Nothing
     
     Dim row As Long
     Dim column As Long
-    For row = 0 To this.MatrixData.Rows - 1
-        For column = 0 To this.MatrixData.Columns - 1
+    For row = 0 To this.MatrixData.rows - 1
+        For column = 0 To this.MatrixData.columns - 1
             NewData.Element(row, column) = this.MatrixData.Element(row, column) _
                 + otherMatrix.Element(row, column)
         Next column
@@ -65,8 +65,8 @@ Public Function Add(ByVal otherMatrix As IMatrix) As DenseMatrix
     
 End Function
 
-Public Function Columns() As Long
-    Columns = this.MatrixData.Columns
+Public Function columns() As Long
+    columns = this.MatrixData.columns
 End Function
 
 Public Property Let MatrixStorage(ByVal MatrixData As IMatrixStorage)
@@ -87,14 +87,14 @@ End Property
 
 Public Function Equals(ByVal otherMatrix As IMatrix) As Boolean
     
-    If Not Me.Rows = otherMatrix.Rows Or Not Me.Columns = otherMatrix.Columns Then
+    If Not Me.rows = otherMatrix.rows Or Not Me.columns = otherMatrix.columns Then
         Equals = False
     End If
     
     Dim row As Long
     Dim column As Long
-    For row = 0 To this.MatrixData.Rows - 1
-        For column = 0 To this.MatrixData.Columns - 1
+    For row = 0 To this.MatrixData.rows - 1
+        For column = 0 To this.MatrixData.columns - 1
             If Not Me.Element(row, column) = otherMatrix.Element(row, column) Then
                 Equals = False
             End If
@@ -106,18 +106,18 @@ Public Function Equals(ByVal otherMatrix As IMatrix) As Boolean
 End Function
 
 Public Function IsSquare() As Boolean
-    IsSquare = (this.MatrixData.Rows = this.MatrixData.Columns)
+    IsSquare = (this.MatrixData.rows = this.MatrixData.columns)
 End Function
 
 Public Function Multiply(ByVal otherMatrix As IMatrix) As DenseMatrix
     
-    If Not this.MatrixData.Columns = otherMatrix.Rows Then MatrixErrors.ThrowMultiplicationError CLASS_NAME
+    If Not this.MatrixData.columns = otherMatrix.rows Then MatrixErrors.ThrowMultiplicationError CLASS_NAME
     
     Dim factory As IMatrixStorageFactory
     Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.MatrixData)
     
     Dim NewData As IMatrixStorage
-    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.Columns)
+    Set NewData = factory.Create(this.MatrixData.rows, this.MatrixData.columns)
     
     Set factory = Nothing
     
@@ -125,9 +125,9 @@ Public Function Multiply(ByVal otherMatrix As IMatrix) As DenseMatrix
     Dim column As Long
     Dim InnerProduct As Long
     
-    For row = 0 To this.MatrixData.Rows - 1
-        For column = 0 To otherMatrix.Columns - 1
-            For InnerProduct = 0 To this.MatrixData.Columns - 1
+    For row = 0 To this.MatrixData.rows - 1
+        For column = 0 To otherMatrix.columns - 1
+            For InnerProduct = 0 To this.MatrixData.columns - 1
                 NewData.Element(row, column) = NewData.Element(row, column) + _
                     this.MatrixData.Element(row, InnerProduct) * otherMatrix.Element(InnerProduct, column)
             Next InnerProduct
@@ -149,14 +149,14 @@ Public Function ScalarMultiply(ByVal ScalarValue As Double) As DenseMatrix
     Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.MatrixData)
     
     Dim NewData As IMatrixStorage
-    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.Columns)
+    Set NewData = factory.Create(this.MatrixData.rows, this.MatrixData.columns)
     
     Set factory = Nothing
     
     Dim row As Long
     Dim column As Long
-    For row = 0 To this.MatrixData.Rows - 1
-        For column = 0 To this.MatrixData.Columns - 1
+    For row = 0 To this.MatrixData.rows - 1
+        For column = 0 To this.MatrixData.columns - 1
             NewData.Element(row, column) = this.MatrixData.Element(row, column) * ScalarValue
         Next column
     Next row
@@ -172,7 +172,7 @@ End Function
 
 Public Function Subtract(ByVal otherMatrix As IMatrix) As DenseMatrix
 
-    If Not this.MatrixData.Rows = otherMatrix.Rows Or Not this.MatrixData.Columns = otherMatrix.Columns Then
+    If Not this.MatrixData.rows = otherMatrix.rows Or Not this.MatrixData.columns = otherMatrix.columns Then
         MatrixErrors.ThrowSubtractionError CLASS_NAME
     End If
     
@@ -180,14 +180,14 @@ Public Function Subtract(ByVal otherMatrix As IMatrix) As DenseMatrix
     Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.MatrixData)
     
     Dim NewData As IMatrixStorage
-    Set NewData = factory.Create(this.MatrixData.Rows, this.MatrixData.Columns)
+    Set NewData = factory.Create(this.MatrixData.rows, this.MatrixData.columns)
     
     Set factory = Nothing
     
     Dim row As Long
     Dim column As Long
-    For row = 0 To this.MatrixData.Rows - 1
-        For column = 0 To this.MatrixData.Columns - 1
+    For row = 0 To this.MatrixData.rows - 1
+        For column = 0 To this.MatrixData.columns - 1
             NewData.Element(row, column) = this.MatrixData.Element(row, column) _
                 - otherMatrix.Element(row, column)
         Next column
@@ -202,8 +202,8 @@ Public Function Subtract(ByVal otherMatrix As IMatrix) As DenseMatrix
     
 End Function
 
-Public Function Rows() As Long
-    Rows = this.MatrixData.Rows
+Public Function rows() As Long
+    rows = this.MatrixData.rows
 End Function
 
 Public Sub SwapRows(ByVal firstRowIndex As Long, ByVal secondRowIndex As Long)
@@ -211,7 +211,7 @@ Public Sub SwapRows(ByVal firstRowIndex As Long, ByVal secondRowIndex As Long)
     Dim Temp As Double
     Dim column As Long
     
-    For column = 0 To this.MatrixData.Columns - 1
+    For column = 0 To this.MatrixData.columns - 1
         With this.MatrixData
             Temp = .Element(secondRowIndex, column)
             .Element(secondRowIndex, column) = .Element(firstRowIndex, column)
@@ -227,15 +227,15 @@ Public Function Transpose() As DenseMatrix
     Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.MatrixData)
     
     Dim NewData As IMatrixStorage
-    Set NewData = factory.Create(this.MatrixData.Columns, this.MatrixData.Rows)
+    Set NewData = factory.Create(this.MatrixData.columns, this.MatrixData.rows)
     
     Set factory = Nothing
     
     Dim row As Long
     Dim column As Long
     
-    For row = 0 To this.MatrixData.Columns - 1
-        For column = 0 To this.MatrixData.Rows - 1
+    For row = 0 To this.MatrixData.columns - 1
+        For column = 0 To this.MatrixData.rows - 1
             NewData.Element(row, column) = this.MatrixData.Element(column, row)
         Next column
     Next row
@@ -258,7 +258,7 @@ End Function
 
 '@Description("Returns the number of columns in matrix.")
 Private Function IMatrix_Columns() As Long
-    IMatrix_Columns = Me.Columns
+    IMatrix_Columns = Me.columns
 End Function
 
 Private Function IMatrix_Equals(ByVal otherMatrix As IMatrix) As Boolean
@@ -295,7 +295,7 @@ End Function
 
 '@Description("Returns the number of rows in matrix.")
 Private Function IMatrix_Rows() As Long
-    IMatrix_Rows = Me.Rows
+    IMatrix_Rows = Me.rows
 End Function
 
 '@Description("Returns the product of scalar and matrix.")

@@ -19,6 +19,7 @@ Public Enum VectorError
     StorageScheme
     DotProduct
     CrossProduct
+    CreateFromRange
 End Enum
 
 Public Sub ThrowAdditionError(Optional ByVal ErrorSource As String = vbNullString)
@@ -82,4 +83,14 @@ Public Sub ThrowCrossProductError(Optional ByVal ErrorSource As String = vbNullS
     Err.Raise Number:=VectorError.CrossProduct, _
               Source:=ErrorSource, _
               Description:=ErrorMessage
+End Sub
+
+Public Sub ThrowCreateFromRangeError(Optional ByVal ErrorSource As String = vbNullString)
+
+    Const ErrorMessage As String = "Vector column and row count both greater than one."
+    
+    Err.Raise Number:=VectorError.CreateFromRange, _
+              Source:=ErrorSource, _
+              Description:=ErrorMessage
+
 End Sub

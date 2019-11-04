@@ -89,8 +89,8 @@ Public Sub TestCreateFromRange()
     'Assert:
     Dim row As Long
     Dim column As Long
-    For row = 0 To MatrixData.Rows - 1
-        For column = 0 To MatrixData.Columns - 1
+    For row = 0 To MatrixData.rows - 1
+        For column = 0 To MatrixData.columns - 1
             ' NOTE: Worksheet ranges are base 1 indexed
             Assert.AreEqual sheetRange.Cells(row + 1, column + 1).Value2, MatrixData.Element(row, column)
         
@@ -114,13 +114,13 @@ Public Sub TestCreateIdentity()
     Set MatrixData = factory.CreateIdentity(CREATE_ROWS)
 
     'Assert:
-    Assert.AreEqual CREATE_ROWS, MatrixData.Rows
-    Assert.AreEqual CREATE_ROWS, MatrixData.Columns
+    Assert.AreEqual CREATE_ROWS, MatrixData.rows
+    Assert.AreEqual CREATE_ROWS, MatrixData.columns
     
     Dim row As Long
     Dim column As Long
-    For row = 0 To MatrixData.Rows - 1
-        For column = 0 To MatrixData.Columns - 1
+    For row = 0 To MatrixData.rows - 1
+        For column = 0 To MatrixData.columns - 1
         
             If row = column Then
                 Assert.AreEqual 1#, MatrixData.Element(row, column)
@@ -148,8 +148,8 @@ Public Sub TestCreateSquare()
     Set MatrixData = factory.CreateSquare(CREATE_ROWS)
 
     'Assert:
-    Assert.AreEqual CREATE_ROWS, MatrixData.Rows
-    Assert.AreEqual CREATE_ROWS, MatrixData.Columns
+    Assert.AreEqual CREATE_ROWS, MatrixData.rows
+    Assert.AreEqual CREATE_ROWS, MatrixData.columns
 
 TestExit:
     Exit Sub

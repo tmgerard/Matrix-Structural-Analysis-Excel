@@ -57,11 +57,11 @@ Public Sub TestSetSize()
     Set Matrix = New DenseColumnMajorMatrixStorage
 
     'Act:
-    Matrix.SetSize Rows:=CREATE_ROWS, Columns:=CREATE_COLUMNS
+    Matrix.SetSize rows:=CREATE_ROWS, columns:=CREATE_COLUMNS
 
     'Assert:
-    Assert.AreEqual CREATE_ROWS, Matrix.Rows
-    Assert.AreEqual CREATE_COLUMNS, Matrix.Columns
+    Assert.AreEqual CREATE_ROWS, Matrix.rows
+    Assert.AreEqual CREATE_COLUMNS, Matrix.columns
 
 TestExit:
     Exit Sub
@@ -80,7 +80,7 @@ Public Sub TestSetSizeBadRowSize()
 
     'Act:
     With Matrix
-        .SetSize Rows:=BAD_ROWS, Columns:=CREATE_COLUMNS
+        .SetSize rows:=BAD_ROWS, columns:=CREATE_COLUMNS
     End With
 
 Assert:
@@ -108,7 +108,7 @@ Public Sub TestSetSizeBadColumnSize()
 
     'Act:
     With Matrix
-        .SetSize Rows:=CREATE_ROWS, Columns:=BAD_COLUMNS
+        .SetSize rows:=CREATE_ROWS, columns:=BAD_COLUMNS
     End With
 
 Assert:
@@ -135,7 +135,7 @@ Public Sub TestElementProperty()
 
     'Act:
     With Matrix
-        .SetSize Rows:=CREATE_ROWS, Columns:=CREATE_COLUMNS
+        .SetSize rows:=CREATE_ROWS, columns:=CREATE_COLUMNS
         .Element(0, 0) = ELEMENT_VALUE
     End With
 
@@ -159,7 +159,7 @@ Public Sub TestElementPropertyBadRowIndex()
 
     'Act:
     With Matrix
-        .SetSize Rows:=CREATE_ROWS, Columns:=CREATE_COLUMNS
+        .SetSize rows:=CREATE_ROWS, columns:=CREATE_COLUMNS
         .Element(CREATE_ROWS, 0) = ELEMENT_VALUE
     End With
 
@@ -188,7 +188,7 @@ Public Sub TestElementPropertyBadColumnIndex()
 
     'Act:
     With Matrix
-        .SetSize Rows:=CREATE_ROWS, Columns:=CREATE_COLUMNS
+        .SetSize rows:=CREATE_ROWS, columns:=CREATE_COLUMNS
         .Element(0, CREATE_COLUMNS) = ELEMENT_VALUE
     End With
 
@@ -217,7 +217,7 @@ Public Sub TestElementPropertyBadColumnIndexNegative()
 
     'Act:
     With Matrix
-        .SetSize Rows:=CREATE_ROWS, Columns:=CREATE_COLUMNS
+        .SetSize rows:=CREATE_ROWS, columns:=CREATE_COLUMNS
         .Element(0, -1) = ELEMENT_VALUE
     End With
 
@@ -246,7 +246,7 @@ Public Sub TestElementPropertyBadRowIndexNegative()
 
     'Act:
     With Matrix
-        .SetSize Rows:=CREATE_ROWS, Columns:=CREATE_COLUMNS
+        .SetSize rows:=CREATE_ROWS, columns:=CREATE_COLUMNS
         .Element(-1, CREATE_COLUMNS) = ELEMENT_VALUE
     End With
 
@@ -273,10 +273,10 @@ Public Sub TestGetRows()
     Set Matrix = New DenseColumnMajorMatrixStorage
 
     'Act:
-    Matrix.SetSize Rows:=CREATE_ROWS, Columns:=CREATE_COLUMNS
+    Matrix.SetSize rows:=CREATE_ROWS, columns:=CREATE_COLUMNS
 
     'Assert:
-    Assert.AreEqual CREATE_ROWS, Matrix.Rows
+    Assert.AreEqual CREATE_ROWS, Matrix.rows
 
 TestExit:
     Exit Sub
@@ -293,10 +293,10 @@ Public Sub TestGetColumns()
     Set Matrix = New DenseColumnMajorMatrixStorage
 
     'Act:
-    Matrix.SetSize Rows:=CREATE_ROWS, Columns:=CREATE_COLUMNS
+    Matrix.SetSize rows:=CREATE_ROWS, columns:=CREATE_COLUMNS
 
     'Assert:
-    Assert.AreEqual CREATE_COLUMNS, Matrix.Columns
+    Assert.AreEqual CREATE_COLUMNS, Matrix.columns
 
 TestExit:
     Exit Sub
@@ -314,7 +314,7 @@ Public Sub TestClear()
 
     'Act:
     With Matrix
-        .SetSize Rows:=2, Columns:=2
+        .SetSize rows:=2, columns:=2
         .Element(0, 0) = 1#
         .Element(0, 1) = 1#
         .Element(1, 0) = 1#
@@ -326,8 +326,8 @@ Public Sub TestClear()
     'Assert:
     Dim row As Long
     Dim column As Long
-    For row = 0 To Matrix.Rows - 1
-        For column = 0 To Matrix.Columns - 1
+    For row = 0 To Matrix.rows - 1
+        For column = 0 To Matrix.columns - 1
             Assert.AreEqual 0#, Matrix.Element(row, column)
         Next column
     Next row
@@ -348,7 +348,7 @@ Public Sub TestClone()
 
     'Act:
     With Matrix
-        .SetSize Rows:=2, Columns:=2
+        .SetSize rows:=2, columns:=2
         .Element(0, 0) = 1#
         .Element(0, 1) = 1#
         .Element(1, 0) = 1#

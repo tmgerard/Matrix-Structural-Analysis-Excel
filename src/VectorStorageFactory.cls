@@ -7,7 +7,6 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Attribute VB_Ext_KEY = "Rubberduck" ,"Predeclared Class Module"
 '@Folder("StiffnessMethod.Model.Linear Algebra.Vector.Factory")
 
 Option Explicit
@@ -15,7 +14,7 @@ Option Explicit
 Private Const CLASS_NAME As String = "VectorStorageFactory"
 
 '@Description("Create a matrix storage factory by selecting the desired storage scheme")
-Public Function CreateFactory(ByVal VectorType As VectorStorageScheme) As IVectorStorage
+Public Function CreateFactory(ByVal VectorType As VectorStorageScheme) As IVectorStorageFactory
 
     Select Case VectorType
     

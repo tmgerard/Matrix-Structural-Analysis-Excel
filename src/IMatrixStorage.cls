@@ -12,11 +12,11 @@ Attribute VB_Exposed = False
 Option Explicit
 
 '@Description("Returns number of rows in matrix.")
-Public Property Get Rows() As Long
+Public Property Get rows() As Long
 End Property
 
 '@Description("Returns number of columns in matrix.")
-Public Property Get Columns() As Long
+Public Property Get columns() As Long
 End Property
 
 '@Description("Returns element value at specified location.")
@@ -40,5 +40,5 @@ Public Sub Clear()
 End Sub
 
 '@Description("Set the size of the matrix")
-Public Sub SetSize(ByVal Rows As Long, ByVal Columns As Long)
+Public Sub SetSize(ByVal rows As Long, ByVal columns As Long)
 End Sub

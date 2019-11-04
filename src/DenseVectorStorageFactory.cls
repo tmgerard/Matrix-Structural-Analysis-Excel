@@ -9,5 +9,108 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '@Folder("StiffnessMethod.Model.Linear Algebra.Vector.Factory")
 Option Explicit
+Implements IVectorStorageFactory
 
-'TODO: Implement
+Private Type TDenseVectoryStorageFactory
+    VectorData As DenseVectorStorage
+End Type
+
+Private this As TDenseVectoryStorageFactory
+Private Const CLASS_NAME As String = "DenseVectorStorageFactory"
+
+Private Sub Class_Initialize()
+    Set this.VectorData = New DenseVectorStorage
+End Sub
+
+Private Sub Class_Terminate()
+    Set this.VectorData = Nothing
+End Sub
+
+'@Desctiption("Create an empty vector of a given length.")
+Public Function Create(ByVal Length As Long) As DenseVectorStorage
+    this.VectorData.Length = Length
+    Set Create = this.VectorData
+End Function
+
+'@Description("Create vector from a worksheet range")
+Public Function CreateFromRange(ByVal WorksheetRange As Range) As DenseVectorStorage
+    
+    ' a single column or row must be selected
+    If Not IsRangeAVector(WorksheetRange) Then
+        VectorErrors.ThrowCreateFromRangeError CLASS_NAME
+    End If
+    
+    If WorksheetRange.rows.Count = 1 Then
+        Set CreateFromRange = VectorFromRowRange(WorksheetRange)
+    Else
+        Set CreateFromRange = VectorFromColumnRange(WorksheetRange)
+    End If
+
+End Function
+
+'@Description("Check that a single row or column is in the given range")
+Private Function IsRangeAVector(ByVal WorksheetRange As Range) As Boolean
+    
+    Dim rows As Long
+    rows = WorksheetRange.rows.Count
+    
+    Dim columns As Long
+    columns = WorksheetRange.columns.Count
+    
+    If rows > 1 And columns > 1 Then
+        IsRangeAVector = False
+    Else
+        IsRangeAVector = True
+    End If
+    
+End Function
+
+'@Description("Create vector from a row oriented worksheet range")
+Private Function VectorFromRowRange(ByVal WorksheetRange As Range) As DenseVectorStorage
+    
+    Dim rangeRow As Long
+    rangeRow = WorksheetRange.row
+    
+    Dim columns As Long
+    columns = WorksheetRange.columns.Count
+    
+    this.VectorData.Length = columns
+    
+    Dim column As Long
+    For column = 0 To columns - 1
+        this.VectorData.Element(column) = CDbl(WorksheetRange.Cells(rangeRow, column + 1).Value2)
+    Next column
+    
+    Set VectorFromRowRange = this.VectorData
+    
+End Function
+
+'@Description("Create vector from a column oriented worksheet range")
+Private Function VectorFromColumnRange(ByVal WorksheetRange As Range) As DenseVectorStorage
+
+    Dim rows As Long
+    rows = WorksheetRange.rows.Count
+    
+    Dim rangeColumn As Long
+    rangeColumn = WorksheetRange.column
+    
+    this.VectorData.Length = rows
+    
+    Dim row As Long
+    For row = 0 To rows - 1
+        this.VectorData.Element(row) = CDbl(WorksheetRange.Cells(row + 1, rangeColumn).Value2)
+    Next row
+    
+    Set VectorFromColumnRange = this.VectorData
+
+End Function
+
+' IVectorStorageFactory Implementation
+
+Private Function IVectorStorageFactory_Create(ByVal Length As Long) As IVectorStorage
+    Set IVectorStorageFactory_Create = Me.Create(Length)
+End Function
+
+Private Function IVectorStorageFactory_CreateFromRange(ByVal WorksheetRange As Range) As IVectorStorage
+    Set IVectorStorageFactory_CreateFromRange = Me.CreateFromRange(WorksheetRange)
+End Function
