@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("Model.Vector.Interface")
+'@Folder("StiffnessMethod.Model.Linear Algebra.Vector.Interface")
 Option Explicit
 
 '@Description("Returns number of elements in vector.")

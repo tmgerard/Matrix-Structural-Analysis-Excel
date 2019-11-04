@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("Model.Vector.Storage")
+'@Folder("StiffnessMethod.Model.Linear Algebra.Vector.Storage")
 Option Explicit
 Implements IVectorStorage
 Implements ICloneable
@@ -77,12 +77,11 @@ Public Function Clone() As Object
     
 End Function
 
-
 '@Description("Set all vector elements to zero.")
 Public Sub Clear()
     Dim index As Long
     For index = LBound(this.Data) To UBound(this.Data)
-        this.Data(index) = 0
+        this.Data(index) = 0#
     Next index
 End Sub
 

@@ -3,7 +3,7 @@ Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Vector")
+'@Folder("Tests.Linear Algebra.Vector")
 
 Private Const VECTOR_LENGTH As Long = 4
 Private storage As DenseVectorStorage
@@ -71,6 +71,13 @@ Private Sub TestClear()
     Const EXPECTED_VALUE As Double = 0#
 
     'Act:
+    With storage
+        .Element(0) = 1
+        .Element(1) = 2
+        .Element(2) = 3
+        .Element(3) = 4
+    End With
+    
     storage.Clear
 
     'Assert:

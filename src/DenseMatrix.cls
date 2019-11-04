@@ -12,7 +12,7 @@ Implements IMatrix
 
 ' TODO: Implement a vector multiply function
 
-'@Folder("Model.Matrix")
+'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix")
 
 Private Type TDenseMatrix
     MatrixData As IMatrixStorage

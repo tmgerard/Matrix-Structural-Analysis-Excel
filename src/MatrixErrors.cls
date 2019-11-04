@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'@Folder("Model.Matrix.Errors")
+'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Errors")
 
 Option Explicit
 

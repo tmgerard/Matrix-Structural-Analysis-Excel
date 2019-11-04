@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'@Folder("Model.Matrix.Factory")
+'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Factory")
 Option Explicit
 
 Private Const CLASS_NAME As String = "MatrixStorageFactory"
