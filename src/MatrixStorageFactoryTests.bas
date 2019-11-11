@@ -86,14 +86,14 @@ Private Sub TestCreateFactoryMatchingDenseColumnMajorStorageObject()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim storage As IMatrixStorage
-    Set storage = New DenseColumnMajorMatrixStorage
-    storage.SetSize rows:=2, columns:=2
+    Dim Storage As IMatrixStorage
+    Set Storage = New DenseColumnMajorMatrixStorage
+    Storage.SetSize Rows:=2, Columns:=2
     
     Dim factory As IMatrixStorageFactory
     
     'Act:
-    Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(storage)
+    Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(Storage)
 
     'Assert:
     Assert.IsTrue TypeOf factory Is DenseColMajMatrixStorageFactory
@@ -109,14 +109,14 @@ Private Sub TestCreateFactoryMatchingDenseRowMajorStorageObject()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim storage As IMatrixStorage
-    Set storage = New DenseRowMajorMatrixStorage
-    storage.SetSize rows:=2, columns:=2
+    Dim Storage As IMatrixStorage
+    Set Storage = New DenseRowMajorMatrixStorage
+    Storage.SetSize Rows:=2, Columns:=2
     
     Dim factory As IMatrixStorageFactory
     
     'Act:
-    Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(storage)
+    Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(Storage)
 
     'Assert:
     Assert.IsTrue TypeOf factory Is DenseRowMajMatrixStorageFactory

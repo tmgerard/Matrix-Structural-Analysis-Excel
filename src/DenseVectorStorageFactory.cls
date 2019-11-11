@@ -40,7 +40,7 @@ Public Function CreateFromRange(ByVal WorksheetRange As Range) As DenseVectorSto
         VectorErrors.ThrowCreateFromRangeError CLASS_NAME
     End If
     
-    If WorksheetRange.rows.Count = 1 Then
+    If WorksheetRange.Rows.Count = 1 Then
         Set CreateFromRange = VectorFromRowRange(WorksheetRange)
     Else
         Set CreateFromRange = VectorFromColumnRange(WorksheetRange)
@@ -51,13 +51,13 @@ End Function
 '@Description("Check that a single row or column is in the given range")
 Private Function IsRangeAVector(ByVal WorksheetRange As Range) As Boolean
     
-    Dim rows As Long
-    rows = WorksheetRange.rows.Count
+    Dim Rows As Long
+    Rows = WorksheetRange.Rows.Count
     
-    Dim columns As Long
-    columns = WorksheetRange.columns.Count
+    Dim Columns As Long
+    Columns = WorksheetRange.Columns.Count
     
-    If rows > 1 And columns > 1 Then
+    If Rows > 1 And Columns > 1 Then
         IsRangeAVector = False
     Else
         IsRangeAVector = True
@@ -71,13 +71,13 @@ Private Function VectorFromRowRange(ByVal WorksheetRange As Range) As DenseVecto
     Dim rangeRow As Long
     rangeRow = WorksheetRange.row
     
-    Dim columns As Long
-    columns = WorksheetRange.columns.Count
+    Dim Columns As Long
+    Columns = WorksheetRange.Columns.Count
     
-    this.VectorData.Length = columns
+    this.VectorData.Length = Columns
     
     Dim column As Long
-    For column = 0 To columns - 1
+    For column = 0 To Columns - 1
         this.VectorData.Element(column) = CDbl(WorksheetRange.Cells(rangeRow, column + 1).Value2)
     Next column
     
@@ -88,16 +88,16 @@ End Function
 '@Description("Create vector from a column oriented worksheet range")
 Private Function VectorFromColumnRange(ByVal WorksheetRange As Range) As DenseVectorStorage
 
-    Dim rows As Long
-    rows = WorksheetRange.rows.Count
+    Dim Rows As Long
+    Rows = WorksheetRange.Rows.Count
     
     Dim rangeColumn As Long
     rangeColumn = WorksheetRange.column
     
-    this.VectorData.Length = rows
+    this.VectorData.Length = Rows
     
     Dim row As Long
-    For row = 0 To rows - 1
+    For row = 0 To Rows - 1
         this.VectorData.Element(row) = CDbl(WorksheetRange.Cells(row + 1, rangeColumn).Value2)
     Next row
     

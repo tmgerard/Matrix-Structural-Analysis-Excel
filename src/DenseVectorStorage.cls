@@ -55,9 +55,9 @@ Public Property Get Element(ByVal index As Long) As Double
 End Property
 
 '@Description("Set element value at a given index")
-Public Property Let Element(ByVal index As Long, ByVal Value As Double)
+Public Property Let Element(ByVal index As Long, ByVal value As Double)
     If index < 0 Or index > this.Length - 1 Then VectorErrors.ThrowBadLengthError ErrorSource:=CLASS_NAME
-    this.Data(index) = Value
+    this.Data(index) = value
 End Property
 
 '@Description("Create a copy of vector object.")
@@ -97,8 +97,8 @@ Private Sub IVectorStorage_Clear()
     Me.Clear
 End Sub
 
-Private Property Let IVectorStorage_Element(ByVal index As Long, ByVal Value As Double)
-    Me.Element(index) = Value
+Private Property Let IVectorStorage_Element(ByVal index As Long, ByVal value As Double)
+    Me.Element(index) = value
 End Property
 
 Private Property Get IVectorStorage_Element(ByVal index As Long) As Double

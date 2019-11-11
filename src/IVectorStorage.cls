@@ -23,7 +23,7 @@ Public Property Get Element(ByVal index As Long) As Double
 End Property
 
 '@Description("Set element value at specified location.")
-Public Property Let Element(ByVal index As Long, ByVal Value As Double)
+Public Property Let Element(ByVal index As Long, ByVal value As Double)
 End Property
 
 '@Description("Clear all vector elements.")

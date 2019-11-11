@@ -31,13 +31,13 @@ Public Function CreateFactory(ByVal MatrixType As MatrixStorageScheme) As IMatri
 End Function
 
 '@Description("Create a matrix storage factory based on an existing matrix storage object")
-Public Function CreateFactoryMatchingObject(ByVal MatrixStorage As IMatrixStorage) As IMatrixStorageFactory
+Public Function CreateFactoryMatchingObject(ByVal Storage As IMatrixStorage) As IMatrixStorageFactory
 
-    If TypeOf MatrixStorage Is DenseColumnMajorMatrixStorage Then
+    If TypeOf Storage Is DenseColumnMajorMatrixStorage Then
         
         Set CreateFactoryMatchingObject = New DenseColMajMatrixStorageFactory
         
-    ElseIf TypeOf MatrixStorage Is DenseRowMajorMatrixStorage Then
+    ElseIf TypeOf Storage Is DenseRowMajorMatrixStorage Then
     
         Set CreateFactoryMatchingObject = New DenseRowMajMatrixStorageFactory
     

@@ -29,9 +29,9 @@ Private Sub Class_Terminate()
 End Sub
 
 '@Description("Create an empty matrix of a given size.")
-Public Function Create(ByVal rows As Long, ByVal columns As Long) As DenseColumnMajorMatrixStorage
+Public Function Create(ByVal Rows As Long, ByVal Columns As Long) As DenseColumnMajorMatrixStorage
     
-    this.MatrixData.SetSize rows:=rows, columns:=columns
+    this.MatrixData.SetSize Rows:=Rows, Columns:=Columns
     Set Create = this.MatrixData
     
 End Function
@@ -39,13 +39,13 @@ End Function
 '@Description("Create matrix from a worksheet range")
 Public Function CreateFromRange(ByVal WorksheetRange As Range) As DenseColumnMajorMatrixStorage
 
-    this.MatrixData.SetSize rows:=WorksheetRange.rows.Count, columns:=WorksheetRange.columns.Count
+    this.MatrixData.SetSize Rows:=WorksheetRange.Rows.Count, Columns:=WorksheetRange.Columns.Count
     
     Dim row As Long
     Dim column As Long
     
-    For row = 0 To this.MatrixData.rows - 1
-        For column = 0 To this.MatrixData.columns - 1
+    For row = 0 To this.MatrixData.Rows - 1
+        For column = 0 To this.MatrixData.Columns - 1
             ' NOTE: Worksheet ranges are base 1 indexed
             this.MatrixData.Element(row, column) = CDbl(WorksheetRange.Cells(row + 1, column + 1).Value2)
         
@@ -57,14 +57,14 @@ Public Function CreateFromRange(ByVal WorksheetRange As Range) As DenseColumnMaj
 End Function
 
 '@Description("Create identity matrix of a given size.")
-Public Function CreateIdentity(ByVal rows As Long) As DenseColumnMajorMatrixStorage
+Public Function CreateIdentity(ByVal Rows As Long) As DenseColumnMajorMatrixStorage
 
     Const DIAGONAL_VALUE As Double = 1#
     
-    this.MatrixData.SetSize rows:=rows, columns:=rows
+    this.MatrixData.SetSize Rows:=Rows, Columns:=Rows
     
     Dim index As Long
-    For index = 0 To this.MatrixData.rows - 1
+    For index = 0 To this.MatrixData.Rows - 1
         this.MatrixData.Element(index, index) = DIAGONAL_VALUE
     Next index
     
@@ -72,30 +72,30 @@ Public Function CreateIdentity(ByVal rows As Long) As DenseColumnMajorMatrixStor
     
 End Function
 
-Public Function CreateSquare(ByVal rows As Long) As DenseColumnMajorMatrixStorage
+Public Function CreateSquare(ByVal Rows As Long) As DenseColumnMajorMatrixStorage
 
-    this.MatrixData.SetSize rows:=rows, columns:=rows
+    this.MatrixData.SetSize Rows:=Rows, Columns:=Rows
     Set CreateSquare = this.MatrixData
     
 End Function
 
 ' IMatrixStorageFactor Implementation
 
-Private Function IMatrixStorageFactory_Create(ByVal rows As Long, ByVal columns As Long) As IMatrixStorage
-    Set IMatrixStorageFactory_Create = Me.Create(rows, columns)
+Private Function IMatrixStorageFactory_Create(ByVal Rows As Long, ByVal Columns As Long) As IMatrixStorage
+    Set IMatrixStorageFactory_Create = Me.Create(Rows, Columns)
 End Function
 
 Private Function IMatrixStorageFactory_CreateFromRange(ByVal WorksheetRange As Range) As IMatrixStorage
     Set IMatrixStorageFactory_CreateFromRange = Me.CreateFromRange(WorksheetRange)
 End Function
 
-Private Function IMatrixStorageFactory_CreateIdentity(ByVal rows As Long) As IMatrixStorage
-    Set IMatrixStorageFactory_CreateIdentity = Me.CreateIdentity(rows)
+Private Function IMatrixStorageFactory_CreateIdentity(ByVal Rows As Long) As IMatrixStorage
+    Set IMatrixStorageFactory_CreateIdentity = Me.CreateIdentity(Rows)
 End Function
 
 '@Description("Create an empty square matrix of a given size.")
-Private Function IMatrixStorageFactory_CreateSquare(ByVal rows As Long) As IMatrixStorage
-    Set IMatrixStorageFactory_CreateSquare = Me.CreateSquare(rows)
+Private Function IMatrixStorageFactory_CreateSquare(ByVal Rows As Long) As IMatrixStorage
+    Set IMatrixStorageFactory_CreateSquare = Me.CreateSquare(Rows)
 End Function
 
 

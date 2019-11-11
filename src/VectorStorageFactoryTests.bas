@@ -66,14 +66,14 @@ Private Sub TestCreateFactoryMatchingDenseVectorStorageObject()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim storage As IVectorStorage
-    Set storage = New DenseVectorStorage
-    storage.Length = 4
+    Dim Storage As IVectorStorage
+    Set Storage = New DenseVectorStorage
+    Storage.Length = 4
     
     Dim factory As IVectorStorageFactory
     
     'Act:
-    Set factory = VectorStorageFactory.CreateFactoryMatchingObject(storage)
+    Set factory = VectorStorageFactory.CreateFactoryMatchingObject(Storage)
 
     'Assert:
     Assert.IsTrue TypeOf factory Is DenseVectorStorageFactory

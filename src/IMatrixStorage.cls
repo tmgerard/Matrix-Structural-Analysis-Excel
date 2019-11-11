@@ -12,11 +12,11 @@ Attribute VB_Exposed = False
 Option Explicit
 
 '@Description("Returns number of rows in matrix.")
-Public Property Get rows() As Long
+Public Property Get Rows() As Long
 End Property
 
 '@Description("Returns number of columns in matrix.")
-Public Property Get columns() As Long
+Public Property Get Columns() As Long
 End Property
 
 '@Description("Returns element value at specified location.")
@@ -24,7 +24,7 @@ Public Property Get Element(ByVal rowIndex As Long, ByVal columnIndex As Long) A
 End Property
 
 '@Description("Set element value at specified location.")
-Public Property Let Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal Value As Double)
+Public Property Let Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal value As Double)
 End Property
 
 '@Description("Check element at a given index to check if it is mutable")
@@ -40,5 +40,5 @@ Public Sub Clear()
 End Sub
 
 '@Description("Set the size of the matrix")
-Public Sub SetSize(ByVal rows As Long, ByVal columns As Long)
+Public Sub SetSize(ByVal Rows As Long, ByVal Columns As Long)
 End Sub

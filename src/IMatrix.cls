@@ -16,14 +16,14 @@ Public Function Add(ByVal otherMatrix As IMatrix) As IMatrix
 End Function
 
 '@Description("Returns the number of columns in matrix.")
-Public Function columns() As Long
+Public Function Columns() As Long
 End Function
 
 '@Description("Inject matrix data storage object.")
-Public Property Let MatrixStorage(ByVal MatrixData As IMatrixStorage)
+Public Property Let Storage(ByVal MatrixData As IMatrixStorage)
 End Property
 
-Public Property Get MatrixStorage() As IMatrixStorage
+Public Property Get Storage() As IMatrixStorage
 End Property
 
 '@Description("Returns element value at specified location.")
@@ -31,7 +31,7 @@ Public Property Get Element(ByVal rowIndex As Long, ByVal columnIndex As Long) A
 End Property
 
 '@Description("Set element value at specified location.")
-Public Property Let Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal Value As Double)
+Public Property Let Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal value As Double)
 End Property
 
 '@Description("Check equality of two matrices")
@@ -47,11 +47,11 @@ Public Function Multiply(ByVal otherMatrix As IMatrix) As IMatrix
 End Function
 
 '@Description("Returns the number of rows in matrix.")
-Public Function rows() As Long
+Public Function Rows() As Long
 End Function
 
 '@Description("Returns the product of scalar and matrix.")
-Public Function ScalarMultiply(ByVal ScalarValue As Double) As IMatrix
+Public Function ScalarMultiply(ByVal scalarValue As Double) As IMatrix
 End Function
 
 '@Description("Returns the difference of two matrices.")
