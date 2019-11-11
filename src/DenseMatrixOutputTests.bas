@@ -53,14 +53,14 @@ Public Sub TestToImmediateWindow()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim MatrixData As IMatrixStorage
-    Set MatrixData = factory.CreateIdentity(CREATE_ROWS)
+    Dim matrixData As IMatrixStorage
+    Set matrixData = factory.CreateIdentity(CREATE_ROWS)
     
     Dim MatrixOutput As IMatrixOutput
     Set MatrixOutput = New DenseMatrixOutput
 
     'Act:
-    MatrixOutput.ToImmediateWindow MatrixData
+    MatrixOutput.ToImmediateWindow matrixData
 
     'Assert:
     Assert.Succeed
@@ -76,8 +76,8 @@ Public Sub TestToWorksheet()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim MatrixData As IMatrixStorage
-    Set MatrixData = factory.CreateIdentity(CREATE_ROWS)
+    Dim matrixData As IMatrixStorage
+    Set matrixData = factory.CreateIdentity(CREATE_ROWS)
     
     Dim MatrixOutput As IMatrixOutput
     Set MatrixOutput = New DenseMatrixOutput
@@ -86,7 +86,7 @@ Public Sub TestToWorksheet()
     Set WorksheetCell = MatrixTestSheet.Range("A10")
 
     'Act:
-    MatrixOutput.ToWorksheet MatrixData, WorksheetCell
+    MatrixOutput.ToWorksheet matrixData, WorksheetCell
 
     'Assert:
     Assert.Succeed
@@ -104,14 +104,14 @@ Public Sub TestToFile()
     Const TOFILE_ROWS As Long = 25
     
     'Arrange:
-    Dim MatrixData As IMatrixStorage
-    Set MatrixData = factory.CreateIdentity(TOFILE_ROWS)
+    Dim matrixData As IMatrixStorage
+    Set matrixData = factory.CreateIdentity(TOFILE_ROWS)
     
     Dim MatrixOutput As IMatrixOutput
     Set MatrixOutput = New DenseMatrixOutput
 
     'Act:
-    MatrixOutput.ToFile MatrixData
+    MatrixOutput.ToFile matrixData
 
     'Assert:
     Assert.Succeed

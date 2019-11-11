@@ -355,11 +355,11 @@ Public Sub TestClone()
         .Element(1, 1) = 1#
     End With
     
-    Dim NewMatrix As DenseColumnMajorMatrixStorage
-    Set NewMatrix = Matrix.Clone
+    Dim newMatrix As DenseColumnMajorMatrixStorage
+    Set newMatrix = Matrix.Clone
     
     'Assert:
-    Assert.IsTrue Not ObjPtr(Matrix) = ObjPtr(NewMatrix)
+    Assert.IsTrue Not ObjPtr(Matrix) = ObjPtr(newMatrix)
 
 TestExit:
     Exit Sub

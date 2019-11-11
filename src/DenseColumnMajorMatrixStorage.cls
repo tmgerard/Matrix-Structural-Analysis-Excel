@@ -79,20 +79,20 @@ End Sub
 '@Description("Return copy of matrix storage object")
 Public Function Clone() As DenseColumnMajorMatrixStorage
 
-    Dim NewMatrix As DenseColumnMajorMatrixStorage
-    Set NewMatrix = New DenseColumnMajorMatrixStorage
+    Dim newMatrix As DenseColumnMajorMatrixStorage
+    Set newMatrix = New DenseColumnMajorMatrixStorage
     
-    NewMatrix.SetSize Me.Rows, Me.Columns
+    newMatrix.SetSize Me.Rows, Me.Columns
     
     Dim rowIndex As Long
     Dim columnIndex As Long
     For rowIndex = 0 To this.Rows - 1
         For columnIndex = 0 To this.Columns - 1
-            NewMatrix.Element(rowIndex, columnIndex) = Me.Element(rowIndex, columnIndex)
+            newMatrix.Element(rowIndex, columnIndex) = Me.Element(rowIndex, columnIndex)
         Next columnIndex
     Next rowIndex
     
-    Set Clone = NewMatrix
+    Set Clone = newMatrix
     
 End Function
 

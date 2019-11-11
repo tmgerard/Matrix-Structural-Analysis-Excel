@@ -20,7 +20,7 @@ Public Function Columns() As Long
 End Function
 
 '@Description("Inject matrix data storage object.")
-Public Property Let Storage(ByVal MatrixData As IMatrixStorage)
+Public Property Let Storage(ByVal matrixData As IMatrixStorage)
 End Property
 
 Public Property Get Storage() As IMatrixStorage
@@ -53,6 +53,10 @@ End Function
 '@Description("Returns the product of scalar and matrix.")
 Public Function ScalarMultiply(ByVal scalarValue As Double) As IMatrix
 End Function
+
+'@Description("Set the size of the matrix")
+Public Sub SetSize(ByVal Rows As Long, ByVal Columns As Long)
+End Sub
 
 '@Description("Returns the difference of two matrices.")
 Public Function Subtract(ByVal otherMatrix As IMatrix) As IMatrix
