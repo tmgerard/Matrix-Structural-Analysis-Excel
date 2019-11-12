@@ -23,6 +23,12 @@ Public Function CreateFactory(ByVal MatrixType As MatrixStorageScheme) As IMatri
         Case MatrixStorageScheme.DenseRowMajor
             Set CreateFactory = New DenseRowMajMatrixStorageFactory
             
+        Case MatrixStorageScheme.DenseColumnVector
+            Set CreateFactory = New DenseColumnVectorStorageFactory
+            
+        Case MatrixStorageScheme.DenseRowVector
+            Set CreateFactory = New DenseRowVectorStorageFactory
+            
         Case Else
             MatrixErrors.ThrowStorageSchemeError CLASS_NAME
             
@@ -34,15 +40,18 @@ End Function
 Public Function CreateFactoryMatchingObject(ByVal Storage As IMatrixStorage) As IMatrixStorageFactory
 
     If TypeOf Storage Is DenseColumnMajorMatrixStorage Then
-        
         Set CreateFactoryMatchingObject = New DenseColMajMatrixStorageFactory
         
     ElseIf TypeOf Storage Is DenseRowMajorMatrixStorage Then
-    
         Set CreateFactoryMatchingObject = New DenseRowMajMatrixStorageFactory
     
-    Else
+    ElseIf TypeOf Storage Is DenseColumnVectorStorage Then
+        Set CreateFactoryMatchingObject = New DenseColumnVectorStorageFactory
         
+    ElseIf TypeOf Storage Is DenseRowVectorStorage Then
+        Set CreateFactoryMatchingObject = New DenseRowVectorStorageFactory
+    
+    Else
         MatrixErrors.ThrowStorageSchemeError CLASS_NAME
     
     End If

@@ -14,6 +14,8 @@ Option Explicit
 Public Enum MatrixStorageScheme
     DenseColumnMajor
     DenseRowMajor
+    DenseRowVector
+    DenseColumnVector
     'Skyline
 End Enum
 

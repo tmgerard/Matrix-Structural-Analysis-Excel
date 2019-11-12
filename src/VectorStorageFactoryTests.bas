@@ -50,10 +50,10 @@ Private Sub TestCreateFactoryDenseVectorStorage()
     Dim factory As IVectorStorageFactory
     
     'Act:
-    Set factory = VectorStorageFactory.CreateFactory(VectorStorageScheme.Dense)
+    Set factory = MatrixStorageFactory.CreateFactory(MatrixStorageScheme.DenseColumnVector)
 
     'Assert:
-    Assert.IsTrue TypeOf factory Is DenseVectorStorageFactory
+    Assert.IsTrue TypeOf factory Is DenseColumnVectorStorageFactory
 
 TestExit:
     Exit Sub
@@ -67,16 +67,16 @@ Private Sub TestCreateFactoryMatchingDenseVectorStorageObject()
     
     'Arrange:
     Dim Storage As IVectorStorage
-    Set Storage = New DenseVectorStorage
+    Set Storage = New DenseColumnVectorStorage
     Storage.Length = 4
     
     Dim factory As IVectorStorageFactory
     
     'Act:
-    Set factory = VectorStorageFactory.CreateFactoryMatchingObject(Storage)
+    Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(Storage)
 
     'Assert:
-    Assert.IsTrue TypeOf factory Is DenseVectorStorageFactory
+    Assert.IsTrue TypeOf factory Is DenseColumnVectorStorageFactory
 
 TestExit:
     Exit Sub

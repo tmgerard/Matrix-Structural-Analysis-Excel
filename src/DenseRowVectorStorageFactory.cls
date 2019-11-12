@@ -2,24 +2,26 @@ VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
-Attribute VB_Name = "DenseVectorStorageFactory"
+Attribute VB_Name = "DenseRowVectorStorageFactory"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Vector.Factory")
+'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Factory")
 Option Explicit
 Implements IVectorStorageFactory
 
+' TODO: Implement IMatrixStorageFactory
+
 Private Type TDenseVectoryStorageFactory
-    VectorData As DenseVectorStorage
+    VectorData As DenseColumnVectorStorage
 End Type
 
 Private this As TDenseVectoryStorageFactory
 Private Const CLASS_NAME As String = "DenseVectorStorageFactory"
 
 Private Sub Class_Initialize()
-    Set this.VectorData = New DenseVectorStorage
+    Set this.VectorData = New DenseColumnVectorStorage
 End Sub
 
 Private Sub Class_Terminate()
@@ -27,13 +29,13 @@ Private Sub Class_Terminate()
 End Sub
 
 '@Desctiption("Create an empty vector of a given length.")
-Public Function Create(ByVal Length As Long) As DenseVectorStorage
+Public Function Create(ByVal Length As Long) As DenseColumnVectorStorage
     this.VectorData.Length = Length
     Set Create = this.VectorData
 End Function
 
 '@Description("Create vector from a worksheet range")
-Public Function CreateFromRange(ByVal WorksheetRange As Range) As DenseVectorStorage
+Public Function CreateFromRange(ByVal WorksheetRange As Range) As DenseColumnVectorStorage
     
     ' a single column or row must be selected
     If Not IsRangeAVector(WorksheetRange) Then
@@ -66,7 +68,7 @@ Private Function IsRangeAVector(ByVal WorksheetRange As Range) As Boolean
 End Function
 
 '@Description("Create vector from a row oriented worksheet range")
-Private Function VectorFromRowRange(ByVal WorksheetRange As Range) As DenseVectorStorage
+Private Function VectorFromRowRange(ByVal WorksheetRange As Range) As DenseColumnVectorStorage
     
     Dim rangeRow As Long
     rangeRow = WorksheetRange.row
@@ -86,7 +88,7 @@ Private Function VectorFromRowRange(ByVal WorksheetRange As Range) As DenseVecto
 End Function
 
 '@Description("Create vector from a column oriented worksheet range")
-Private Function VectorFromColumnRange(ByVal WorksheetRange As Range) As DenseVectorStorage
+Private Function VectorFromColumnRange(ByVal WorksheetRange As Range) As DenseColumnVectorStorage
 
     Dim Rows As Long
     Rows = WorksheetRange.Rows.Count

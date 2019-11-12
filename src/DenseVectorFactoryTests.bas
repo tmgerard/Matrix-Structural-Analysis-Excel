@@ -38,7 +38,7 @@ End Sub
 '@TestInitialize
 Private Sub TestInitialize()
     'this method runs before every test in the module.
-    Set factory = New DenseVectorStorageFactory
+    Set factory = New DenseRowVectorStorageFactory
 End Sub
 
 '@TestCleanup
@@ -58,7 +58,7 @@ Private Sub TestCreate()
     Set VectorData = factory.Create(CREATE_LENGTH)
 
     'Assert:
-    Assert.IsTrue TypeOf VectorData Is DenseVectorStorage
+    Assert.IsTrue TypeOf VectorData Is DenseColumnVectorStorage
 
 TestExit:
     Exit Sub
@@ -71,7 +71,7 @@ Private Sub TestCreateFromRangeRowOriented()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim VectorData As DenseVectorStorage
+    Dim VectorData As DenseColumnVectorStorage
     
     Dim sheetRange As Range
     Set sheetRange = VectorTestSheet.Range("A2:D2")
@@ -101,7 +101,7 @@ Private Sub TestCreateFromRangeColumnOriented()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim VectorData As DenseVectorStorage
+    Dim VectorData As DenseColumnVectorStorage
     
     Dim sheetRange As Range
     Set sheetRange = VectorTestSheet.Range("A5:A8")
@@ -132,7 +132,7 @@ Private Sub TestCreateFromRangeBadRange()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim VectorData As DenseVectorStorage
+    Dim VectorData As DenseColumnVectorStorage
     
     Dim sheetRange As Range
     Set sheetRange = VectorTestSheet.Range("A5:B8") ' column or row count must be 1

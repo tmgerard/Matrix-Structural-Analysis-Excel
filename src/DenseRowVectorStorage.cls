@@ -2,40 +2,63 @@ VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
-Attribute VB_Name = "DenseVectorStorage"
+Attribute VB_Name = "DenseRowVectorStorage"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Vector.Storage")
+'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Storage")
 Option Explicit
+Implements IMatrixStorage
 Implements IVectorStorage
 Implements ICloneable
 
-Private Type TDenseVectorStorage
+Private Type TDenseRowVectorStorage
+    Rows As Long
+    Columns As Long
     Length As Long
     Data() As Double
 End Type
 
-Private this As TDenseVectorStorage
-Private Const CLASS_NAME As String = "DenseVectorStorage"
+Private this As TDenseRowVectorStorage
+Private Const ROW_COUNT As Long = 1
+Private Const CLASS_NAME As String = "DenseRowVectorStorage"
 
 Private Sub Class_Initialize()
     With this
+        .Rows = ROW_COUNT
+        .Columns = 0
         .Length = 0
     End With
 End Sub
 
 Private Sub Class_Terminate()
     With this
-        .Length = 0
         Erase .Data
     End With
 End Sub
 
+Public Property Get Columns() As Long
+    Columns = this.Columns
+End Property
+
+Public Property Let Columns(ByVal Columns As Long)
+    If Columns <= 0 Then MatrixErrors.ThrowColumnSizeError
+    
+    With this
+        .Length = Columns
+        .Columns = Columns
+        ReDim .Data(Columns - 1)
+    End With
+End Property
+
 '@Description("Return the number of elements in vector")
 Public Property Get Length() As Long
     Length = this.Length
+End Property
+
+Public Property Get Rows() As Long
+    Rows = ROW_COUNT
 End Property
 
 '@Description("Set the number of elements to store in the vector")
@@ -44,6 +67,7 @@ Public Property Let Length(ByVal Length As Long)
     
     With this
         .Length = Length
+        .Columns = Length
         ReDim .Data(Length - 1)
     End With
 End Property
@@ -60,11 +84,19 @@ Public Property Let Element(ByVal index As Long, ByVal value As Double)
     this.Data(index) = value
 End Property
 
+Public Function IsDense() As Boolean
+    IsDense = True
+End Function
+
+Public Function IsMutable(ByVal index As Long) As Boolean
+    IsMutable = True
+End Function
+
 '@Description("Create a copy of vector object.")
 Public Function Clone() As Object
 
-    Dim NewVector As DenseVectorStorage
-    Set NewVector = New DenseVectorStorage
+    Dim NewVector As DenseRowVectorStorage
+    Set NewVector = New DenseRowVectorStorage
     
     NewVector.Length = Me.Length
     
@@ -91,6 +123,40 @@ Private Function ICloneable_Clone() As Object
     Set ICloneable_Clone = Me.Clone
 End Function
 
+'IMatrixStorage Implementation
+
+Private Sub IMatrixStorage_Clear()
+    Me.Clear
+End Sub
+
+Private Property Get IMatrixStorage_Columns() As Long
+    IMatrixStorage_Columns = Me.Columns
+End Property
+
+Private Property Let IMatrixStorage_Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal value As Double)
+    Me.Element(columnIndex) = value
+End Property
+
+Private Property Get IMatrixStorage_Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
+    IMatrixStorage_Element = Me.Element(columnIndex)
+End Property
+
+Private Function IMatrixStorage_IsDense() As Boolean
+    IMatrixStorage_IsDense = Me.IsDense
+End Function
+
+Private Function IMatrixStorage_IsMutable(ByVal rowIndex As Long, ByVal columnIndex As Long) As Boolean
+    IMatrixStorage_IsMutable = Me.IsMutable(columnIndex)
+End Function
+
+Private Property Get IMatrixStorage_Rows() As Long
+    IMatrixStorage_Rows = Me.Rows
+End Property
+
+Private Sub IMatrixStorage_SetSize(ByVal Rows As Long, ByVal Columns As Long)
+    Me.Length = Columns
+End Sub
+
 ' IVectorStorage Implementation
 
 Private Sub IVectorStorage_Clear()
@@ -112,3 +178,4 @@ End Property
 Private Property Let IVectorStorage_Length(ByVal Length As Long)
     Me.Length = Length
 End Property
+

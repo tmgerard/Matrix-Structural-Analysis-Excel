@@ -12,7 +12,7 @@ Option Explicit
 Implements IVector
 
 Private Type TDenseVector
-    VectorData As DenseVectorStorage
+    VectorData As IVectorStorage
 End Type
 
 Private this As TDenseVector
@@ -42,12 +42,14 @@ Public Property Get Length() As Long
     Length = this.VectorData.Length
 End Property
 
-Public Property Get Storage() As DenseVectorStorage
+Public Property Get Storage() As IVectorStorage
     Set Storage = this.VectorData
 End Property
 
-Public Property Let Storage(ByVal VectorData As DenseVectorStorage)
-    Set this.VectorData = VectorData.Clone
+Public Property Let Storage(ByVal VectorData As IVectorStorage)
+    Dim storageClone As ICloneable
+    Set storageClone = VectorData
+    Set this.VectorData = storageClone.Clone
 End Property
 
 Public Function Add(ByVal otherVector As IVector) As DenseVector
@@ -57,7 +59,7 @@ Public Function Add(ByVal otherVector As IVector) As DenseVector
     End If
     
     Dim factory As IVectorStorageFactory
-    Set factory = VectorStorageFactory.CreateFactoryMatchingObject(this.VectorData)
+    Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.VectorData)
     
     Dim newData As IVectorStorage
     Set newData = factory.Create(this.VectorData.Length)
@@ -86,7 +88,7 @@ Public Function Subtract(ByVal otherVector As IVector) As DenseVector
     End If
     
     Dim factory As IVectorStorageFactory
-    Set factory = VectorStorageFactory.CreateFactoryMatchingObject(this.VectorData)
+    Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.VectorData)
     
     Dim newData As IVectorStorage
     Set newData = factory.Create(this.VectorData.Length)
