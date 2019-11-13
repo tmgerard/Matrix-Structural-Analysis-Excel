@@ -10,12 +10,20 @@ Attribute VB_Exposed = False
 '@Folder("StiffnessMethod.Model.Linear Algebra.Vector.Interface")
 Option Explicit
 
+Public Enum VectorOrientation
+    RowVector
+    ColumnVector
+End Enum
+
 '@Description("Returns number of elements in vector.")
 Public Property Get Length() As Long
 End Property
 
 '@Description("Set the length of the vector")
 Public Property Let Length(ByVal Length As Long)
+End Property
+
+Public Property Get Orientation() As VectorOrientation
 End Property
 
 '@Description("Returns element value at specified location.")

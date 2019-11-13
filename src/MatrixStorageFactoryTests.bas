@@ -4,7 +4,7 @@ Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Linear Algebra.Matrix")
+'@Folder("Tests.Linear Algebra.Factory")
 
 #If LateBind Then
     Private Assert As Object
@@ -82,6 +82,44 @@ TestFail:
 End Sub
 
 '@TestMethod("Factory")
+Private Sub TestCreateFactoryDenseRowVector()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim factory As IMatrixStorageFactory
+    
+    'Act:
+    Set factory = MatrixStorageFactory.CreateFactory(MatrixStorageScheme.DenseRowVector)
+
+    'Assert:
+    Assert.IsTrue TypeOf factory Is DenseRowVectorStorageFactory
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Factory")
+Private Sub TestCreateFactoryDenseColumnVector()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim factory As IMatrixStorageFactory
+    
+    'Act:
+    Set factory = MatrixStorageFactory.CreateFactory(MatrixStorageScheme.DenseColumnVector)
+
+    'Assert:
+    Assert.IsTrue TypeOf factory Is DenseColumnVectorStorageFactory
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Factory")
 Private Sub TestCreateFactoryMatchingDenseColumnMajorStorageObject()
     On Error GoTo TestFail
     
@@ -120,6 +158,52 @@ Private Sub TestCreateFactoryMatchingDenseRowMajorStorageObject()
 
     'Assert:
     Assert.IsTrue TypeOf factory Is DenseRowMajMatrixStorageFactory
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Factory")
+Private Sub TestCreateFactoryMatchingDenseRowVectorStorageObject()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim Storage As IMatrixStorage
+    Set Storage = New DenseRowVectorStorage
+    Storage.SetSize Rows:=1, Columns:=4
+    
+    Dim factory As IMatrixStorageFactory
+    
+    'Act:
+    Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(Storage)
+
+    'Assert:
+    Assert.IsTrue TypeOf factory Is DenseRowVectorStorageFactory
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Factory")
+Private Sub TestCreateFactoryMatchingDenseColumnVectorStorageObject()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim Storage As IMatrixStorage
+    Set Storage = New DenseColumnVectorStorage
+    Storage.SetSize Rows:=4, Columns:=1
+    
+    Dim factory As IMatrixStorageFactory
+    
+    'Act:
+    Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(Storage)
+
+    'Assert:
+    Assert.IsTrue TypeOf factory Is DenseColumnVectorStorageFactory
 
 TestExit:
     Exit Sub

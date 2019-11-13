@@ -17,6 +17,7 @@ Private Type TDenseRowMajMatrixStorageFactory
 End Type
 
 Private this As TDenseRowMajMatrixStorageFactory
+Private Const CLASS_NAME As String = "DenseRowMajMatrixStorageFactory"
 
 '@Description("Initialize the MatrixData object")
 Private Sub Class_Initialize()

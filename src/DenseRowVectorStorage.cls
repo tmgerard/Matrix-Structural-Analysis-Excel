@@ -18,6 +18,7 @@ Private Type TDenseRowVectorStorage
     Columns As Long
     Length As Long
     Data() As Double
+    Orientation As VectorOrientation
 End Type
 
 Private this As TDenseRowVectorStorage
@@ -29,6 +30,7 @@ Private Sub Class_Initialize()
         .Rows = ROW_COUNT
         .Columns = 0
         .Length = 0
+        .Orientation = RowVector
     End With
 End Sub
 
@@ -72,6 +74,10 @@ Public Property Let Length(ByVal Length As Long)
     End With
 End Property
 
+Public Property Get Orientation() As VectorOrientation
+    Orientation = this.Orientation
+End Property
+
 '@Description("Return element at a given index")
 Public Property Get Element(ByVal index As Long) As Double
     If index < 0 Or index > this.Length - 1 Then VectorErrors.ThrowBadRangeError ErrorSource:=CLASS_NAME
@@ -95,17 +101,17 @@ End Function
 '@Description("Create a copy of vector object.")
 Public Function Clone() As Object
 
-    Dim NewVector As DenseRowVectorStorage
-    Set NewVector = New DenseRowVectorStorage
+    Dim newVector As DenseRowVectorStorage
+    Set newVector = New DenseRowVectorStorage
     
-    NewVector.Length = Me.Length
+    newVector.Length = Me.Length
     
     Dim index As Long
     For index = LBound(this.Data) To UBound(this.Data)
-        NewVector.Element(index) = this.Data(index)
+        newVector.Element(index) = this.Data(index)
     Next index
     
-    Set Clone = NewVector
+    Set Clone = newVector
     
 End Function
 
@@ -179,3 +185,6 @@ Private Property Let IVectorStorage_Length(ByVal Length As Long)
     Me.Length = Length
 End Property
 
+Private Property Get IVectorStorage_Orientation() As VectorOrientation
+    IVectorStorage_Orientation = Me.Orientation
+End Property

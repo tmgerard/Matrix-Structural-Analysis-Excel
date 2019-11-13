@@ -13,6 +13,7 @@ Implements IMatrixOutput
 
 Private Const DEFAULT_NUMBER_FORMAT As String = "#0.0000"
 Private Const DEFAULT_FILENAME As String = "matrix_output"
+Private Const CLASS_NAME As String = "DenseMatrixOutput"
 
 Private Sub IMatrixOutput_ToImmediateWindow(ByVal matrixData As IMatrixStorage, Optional ByVal OutputFormat As String = DEFAULT_NUMBER_FORMAT)
 

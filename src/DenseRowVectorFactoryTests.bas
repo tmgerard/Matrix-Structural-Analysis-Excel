@@ -1,9 +1,9 @@
-Attribute VB_Name = "DenseVectorFactoryTests"
+Attribute VB_Name = "DenseRowVectorFactoryTests"
 Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Linear Algebra.Vector")
+'@Folder("Tests.Linear Algebra.Factory")
 
 #If LateBind Then
     Private Assert As Object
@@ -13,7 +13,7 @@ Option Private Module
     'Private Fakes As FakesProvider
 #End If
 
-Private factory As IVectorStorageFactory
+Private factory As IMatrixStorageFactory
 Private Const CREATE_LENGTH As Long = 10
 
 '@ModuleInitialize
@@ -55,10 +55,10 @@ Private Sub TestCreate()
     Dim VectorData As IVectorStorage
 
     'Act:
-    Set VectorData = factory.Create(CREATE_LENGTH)
+    Set VectorData = factory.Create(1, CREATE_LENGTH)
 
     'Assert:
-    Assert.IsTrue TypeOf VectorData Is DenseColumnVectorStorage
+    Assert.IsTrue TypeOf VectorData Is DenseRowVectorStorage
 
 TestExit:
     Exit Sub
@@ -71,7 +71,7 @@ Private Sub TestCreateFromRangeRowOriented()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim VectorData As DenseColumnVectorStorage
+    Dim VectorData As DenseRowVectorStorage
     
     Dim sheetRange As Range
     Set sheetRange = VectorTestSheet.Range("A2:D2")
@@ -101,7 +101,7 @@ Private Sub TestCreateFromRangeColumnOriented()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim VectorData As DenseColumnVectorStorage
+    Dim VectorData As DenseRowVectorStorage
     
     Dim sheetRange As Range
     Set sheetRange = VectorTestSheet.Range("A5:A8")
@@ -132,7 +132,7 @@ Private Sub TestCreateFromRangeBadRange()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim VectorData As DenseColumnVectorStorage
+    Dim VectorData As DenseRowVectorStorage
     
     Dim sheetRange As Range
     Set sheetRange = VectorTestSheet.Range("A5:B8") ' column or row count must be 1

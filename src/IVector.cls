@@ -13,6 +13,9 @@ Option Explicit
 Public Function Add(ByVal otherVector As IVector) As IVector
 End Function
 
+Public Function CrossProduct(ByVal otherVector As IVector) As IVector
+End Function
+
 Public Function DotProduct(ByVal otherVector As IVector) As Double
 End Function
 
@@ -22,10 +25,13 @@ End Property
 Public Property Let Element(ByVal index As Long, ByVal value As Double)
 End Property
 
-Public Function EuclideanNorm() As Double
+Public Function EuclideanDistance() As Double
 End Function
 
 Public Property Get Length() As Long
+End Property
+
+Public Property Get Orientation() As VectorOrientation
 End Property
 
 Public Function Subtract(ByVal otherVector As IVector) As IVector

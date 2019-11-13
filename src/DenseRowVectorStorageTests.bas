@@ -1,9 +1,12 @@
-Attribute VB_Name = "VectorStorageFactoryTests"
+Attribute VB_Name = "DenseRowVectorStorageTests"
 Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Linear Algebra.Vector")
+'@Folder("Tests.Linear Algebra.Matrix Storage")
+
+Private Const VECTOR_LENGTH As Long = 4
+Private Storage As DenseRowVectorStorage
 
 #If LateBind Then
     Private Assert As Object
@@ -16,6 +19,9 @@ Option Private Module
 '@ModuleInitialize
 Private Sub ModuleInitialize()
     'this method runs once per module.
+    Set Storage = New DenseRowVectorStorage
+    Storage.Length = VECTOR_LENGTH
+    
     #If LateBind Then
         Set Assert = CreateObject("Rubberduck.AssertClass")
         'Set Fakes = CreateObject("Rubberduck.FakesProvider")
@@ -28,6 +34,8 @@ End Sub
 '@ModuleCleanup
 Private Sub ModuleCleanup()
     'this method runs once per module.
+    Set Storage = Nothing
+    
     Set Assert = Nothing
     'Set Fakes = Nothing
 End Sub
@@ -42,18 +50,12 @@ Private Sub TestCleanup()
     'this method runs after every test in the module.
 End Sub
 
-'@TestMethod("Factory")
-Private Sub TestCreateFactoryDenseVectorStorage()
+'@TestMethod("Property")
+Private Sub TestGetLength()
     On Error GoTo TestFail
-    
-    'Arrange:
-    Dim factory As IVectorStorageFactory
-    
-    'Act:
-    Set factory = MatrixStorageFactory.CreateFactory(MatrixStorageScheme.DenseColumnVector)
 
     'Assert:
-    Assert.IsTrue TypeOf factory Is DenseColumnVectorStorageFactory
+    Assert.AreEqual VECTOR_LENGTH, Storage.Length
 
 TestExit:
     Exit Sub
@@ -61,25 +63,52 @@ TestFail:
     Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
 End Sub
 
-'@TestMethod("Factory")
-Private Sub TestCreateFactoryMatchingDenseVectorStorageObject()
+'@TestMethod("Operation")
+Private Sub TestClear()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Storage As IVectorStorage
-    Set Storage = New DenseColumnVectorStorage
-    Storage.Length = 4
-    
-    Dim factory As IVectorStorageFactory
-    
+    Const EXPECTED_VALUE As Double = 0#
+
     'Act:
-    Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(Storage)
+    With Storage
+        .Element(0) = 1
+        .Element(1) = 2
+        .Element(2) = 3
+        .Element(3) = 4
+    End With
+    
+    Storage.Clear
 
     'Assert:
-    Assert.IsTrue TypeOf factory Is DenseColumnVectorStorageFactory
+    Assert.AreEqual EXPECTED_VALUE, Storage.Element(0)
+    Assert.AreEqual EXPECTED_VALUE, Storage.Element(1)
+    Assert.AreEqual EXPECTED_VALUE, Storage.Element(2)
+    Assert.AreEqual EXPECTED_VALUE, Storage.Element(3)
 
 TestExit:
     Exit Sub
 TestFail:
     Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
 End Sub
+
+'@TestMethod("Operation")
+Private Sub TestClone()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim newStorage As DenseRowVectorStorage
+
+    'Act:
+    Set newStorage = Storage.Clone
+
+    'Assert:
+    Assert.IsTrue Not ObjPtr(Storage) = ObjPtr(newStorage)
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+

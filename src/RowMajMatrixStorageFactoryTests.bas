@@ -4,7 +4,7 @@ Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Linear Algebra.Matrix")
+'@Folder("Tests.Linear Algebra.Factory")
 
 #If LateBind Then
     Private Assert As Object

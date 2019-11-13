@@ -9,19 +9,18 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Factory")
 Option Explicit
+Implements IMatrixStorageFactory
 Implements IVectorStorageFactory
 
-' TODO: Implement IMatrixStorageFactory
-
-Private Type TDenseVectoryStorageFactory
-    VectorData As DenseColumnVectorStorage
+Private Type TDenseRowVectorStorageFactory
+    VectorData As DenseRowVectorStorage
 End Type
 
-Private this As TDenseVectoryStorageFactory
-Private Const CLASS_NAME As String = "DenseVectorStorageFactory"
+Private this As TDenseRowVectorStorageFactory
+Private Const CLASS_NAME As String = "DenseRowVectorStorageFactory"
 
 Private Sub Class_Initialize()
-    Set this.VectorData = New DenseColumnVectorStorage
+    Set this.VectorData = New DenseRowVectorStorage
 End Sub
 
 Private Sub Class_Terminate()
@@ -29,13 +28,13 @@ Private Sub Class_Terminate()
 End Sub
 
 '@Desctiption("Create an empty vector of a given length.")
-Public Function Create(ByVal Length As Long) As DenseColumnVectorStorage
+Public Function Create(ByVal Length As Long) As DenseRowVectorStorage
     this.VectorData.Length = Length
     Set Create = this.VectorData
 End Function
 
 '@Description("Create vector from a worksheet range")
-Public Function CreateFromRange(ByVal WorksheetRange As Range) As DenseColumnVectorStorage
+Public Function CreateFromRange(ByVal WorksheetRange As Range) As DenseRowVectorStorage
     
     ' a single column or row must be selected
     If Not IsRangeAVector(WorksheetRange) Then
@@ -68,7 +67,7 @@ Private Function IsRangeAVector(ByVal WorksheetRange As Range) As Boolean
 End Function
 
 '@Description("Create vector from a row oriented worksheet range")
-Private Function VectorFromRowRange(ByVal WorksheetRange As Range) As DenseColumnVectorStorage
+Private Function VectorFromRowRange(ByVal WorksheetRange As Range) As DenseRowVectorStorage
     
     Dim rangeRow As Long
     rangeRow = WorksheetRange.row
@@ -88,7 +87,7 @@ Private Function VectorFromRowRange(ByVal WorksheetRange As Range) As DenseColum
 End Function
 
 '@Description("Create vector from a column oriented worksheet range")
-Private Function VectorFromColumnRange(ByVal WorksheetRange As Range) As DenseColumnVectorStorage
+Private Function VectorFromColumnRange(ByVal WorksheetRange As Range) As DenseRowVectorStorage
 
     Dim Rows As Long
     Rows = WorksheetRange.Rows.Count
@@ -105,6 +104,24 @@ Private Function VectorFromColumnRange(ByVal WorksheetRange As Range) As DenseCo
     
     Set VectorFromColumnRange = this.VectorData
 
+End Function
+
+' IMatrixStorageFactory Implementation
+
+Private Function IMatrixStorageFactory_Create(ByVal Rows As Long, ByVal Columns As Long) As IMatrixStorage
+    Set IMatrixStorageFactory_Create = Me.Create(Columns)
+End Function
+
+Private Function IMatrixStorageFactory_CreateFromRange(ByVal WorksheetRange As Range) As IMatrixStorage
+    Set IMatrixStorageFactory_CreateFromRange = Me.CreateFromRange(WorksheetRange)
+End Function
+
+Private Function IMatrixStorageFactory_CreateIdentity(ByVal Rows As Long) As IMatrixStorage
+    ' TODO: Throw error if trying to create identity vector
+End Function
+
+Private Function IMatrixStorageFactory_CreateSquare(ByVal Rows As Long) As IMatrixStorage
+    ' TODO: Throw error if trying to create square vector
 End Function
 
 ' IVectorStorageFactory Implementation

@@ -9,10 +9,12 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '@Folder("StiffnessMethod.Model.Linear Algebra.Vector")
 Option Explicit
+'Implements IMatrix
 Implements IVector
 
 Private Type TDenseVector
     VectorData As IVectorStorage
+    operator As VectorOperator
 End Type
 
 Private this As TDenseVector
@@ -21,6 +23,7 @@ Private Const CLASS_NAME As String = "DenseVector"
 Private Sub Class_Initialize()
     With this
         Set .VectorData = New IVectorStorage
+        Set .operator = New VectorOperator
     End With
 End Sub
 
@@ -53,62 +56,32 @@ Public Property Let Storage(ByVal VectorData As IVectorStorage)
 End Property
 
 Public Function Add(ByVal otherVector As IVector) As DenseVector
+    Set Add = this.operator.Add(Me, otherVector)
+End Function
 
-    If Not this.VectorData.Length = otherVector.Length Then
-        VectorErrors.ThrowAdditionError CLASS_NAME
-    End If
-    
-    Dim factory As IVectorStorageFactory
-    Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.VectorData)
-    
-    Dim newData As IVectorStorage
-    Set newData = factory.Create(this.VectorData.Length)
-    
-    Set factory = Nothing
-    
-    Dim index As Long
-    For index = 0 To newData.Length - 1
-        newData.Element(index) = this.VectorData.Element(index) + _
-            otherVector.Element(index)
-    Next index
-    
-    Dim result As IVector
-    Set result = New DenseVector
-    
-    result.Storage = newData
-    
-    Set Add = result
+Public Function CrossProduct(ByVal otherVector As IVector) As IVector
+    Set CrossProduct = this.operator.CrossProduct(Me, otherVector)
+End Function
 
+Public Function DotProduct(ByVal otherVector As IVector) As Double
+    DotProduct = this.operator.DotProduct(Me, otherVector)
+End Function
+
+Public Function EuclideanDistance() As Double
+    EuclideanDistance = this.operator.EuclideanDistance(Me)
+End Function
+
+Public Function ScalarMultiply(ByVal scalarValue As Double) As DenseVector
+    ScalarMultiply = this.operator.ScalarMultiply(Me, scalarValue)
 End Function
 
 Public Function Subtract(ByVal otherVector As IVector) As DenseVector
-
-    If Not this.VectorData.Length = otherVector.Length Then
-        VectorErrors.ThrowAdditionError CLASS_NAME
-    End If
-    
-    Dim factory As IVectorStorageFactory
-    Set factory = MatrixStorageFactory.CreateFactoryMatchingObject(this.VectorData)
-    
-    Dim newData As IVectorStorage
-    Set newData = factory.Create(this.VectorData.Length)
-    
-    Set factory = Nothing
-    
-    Dim index As Long
-    For index = 0 To newData.Length - 1
-        newData.Element(index) = this.VectorData.Element(index) - _
-            otherVector.Element(index)
-    Next index
-    
-    Dim result As IVector
-    Set result = New DenseVector
-    
-    result.Storage = newData
-    
-    Set Subtract = result
-
+    Set Subtract = this.operator.Subtract(Me, otherVector)
 End Function
+
+'IMatrix Implementation
+
+' TODO: Implement IMatrix interface
 
 ' IVector Implementation
 
@@ -116,8 +89,12 @@ Private Function IVector_Add(ByVal otherVector As IVector) As IVector
     Set IVector_Add = Me.Add(otherVector)
 End Function
 
+Private Function IVector_CrossProduct(ByVal otherVector As IVector) As IVector
+    Set IVector_CrossProduct = Me.CrossProduct(otherVector)
+End Function
+
 Private Function IVector_DotProduct(ByVal otherVector As IVector) As Double
-    IVector_DotProduct = 0
+    IVector_DotProduct = Me.DotProduct(otherVector)
 End Function
 
 Private Property Let IVector_Element(ByVal index As Long, ByVal value As Double)
@@ -125,19 +102,23 @@ Private Property Let IVector_Element(ByVal index As Long, ByVal value As Double)
 End Property
 
 Private Property Get IVector_Element(ByVal index As Long) As Double
-    IVector_Element = 0
+    IVector_Element = Me.Element(index)
 End Property
 
-Private Function IVector_EuclideanNorm() As Double
-    IVector_EuclideanNorm = 0
+Private Function IVector_EuclideanDistance() As Double
+    IVector_EuclideanDistance = Me.EuclideanDistance
 End Function
 
 Private Property Get IVector_Length() As Long
     IVector_Length = Me.Length
 End Property
 
+Private Property Get IVector_Orientation() As VectorOrientation
+
+End Property
+
 Private Function IVector_ScalarMultiply(ByVal scalarValue As Double) As IVector
-    Set IVector_ScalarMultiply = Nothing
+    Set IVector_ScalarMultiply = Me.ScalarMultiply(scalarValue)
 End Function
 
 Private Property Get IVector_Storage() As IVectorStorage
