@@ -1,9 +1,9 @@
-Attribute VB_Name = "DenseColumnVectorFactoryTests"
+Attribute VB_Name = "VectorOperatorTests"
 Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Linear Algebra.Factory")
+'@Folder("Tests.Linear Algebra.Vector")
 
 #If LateBind Then
     Private Assert As Object
@@ -13,8 +13,7 @@ Option Private Module
     'Private Fakes As FakesProvider
 #End If
 
-Private factory As IMatrixStorageFactory
-Private Const CREATE_LENGTH As Long = 10
+Private operator As VectorOperator
 
 '@ModuleInitialize
 Private Sub ModuleInitialize()
@@ -26,6 +25,8 @@ Private Sub ModuleInitialize()
         Set Assert = New AssertClass
         'Set Fakes = New FakesProvider
     #End If
+    
+    Set operator = New VectorOperator
 End Sub
 
 '@ModuleCleanup
@@ -38,32 +39,9 @@ End Sub
 '@TestInitialize
 Private Sub TestInitialize()
     'this method runs before every test in the module.
-    Set factory = New DenseColumnVectorStorageFactory
 End Sub
 
 '@TestCleanup
 Private Sub TestCleanup()
     'this method runs after every test in the module.
-    Set factory = Nothing
 End Sub
-
-'@TestMethod("Factory")
-Private Sub TestCreate()
-    On Error GoTo TestFail
-    
-    'Arrange:
-    Dim VectorData As IVectorStorage
-
-    'Act:
-    Set VectorData = factory.Create(1, CREATE_LENGTH)
-
-    'Assert:
-    Assert.IsTrue TypeOf VectorData Is DenseColumnVectorStorage
-
-TestExit:
-    Exit Sub
-TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
-End Sub
-
-

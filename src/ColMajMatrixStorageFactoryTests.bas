@@ -70,41 +70,6 @@ TestFail:
 End Sub
 
 '@TestMethod("Factory")
-Public Sub TestCreateFromRange()
-    On Error GoTo TestFail
-    
-    'Arrange:
-    Dim sheetRange As Range
-    Set sheetRange = MatrixTestSheet.Range("A2:B4")
-    
-    Dim Cell As Range
-    For Each Cell In sheetRange
-        Cell.Value2 = Cell.row
-    Next Cell
-    
-    Dim matrixData As IMatrixStorage
-
-    'Act:
-    Set matrixData = factory.CreateFromRange(sheetRange)
-
-    'Assert:
-    Dim row As Long
-    Dim column As Long
-    For row = 0 To matrixData.Rows - 1
-        For column = 0 To matrixData.Columns - 1
-            ' NOTE: Worksheet ranges are base 1 indexed
-            Assert.AreEqual sheetRange.Cells(row + 1, column + 1).Value2, matrixData.Element(row, column)
-        
-        Next column
-    Next row
-
-TestExit:
-    Exit Sub
-TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
-End Sub
-
-'@TestMethod("Factory")
 Public Sub TestCreateIdentity()
     On Error GoTo TestFail
     

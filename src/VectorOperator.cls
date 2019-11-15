@@ -83,7 +83,7 @@ Public Function EuclideanDistance(ByVal vector As IVector) As Double
     result = 0
     
     Dim index As Long
-    For index = 0 To leftVector.Length - 1
+    For index = 0 To vector.Length - 1
         result = result + vector.Element(index) * vector.Element(index)
     Next index
     
@@ -101,7 +101,7 @@ Public Function ScalarMultiply(ByVal leftVector As IVector, ByVal scalarValue As
         result.Element(index) = leftVector.Element(index) * scalarValue
     Next index
     
-    Set Subtract = result
+    Set ScalarMultiply = result
     
 End Function
 

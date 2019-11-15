@@ -115,13 +115,13 @@ Public Function ScalarMultiply(ByVal leftMatrix As IMatrix, ByVal scalarValue As
 
 End Function
 
-Public Sub SwapRows(ByRef Matrix As IMatrix, ByVal firstRowIndex As Long, ByVal secondRowIndex As Long)
+Public Sub SwapRows(ByRef matrix As IMatrix, ByVal firstRowIndex As Long, ByVal secondRowIndex As Long)
 
     Dim Temp As Double
     Dim column As Long
     
-    For column = 0 To Matrix.Columns - 1
-        With Matrix
+    For column = 0 To matrix.Columns - 1
+        With matrix
             Temp = .Element(secondRowIndex, column)
             .Element(secondRowIndex, column) = .Element(firstRowIndex, column)
             .Element(firstRowIndex, column) = Temp
@@ -155,22 +155,22 @@ Public Function Subtract(ByVal leftMatrix As IMatrix, ByVal rightMatrix As IMatr
     
 End Function
 
-Public Function Transpose(ByVal Matrix As IMatrix) As IMatrix
+Public Function Transpose(ByVal matrix As IMatrix) As IMatrix
 
     Dim newMatrix As ICloneable
-    Set newMatrix = Matrix
+    Set newMatrix = matrix
     
     Dim result As IMatrix
     Set result = newMatrix.Clone
     
-    result.SetSize Matrix.Columns, Matrix.Rows
+    result.SetSize matrix.Columns, matrix.Rows
     
     Dim row As Long
     Dim column As Long
     
-    For row = 0 To Matrix.Columns - 1
-        For column = 0 To Matrix.Rows - 1
-            result.Element(row, column) = Matrix.Element(column, row)
+    For row = 0 To matrix.Columns - 1
+        For column = 0 To matrix.Rows - 1
+            result.Element(row, column) = matrix.Element(column, row)
         Next column
     Next row
     

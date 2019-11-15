@@ -45,6 +45,10 @@ Public Property Get Length() As Long
     Length = this.VectorData.Length
 End Property
 
+Public Property Get Orientation() As VectorOrientation
+    Orientation = this.VectorData.Orientation
+End Property
+
 Public Property Get Storage() As IVectorStorage
     Set Storage = this.VectorData
 End Property
@@ -114,7 +118,7 @@ Private Property Get IVector_Length() As Long
 End Property
 
 Private Property Get IVector_Orientation() As VectorOrientation
-
+    IVector_Orientation = Me.Orientation
 End Property
 
 Private Function IVector_ScalarMultiply(ByVal scalarValue As Double) As IVector
