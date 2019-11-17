@@ -52,13 +52,13 @@ Private Sub TestCreate()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim VectorData As IVectorStorage
+    Dim vectorData As IVectorStorage
 
     'Act:
-    Set VectorData = factory.Create(1, CREATE_LENGTH)
+    Set vectorData = factory.Create(1, CREATE_LENGTH)
 
     'Assert:
-    Assert.IsTrue TypeOf VectorData Is DenseColumnVectorStorage
+    Assert.IsTrue TypeOf vectorData Is DenseColumnVectorStorage
 
 TestExit:
     Exit Sub

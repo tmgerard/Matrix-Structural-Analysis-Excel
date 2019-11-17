@@ -45,3 +45,168 @@ End Sub
 Private Sub TestCleanup()
     'this method runs after every test in the module.
 End Sub
+
+'@TestMethod("Vector Operation")
+Private Sub TestAdd()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Const EXPECTEDVALUE As Double = 2
+    
+    Dim vectorA As IVector
+    Set vectorA = New DenseRowVectorStub
+    
+    Dim vectorB As IVector
+    Set vectorB = New DenseRowVectorStub
+
+    'Act:
+    Dim vectorC As DenseVector
+    Set vectorC = operator.Add(vectorA, vectorB)
+
+    'Assert:
+    Assert.AreEqual EXPECTEDVALUE, vectorC.Element(0)
+    Assert.AreEqual EXPECTEDVALUE, vectorC.Element(1)
+    Assert.AreEqual EXPECTEDVALUE, vectorC.Element(2)
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Expected Error")
+Private Sub TestAddMisMatchedOrientation()
+    Const ExpectedError As Long = VectorError.Addition
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim vectorA As IVector
+    Set vectorA = New DenseRowVectorStub
+    
+    Dim vectorB As IVector
+    Set vectorB = New DenseColumnVectorStub
+
+    'Act:
+    Dim vectorC As DenseVector
+    Set vectorC = operator.Add(vectorA, vectorB)
+
+Assert:
+    Assert.Fail "Expected error was not raised"
+
+TestExit:
+    Exit Sub
+TestFail:
+    If Err.Number = ExpectedError Then
+        Resume TestExit
+    Else
+        Resume Assert
+    End If
+End Sub
+
+'@TestMethod("Vector Operation")
+Private Sub TestSubtract()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Const EXPECTEDVALUE As Double = 0
+    
+    Dim vectorA As IVector
+    Set vectorA = New DenseRowVectorStub
+    
+    Dim vectorB As IVector
+    Set vectorB = New DenseRowVectorStub
+
+    'Act:
+    Dim vectorC As DenseVector
+    Set vectorC = operator.Subtract(vectorA, vectorB)
+
+    'Assert:
+    Assert.AreEqual EXPECTEDVALUE, vectorC.Element(0)
+    Assert.AreEqual EXPECTEDVALUE, vectorC.Element(1)
+    Assert.AreEqual EXPECTEDVALUE, vectorC.Element(2)
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Expected Error")
+Private Sub TestSubtractMisMatchedOrientation()
+    Const ExpectedError As Long = VectorError.Subtraction
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim vectorA As IVector
+    Set vectorA = New DenseRowVectorStub
+    
+    Dim vectorB As IVector
+    Set vectorB = New DenseColumnVectorStub
+
+    'Act:
+    Dim vectorC As DenseVector
+    Set vectorC = operator.Subtract(vectorA, vectorB)
+
+Assert:
+    Assert.Fail "Expected error was not raised"
+
+TestExit:
+    Exit Sub
+TestFail:
+    If Err.Number = ExpectedError Then
+        Resume TestExit
+    Else
+        Resume Assert
+    End If
+End Sub
+
+'@TestMethod("Vector Operation")
+Private Sub TestDotProduct()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Const EXPECTEDVALUE As Double = 3
+    
+    Dim vectorA As IVector
+    Set vectorA = New DenseRowVectorStub
+    
+    Dim vectorB As IVector
+    Set vectorB = New DenseRowVectorStub
+
+    'Act:
+    Dim actual As Double
+    actual = operator.DotProduct(vectorA, vectorB)
+
+    'Assert:
+    Assert.AreEqual EXPECTEDVALUE, actual
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Vector Operation")
+Private Sub TestScalarMultiply()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Const EXPECTEDVALUE As Double = 3
+    
+    Dim vectorA As IVector
+    Set vectorA = New DenseRowVectorStub
+
+    'Act:
+    Dim vectorC As IVector
+    Set vectorC = operator.ScalarMultiply(vectorA, EXPECTEDVALUE)
+
+    'Assert:
+    Assert.AreEqual EXPECTEDVALUE, vectorC.Element(0)
+    Assert.AreEqual EXPECTEDVALUE, vectorC.Element(1)
+    Assert.AreEqual EXPECTEDVALUE, vectorC.Element(2)
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub

@@ -52,8 +52,6 @@ Private Sub TestAdd()
     On Error GoTo TestFail
     
     'Arrange:
-    Const Rows As Long = 2
-    Const Columns As Long = 2
     Const EXPECTEDVALUE As Double = 3
     
     Dim MatrixA As IMatrix

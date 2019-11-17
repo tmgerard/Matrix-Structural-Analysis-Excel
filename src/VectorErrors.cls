@@ -62,7 +62,7 @@ Public Sub ThrowSubtractionError(Optional ByVal ErrorSource As String = vbNullSt
 
     Const ErrorMessage As String = "Vectors not compatible for subtraction."
     
-    Err.Raise Number:=VectorError.Addition, _
+    Err.Raise Number:=VectorError.Subtraction, _
               Source:=ErrorSource, _
               Description:=ErrorMessage
 End Sub

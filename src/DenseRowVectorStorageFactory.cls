@@ -13,24 +13,24 @@ Implements IMatrixStorageFactory
 Implements IVectorStorageFactory
 
 Private Type TDenseRowVectorStorageFactory
-    VectorData As DenseRowVectorStorage
+    vectorData As DenseRowVectorStorage
 End Type
 
 Private this As TDenseRowVectorStorageFactory
 Private Const CLASS_NAME As String = "DenseRowVectorStorageFactory"
 
 Private Sub Class_Initialize()
-    Set this.VectorData = New DenseRowVectorStorage
+    Set this.vectorData = New DenseRowVectorStorage
 End Sub
 
 Private Sub Class_Terminate()
-    Set this.VectorData = Nothing
+    Set this.vectorData = Nothing
 End Sub
 
 '@Desctiption("Create an empty vector of a given length.")
 Public Function Create(ByVal Length As Long) As DenseRowVectorStorage
-    this.VectorData.Length = Length
-    Set Create = this.VectorData
+    this.vectorData.Length = Length
+    Set Create = this.vectorData
 End Function
 
 '@Description("Create vector from a worksheet range")
@@ -75,14 +75,14 @@ Private Function VectorFromRowRange(ByVal WorksheetRange As Range) As DenseRowVe
     Dim Columns As Long
     Columns = WorksheetRange.Columns.Count
     
-    this.VectorData.Length = Columns
+    this.vectorData.Length = Columns
     
     Dim column As Long
     For column = 0 To Columns - 1
-        this.VectorData.Element(column) = CDbl(WorksheetRange.Cells(rangeRow, column + 1).Value2)
+        this.vectorData.Element(column) = CDbl(WorksheetRange.Cells(rangeRow, column + 1).Value2)
     Next column
     
-    Set VectorFromRowRange = this.VectorData
+    Set VectorFromRowRange = this.vectorData
     
 End Function
 
@@ -95,14 +95,14 @@ Private Function VectorFromColumnRange(ByVal WorksheetRange As Range) As DenseRo
     Dim rangeColumn As Long
     rangeColumn = WorksheetRange.column
     
-    this.VectorData.Length = Rows
+    this.vectorData.Length = Rows
     
     Dim row As Long
     For row = 0 To Rows - 1
-        this.VectorData.Element(row) = CDbl(WorksheetRange.Cells(row + 1, rangeColumn).Value2)
+        this.vectorData.Element(row) = CDbl(WorksheetRange.Cells(row + 1, rangeColumn).Value2)
     Next row
     
-    Set VectorFromColumnRange = this.VectorData
+    Set VectorFromColumnRange = this.vectorData
 
 End Function
 

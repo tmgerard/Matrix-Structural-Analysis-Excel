@@ -79,11 +79,11 @@ Private Sub IMatrix_SetSize(ByVal Rows As Long, ByVal Columns As Long)
 
 End Sub
 
-Private Property Let IMatrix_Storage(ByVal RHS As IMatrixStorage)
+Private Property Let IMatrix_storage(ByVal RHS As IMatrixStorage)
 
 End Property
 
-Private Property Get IMatrix_Storage() As IMatrixStorage
+Private Property Get IMatrix_storage() As IMatrixStorage
 
 End Property
 

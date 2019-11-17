@@ -9,11 +9,12 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '@Folder("StiffnessMethod.Model.Linear Algebra.Vector")
 Option Explicit
-'Implements IMatrix
+Implements ICloneable
+Implements IMatrix
 Implements IVector
 
 Private Type TDenseVector
-    VectorData As IVectorStorage
+    vectorData As IVectorStorage
     operator As VectorOperator
 End Type
 
@@ -22,45 +23,57 @@ Private Const CLASS_NAME As String = "DenseVector"
 
 Private Sub Class_Initialize()
     With this
-        Set .VectorData = New IVectorStorage
+        Set .vectorData = New IVectorStorage
         Set .operator = New VectorOperator
     End With
 End Sub
 
 Private Sub Class_Terminate()
     With this
-        Set .VectorData = Nothing
+        Set .vectorData = Nothing
     End With
 End Sub
 
 Public Property Get Element(ByVal index As Long) As Double
-    Element = this.VectorData.Element(index)
+    Element = this.vectorData.Element(index)
 End Property
 
 Public Property Let Element(ByVal index As Long, ByVal value As Double)
-    this.VectorData.Element(index) = value
+    this.vectorData.Element(index) = value
 End Property
 
 Public Property Get Length() As Long
-    Length = this.VectorData.Length
+    Length = this.vectorData.Length
 End Property
 
 Public Property Get Orientation() As VectorOrientation
-    Orientation = this.VectorData.Orientation
+    Orientation = this.vectorData.Orientation
 End Property
 
 Public Property Get Storage() As IVectorStorage
-    Set Storage = this.VectorData
+    Set Storage = this.vectorData
 End Property
 
-Public Property Let Storage(ByVal VectorData As IVectorStorage)
+Public Property Let Storage(ByVal vectorData As IVectorStorage)
     Dim storageClone As ICloneable
-    Set storageClone = VectorData
-    Set this.VectorData = storageClone.Clone
+    Set storageClone = vectorData
+    Set this.vectorData = storageClone.Clone
 End Property
 
 Public Function Add(ByVal otherVector As IVector) As DenseVector
     Set Add = this.operator.Add(Me, otherVector)
+End Function
+
+Public Function Clone() As DenseVector
+    Dim vectorData As ICloneable
+    Set vectorData = this.vectorData
+    
+    Dim cloneVector As DenseVector
+    Set cloneVector = New DenseVector
+    
+    cloneVector.Storage = vectorData.Clone
+    
+    Set Clone = cloneVector
 End Function
 
 Public Function CrossProduct(ByVal otherVector As IVector) As IVector
@@ -75,6 +88,10 @@ Public Function EuclideanDistance() As Double
     EuclideanDistance = this.operator.EuclideanDistance(Me)
 End Function
 
+Public Function Equals(ByVal otherVector As IVector) As Boolean
+    Equals = this.operator.Equals(Me, otherVector)
+End Function
+
 Public Function ScalarMultiply(ByVal scalarValue As Double) As DenseVector
     ScalarMultiply = this.operator.ScalarMultiply(Me, scalarValue)
 End Function
@@ -83,9 +100,109 @@ Public Function Subtract(ByVal otherVector As IVector) As DenseVector
     Set Subtract = this.operator.Subtract(Me, otherVector)
 End Function
 
-'IMatrix Implementation
+' ICloneable Implementation
 
-' TODO: Implement IMatrix interface
+Private Function ICloneable_Clone() As Object
+    Set ICloneable_Clone = Me.Clone
+End Function
+
+' IMatrix Implementation
+
+Private Function IMatrix_Add(ByVal otherMatrix As IMatrix) As IMatrix
+    Dim operator As MatrixOperator
+    Set operator = New MatrixOperator
+    Set IMatrix_Add = operator(Me, otherMatrix)
+End Function
+
+Private Function IMatrix_Columns() As Long
+    If Me.Orientation = ColumnVector Then
+        IMatrix_Columns = Me.Length
+    Else
+        IMatrix_Columns = 1
+    End If
+End Function
+
+Private Property Let IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal value As Double)
+    If Me.Orientation = ColumnVector Then
+        Me.Element(rowIndex) = value
+    Else
+        Me.Element(columnIndex) = value
+    End If
+End Property
+
+Private Property Get IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
+    If Me.Orientation = ColumnVector Then
+        IMatrix_Element = Me.Element(rowIndex)
+    Else
+        IMatrix_Element = Me.Element(columnIndex)
+    End If
+End Property
+
+Private Function IMatrix_Equals(ByVal otherMatrix As IMatrix) As Boolean
+    Dim operator As MatrixOperator
+    Set operator = New MatrixOperator
+    IMatrix_Equals = operator.Equals(Me, otherMatrix)
+End Function
+
+Private Function IMatrix_IsSquare() As Boolean
+    IMatrix_IsSquare = False
+End Function
+
+Private Function IMatrix_Multiply(ByVal otherMatrix As IMatrix) As IMatrix
+    Dim operator As MatrixOperator
+    Set operator = New MatrixOperator
+    Set IMatrix_Multiply = operator.Multiply(Me, otherMatrix)
+End Function
+
+Private Function IMatrix_Rows() As Long
+    If Me.Orientation = RowVector Then
+        IMatrix_Rows = Me.Length
+    Else
+        IMatrix_Rows = 1
+    End If
+End Function
+
+Private Function IMatrix_ScalarMultiply(ByVal scalarValue As Double) As IMatrix
+    Dim operator As MatrixOperator
+    Set operator = New MatrixOperator
+    Set IMatrix_ScalarMultiply = operator.ScalarMultiply(Me, scalarValue)
+End Function
+
+Private Sub IMatrix_SetSize(ByVal Rows As Long, ByVal Columns As Long)
+    If Rows > 1 And Columns > 1 Then VectorErrors.ThrowBadLengthError CLASS_NAME
+    
+    If Me.Orientation = ColumnVector Then
+        this.vectorData.Length = Rows
+    Else
+        this.vectorData.Length = Columns
+    End If
+End Sub
+
+Private Property Let IMatrix_storage(ByVal matrixData As IMatrixStorage)
+    Set Me.Storage = matrixData
+End Property
+
+Private Property Get IMatrix_storage() As IMatrixStorage
+    Set IMatrix_storage = Me.Storage
+End Property
+
+Private Function IMatrix_Subtract(ByVal otherMatrix As IMatrix) As IMatrix
+    Dim operator As MatrixOperator
+    Set operator = New MatrixOperator
+    Set IMatrix_Subtract = operator.Subtract(Me, otherMatrix)
+End Function
+
+Private Sub IMatrix_SwapRows(ByVal firstRowIndex As Long, ByVal secondRowIndex As Long)
+    Dim operator As MatrixOperator
+    Set operator = New MatrixOperator
+    operator.SwapRows Me, firstRowIndex, secondRowIndex
+End Sub
+
+Private Function IMatrix_Transpose() As IMatrix
+    Dim operator As MatrixOperator
+    Set operator = New MatrixOperator
+    Set IMatrix_Transpose = operator.Transpose(Me)
+End Function
 
 ' IVector Implementation
 
@@ -129,8 +246,8 @@ Private Property Get IVector_Storage() As IVectorStorage
     Set IVector_Storage = Me.Storage
 End Property
 
-Private Property Let IVector_Storage(ByVal VectorData As IVectorStorage)
-    Me.Storage = VectorData
+Private Property Let IVector_Storage(ByVal vectorData As IVectorStorage)
+    Me.Storage = vectorData
 End Property
 
 Private Function IVector_Subtract(ByVal otherVector As IVector) As IVector

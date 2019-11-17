@@ -22,7 +22,7 @@ Public Function Add(ByVal leftVector As IVector, ByVal rightVector As IVector) A
     End If
     
     Dim result As IVector
-    Set result = CloneVector(leftVector)
+    Set result = cloneVector(leftVector)
     
     Dim index As Long
     For index = 0 To leftVector.Length - 1
@@ -45,7 +45,7 @@ Public Function CrossProduct(ByVal leftVector As IVector, ByVal rightVector As I
     End If
     
     Dim result As IVector
-    Set result = CloneVector(leftVector)
+    Set result = cloneVector(leftVector)
     
     With result
         .Element(0) = (leftVector.Element(1) * rightVector.Element(2)) - (leftVector.Element(2) * rightVector.Element(1))
@@ -91,10 +91,37 @@ Public Function EuclideanDistance(ByVal vector As IVector) As Double
     
 End Function
 
+Public Function Equals(ByVal leftVector As IVector, ByVal rightVector As IVector) As Boolean
+
+    Dim result As Boolean
+    result = True
+    
+    If Not leftVector Is rightVector Then
+        result = False
+        Exit Function
+    End If
+    
+    If Not leftVector.Length = rightVector.Length Then
+        result = False
+        Exit Function
+    End If
+    
+    Dim index As Long
+    For index = 0 To leftVector.Length - 1
+        If Not leftVector.Element(index) = rightVector.Element(index) Then
+            result = False
+            Exit For
+        End If
+    Next index
+    
+    Equals = result
+
+End Function
+
 Public Function ScalarMultiply(ByVal leftVector As IVector, ByVal scalarValue As Double) As IVector
     
     Dim result As IVector
-    Set result = CloneVector(leftVector)
+    Set result = cloneVector(leftVector)
     
     Dim index As Long
     For index = 0 To leftVector.Length - 1
@@ -115,7 +142,7 @@ Public Function Subtract(ByVal leftVector As IVector, ByVal rightVector As IVect
     End If
     
     Dim result As IVector
-    Set result = CloneVector(leftVector)
+    Set result = cloneVector(leftVector)
     
     Dim index As Long
     For index = 0 To leftVector.Length - 1
@@ -126,12 +153,12 @@ Public Function Subtract(ByVal leftVector As IVector, ByVal rightVector As IVect
     
 End Function
 
-Private Function CloneVector(ByVal vectorToClone As IVector) As IVector
+Private Function cloneVector(ByVal vectorToClone As IVector) As IVector
    
    Dim newVector As ICloneable
     Set newVector = vectorToClone
     
-    Set CloneVector = newVector.Clone
+    Set cloneVector = newVector.Clone
     
 End Function
 

@@ -133,12 +133,12 @@ Private Sub IMatrix_SetSize(ByVal Rows As Long, ByVal Columns As Long)
     Me.SetSize Rows, Columns
 End Sub
 
-Private Property Let IMatrix_Storage(ByVal Storage As IMatrixStorage)
+Private Property Let IMatrix_storage(ByVal Storage As IMatrixStorage)
     Me.Storage = Storage
 End Property
 
-Private Property Get IMatrix_Storage() As IMatrixStorage
-    IMatrix_Storage = Me.Storage
+Private Property Get IMatrix_storage() As IMatrixStorage
+    IMatrix_storage = Me.Storage
 End Property
 
 '@Description("Sets element value at specified location.")

@@ -40,7 +40,7 @@ End Function
 Public Function ScalarMultiply(ByVal scalarValue As Double) As IVector
 End Function
 
-Public Property Let Storage(ByVal VectorData As IVectorStorage)
+Public Property Let Storage(ByVal vectorData As IVectorStorage)
 End Property
 
 Public Property Get Storage() As IVectorStorage
