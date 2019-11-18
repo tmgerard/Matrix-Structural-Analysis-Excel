@@ -1,9 +1,9 @@
-Attribute VB_Name = "VectorStorageFactoryTests"
+Attribute VB_Name = "DenseRowVectorFactoryTests"
 Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Linear Algebra.Vector")
+'@Folder("Tests.Linear Algebra.Factory")
 
 #If LateBind Then
     Private Assert As Object
@@ -12,6 +12,9 @@ Option Private Module
     Private Assert As AssertClass
     'Private Fakes As FakesProvider
 #End If
+
+Private factory As IMatrixStorageFactory
+Private Const CREATE_LENGTH As Long = 10
 
 '@ModuleInitialize
 Private Sub ModuleInitialize()
@@ -35,25 +38,27 @@ End Sub
 '@TestInitialize
 Private Sub TestInitialize()
     'this method runs before every test in the module.
+    Set factory = New DenseRowVectorStorageFactory
 End Sub
 
 '@TestCleanup
 Private Sub TestCleanup()
     'this method runs after every test in the module.
+    Set factory = Nothing
 End Sub
 
 '@TestMethod("Factory")
-Private Sub TestCreateFactoryDenseVectorStorage()
+Private Sub TestCreate()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim factory As IVectorStorageFactory
-    
+    Dim vectorData As IVectorStorage
+
     'Act:
-    Set factory = VectorStorageFactory.CreateFactory(VectorStorageScheme.Dense)
+    Set vectorData = factory.Create(1, CREATE_LENGTH)
 
     'Assert:
-    Assert.IsTrue TypeOf factory Is DenseVectorStorageFactory
+    Assert.IsTrue TypeOf vectorData Is DenseRowVectorStorage
 
 TestExit:
     Exit Sub
@@ -61,25 +66,3 @@ TestFail:
     Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
 End Sub
 
-'@TestMethod("Factory")
-Private Sub TestCreateFactoryMatchingDenseVectorStorageObject()
-    On Error GoTo TestFail
-    
-    'Arrange:
-    Dim Storage As IVectorStorage
-    Set Storage = New DenseVectorStorage
-    Storage.Length = 4
-    
-    Dim factory As IVectorStorageFactory
-    
-    'Act:
-    Set factory = VectorStorageFactory.CreateFactoryMatchingObject(Storage)
-
-    'Assert:
-    Assert.IsTrue TypeOf factory Is DenseVectorStorageFactory
-
-TestExit:
-    Exit Sub
-TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
-End Sub

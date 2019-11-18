@@ -4,7 +4,7 @@ Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Linear Algebra.Matrix")
+'@Folder("Tests.Linear Algebra.Factory")
 
 #If LateBind Then
     Private Assert As Object
@@ -54,50 +54,15 @@ Public Sub TestCreate()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim MatrixData As IMatrixStorage
+    Dim matrixData As IMatrixStorage
 
     'Act:
-    Set MatrixData = factory.Create(CREATE_ROWS, CREATE_COLUMNS)
+    Set matrixData = factory.Create(CREATE_ROWS, CREATE_COLUMNS)
 
     'Assert:
-    Assert.IsTrue TypeOf MatrixData Is DenseColumnMajorMatrixStorage
+    Assert.IsTrue TypeOf matrixData Is DenseColumnMajorMatrixStorage
 
 '@Ignore LineLabelNotUsed
-TestExit:
-    Exit Sub
-TestFail:
-    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
-End Sub
-
-'@TestMethod("Factory")
-Public Sub TestCreateFromRange()
-    On Error GoTo TestFail
-    
-    'Arrange:
-    Dim sheetRange As Range
-    Set sheetRange = MatrixTestSheet.Range("A2:B4")
-    
-    Dim Cell As Range
-    For Each Cell In sheetRange
-        Cell.Value2 = Cell.row
-    Next Cell
-    
-    Dim MatrixData As IMatrixStorage
-
-    'Act:
-    Set MatrixData = factory.CreateFromRange(sheetRange)
-
-    'Assert:
-    Dim row As Long
-    Dim column As Long
-    For row = 0 To MatrixData.Rows - 1
-        For column = 0 To MatrixData.Columns - 1
-            ' NOTE: Worksheet ranges are base 1 indexed
-            Assert.AreEqual sheetRange.Cells(row + 1, column + 1).Value2, MatrixData.Element(row, column)
-        
-        Next column
-    Next row
-
 TestExit:
     Exit Sub
 TestFail:
@@ -109,24 +74,24 @@ Public Sub TestCreateIdentity()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim MatrixData As IMatrixStorage
+    Dim matrixData As IMatrixStorage
 
     'Act:
-    Set MatrixData = factory.CreateIdentity(CREATE_ROWS)
+    Set matrixData = factory.CreateIdentity(CREATE_ROWS)
 
     'Assert:
-    Assert.AreEqual CREATE_ROWS, MatrixData.Rows
-    Assert.AreEqual CREATE_ROWS, MatrixData.Columns
+    Assert.AreEqual CREATE_ROWS, matrixData.Rows
+    Assert.AreEqual CREATE_ROWS, matrixData.Columns
     
     Dim row As Long
     Dim column As Long
-    For row = 0 To MatrixData.Rows - 1
-        For column = 0 To MatrixData.Columns - 1
+    For row = 0 To matrixData.Rows - 1
+        For column = 0 To matrixData.Columns - 1
         
             If row = column Then
-                Assert.AreEqual 1#, MatrixData.Element(row, column)
+                Assert.AreEqual 1#, matrixData.Element(row, column)
             Else
-                Assert.AreEqual 0#, MatrixData.Element(row, column)
+                Assert.AreEqual 0#, matrixData.Element(row, column)
             End If
         
         Next column
@@ -143,14 +108,14 @@ Public Sub TestCreateSquare()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim MatrixData As IMatrixStorage
+    Dim matrixData As IMatrixStorage
 
     'Act:
-    Set MatrixData = factory.CreateSquare(CREATE_ROWS)
+    Set matrixData = factory.CreateSquare(CREATE_ROWS)
 
     'Assert:
-    Assert.AreEqual CREATE_ROWS, MatrixData.Rows
-    Assert.AreEqual CREATE_ROWS, MatrixData.Columns
+    Assert.AreEqual CREATE_ROWS, matrixData.Rows
+    Assert.AreEqual CREATE_ROWS, matrixData.Columns
 
 TestExit:
     Exit Sub

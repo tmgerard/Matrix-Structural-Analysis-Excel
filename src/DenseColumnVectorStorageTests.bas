@@ -1,12 +1,12 @@
-Attribute VB_Name = "DenseVectorStorageTests"
+Attribute VB_Name = "DenseColumnVectorStorageTests"
 Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Linear Algebra.Vector")
+'@Folder("Tests.Linear Algebra.Matrix Storage")
 
 Private Const VECTOR_LENGTH As Long = 4
-Private Storage As DenseVectorStorage
+Private Storage As DenseColumnVectorStorage
 
 #If LateBind Then
     Private Assert As Object
@@ -19,8 +19,8 @@ Private Storage As DenseVectorStorage
 '@ModuleInitialize
 Private Sub ModuleInitialize()
     'this method runs once per module.
-    Set Storage = New DenseVectorStorage
-    Storage.Length = VECTOR_LENGTH
+    Set Storage = New DenseColumnVectorStorage
+    Storage.length = VECTOR_LENGTH
     
     #If LateBind Then
         Set Assert = CreateObject("Rubberduck.AssertClass")
@@ -55,7 +55,7 @@ Private Sub TestGetLength()
     On Error GoTo TestFail
 
     'Assert:
-    Assert.AreEqual VECTOR_LENGTH, Storage.Length
+    Assert.AreEqual VECTOR_LENGTH, Storage.length
 
 TestExit:
     Exit Sub
@@ -97,7 +97,7 @@ Private Sub TestClone()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim newStorage As DenseVectorStorage
+    Dim newStorage As DenseColumnVectorStorage
 
     'Act:
     Set newStorage = Storage.Clone

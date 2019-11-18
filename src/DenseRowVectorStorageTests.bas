@@ -1,12 +1,12 @@
-Attribute VB_Name = "TestDenseVectorStorage"
+Attribute VB_Name = "DenseRowVectorStorageTests"
 Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Linear Algebra.Vector")
+'@Folder("Tests.Linear Algebra.Matrix Storage")
 
 Private Const VECTOR_LENGTH As Long = 4
-Private storage As DenseVectorStorage
+Private Storage As DenseRowVectorStorage
 
 #If LateBind Then
     Private Assert As Object
@@ -19,8 +19,8 @@ Private storage As DenseVectorStorage
 '@ModuleInitialize
 Private Sub ModuleInitialize()
     'this method runs once per module.
-    Set storage = New DenseVectorStorage
-    storage.Length = VECTOR_LENGTH
+    Set Storage = New DenseRowVectorStorage
+    Storage.length = VECTOR_LENGTH
     
     #If LateBind Then
         Set Assert = CreateObject("Rubberduck.AssertClass")
@@ -34,7 +34,7 @@ End Sub
 '@ModuleCleanup
 Private Sub ModuleCleanup()
     'this method runs once per module.
-    Set storage = Nothing
+    Set Storage = Nothing
     
     Set Assert = Nothing
     'Set Fakes = Nothing
@@ -55,7 +55,7 @@ Private Sub TestGetLength()
     On Error GoTo TestFail
 
     'Assert:
-    Assert.AreEqual VECTOR_LENGTH, storage.Length
+    Assert.AreEqual VECTOR_LENGTH, Storage.length
 
 TestExit:
     Exit Sub
@@ -71,20 +71,20 @@ Private Sub TestClear()
     Const EXPECTED_VALUE As Double = 0#
 
     'Act:
-    With storage
+    With Storage
         .Element(0) = 1
         .Element(1) = 2
         .Element(2) = 3
         .Element(3) = 4
     End With
     
-    storage.Clear
+    Storage.Clear
 
     'Assert:
-    Assert.AreEqual EXPECTED_VALUE, storage.Element(0)
-    Assert.AreEqual EXPECTED_VALUE, storage.Element(1)
-    Assert.AreEqual EXPECTED_VALUE, storage.Element(2)
-    Assert.AreEqual EXPECTED_VALUE, storage.Element(3)
+    Assert.AreEqual EXPECTED_VALUE, Storage.Element(0)
+    Assert.AreEqual EXPECTED_VALUE, Storage.Element(1)
+    Assert.AreEqual EXPECTED_VALUE, Storage.Element(2)
+    Assert.AreEqual EXPECTED_VALUE, Storage.Element(3)
 
 TestExit:
     Exit Sub
@@ -97,17 +97,18 @@ Private Sub TestClone()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim newStorage As DenseVectorStorage
+    Dim newStorage As DenseRowVectorStorage
 
     'Act:
-    Set newStorage = storage.Clone
+    Set newStorage = Storage.Clone
 
     'Assert:
-    Assert.IsTrue Not ObjPtr(storage) = ObjPtr(newStorage)
+    Assert.IsTrue Not ObjPtr(Storage) = ObjPtr(newStorage)
 
 TestExit:
     Exit Sub
 TestFail:
     Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
 End Sub
+
 

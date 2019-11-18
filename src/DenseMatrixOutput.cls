@@ -13,8 +13,9 @@ Implements IMatrixOutput
 
 Private Const DEFAULT_NUMBER_FORMAT As String = "#0.0000"
 Private Const DEFAULT_FILENAME As String = "matrix_output"
+Private Const CLASS_NAME As String = "DenseMatrixOutput"
 
-Private Sub IMatrixOutput_ToImmediateWindow(ByVal MatrixData As IMatrixStorage, Optional ByVal OutputFormat As String = DEFAULT_NUMBER_FORMAT)
+Private Sub IMatrixOutput_ToImmediateWindow(ByVal matrixData As IMatrixStorage, Optional ByVal OutputFormat As String = DEFAULT_NUMBER_FORMAT)
 
     Dim RowString As String
     RowString = vbNullString
@@ -22,13 +23,13 @@ Private Sub IMatrixOutput_ToImmediateWindow(ByVal MatrixData As IMatrixStorage, 
     Dim row As Long
     Dim column As Long
     
-    For row = 0 To MatrixData.Rows - 1
+    For row = 0 To matrixData.Rows - 1
     
-        RowString = Format$(CStr(MatrixData.Element(row, 0)), OutputFormat)
+        RowString = Format$(CStr(matrixData.Element(row, 0)), OutputFormat)
     
-        For column = 1 To MatrixData.Columns - 1
+        For column = 1 To matrixData.Columns - 1
         
-            RowString = RowString & vbTab & Format$(CStr(MatrixData.Element(row, column)), OutputFormat)
+            RowString = RowString & vbTab & Format$(CStr(matrixData.Element(row, column)), OutputFormat)
         
         Next column
         
@@ -38,7 +39,7 @@ Private Sub IMatrixOutput_ToImmediateWindow(ByVal MatrixData As IMatrixStorage, 
 
 End Sub
 
-Private Sub IMatrixOutput_ToFile(ByVal MatrixData As IMatrixStorage, Optional ByVal FileName As String = DEFAULT_FILENAME, Optional ByVal OutputFormat As String = DEFAULT_NUMBER_FORMAT)
+Private Sub IMatrixOutput_ToFile(ByVal matrixData As IMatrixStorage, Optional ByVal FileName As String = DEFAULT_FILENAME, Optional ByVal OutputFormat As String = DEFAULT_NUMBER_FORMAT)
 
     On Error GoTo ErrorHandler
     
@@ -56,13 +57,13 @@ Private Sub IMatrixOutput_ToFile(ByVal MatrixData As IMatrixStorage, Optional By
     Dim row As Long
     Dim column As Long
     
-    For row = 0 To MatrixData.Rows - 1
+    For row = 0 To matrixData.Rows - 1
     
-        RowString = Format$(CStr(MatrixData.Element(row, 0)), OutputFormat)
+        RowString = Format$(CStr(matrixData.Element(row, 0)), OutputFormat)
     
-        For column = 1 To MatrixData.Columns - 1
+        For column = 1 To matrixData.Columns - 1
         
-            RowString = RowString & vbTab & Format$(CStr(MatrixData.Element(row, column)), OutputFormat)
+            RowString = RowString & vbTab & Format$(CStr(matrixData.Element(row, column)), OutputFormat)
         
         Next column
         
@@ -86,22 +87,22 @@ ErrorHandler:
 
 End Sub
 
-Private Sub IMatrixOutput_ToWorksheet(ByVal MatrixData As IMatrixStorage, ByVal OutputCell As Range, Optional ByVal OutputFormat As String = DEFAULT_NUMBER_FORMAT)
+Private Sub IMatrixOutput_ToWorksheet(ByVal matrixData As IMatrixStorage, ByVal OutputCell As Range, Optional ByVal OutputFormat As String = DEFAULT_NUMBER_FORMAT)
 
     Dim OutputArray() As Double
-    ReDim OutputArray(MatrixData.Rows - 1, MatrixData.Columns - 1)
+    ReDim OutputArray(matrixData.Rows - 1, matrixData.Columns - 1)
     
     Dim row As Long
     Dim column As Long
     
-    For row = 0 To MatrixData.Rows - 1
-        For column = 0 To MatrixData.Columns - 1
-            OutputArray(row, column) = MatrixData.Element(row, column)
+    For row = 0 To matrixData.Rows - 1
+        For column = 0 To matrixData.Columns - 1
+            OutputArray(row, column) = matrixData.Element(row, column)
         Next column
     Next row
     
     With OutputCell
-        .Resize(MatrixData.Rows, MatrixData.Columns).NumberFormat = OutputFormat
+        .Resize(matrixData.Rows, matrixData.Columns).NumberFormat = OutputFormat
         .Value2 = OutputArray
     End With
 
