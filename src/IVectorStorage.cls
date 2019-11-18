@@ -16,11 +16,11 @@ Public Enum VectorOrientation
 End Enum
 
 '@Description("Returns number of elements in vector.")
-Public Property Get Length() As Long
+Public Property Get length() As Long
 End Property
 
 '@Description("Set the length of the vector")
-Public Property Let Length(ByVal Length As Long)
+Public Property Let length(ByVal length As Long)
 End Property
 
 Public Property Get Orientation() As VectorOrientation

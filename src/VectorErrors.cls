@@ -78,7 +78,7 @@ End Sub
 
 Public Sub ThrowCrossProductError(Optional ByVal ErrorSource As String = vbNullString)
 
-    Const ErrorMessage As String = "Vectors not compatible for cross product."
+    Const ErrorMessage As String = "The cross product is only defined for vectors in three dimensions."
     
     Err.Raise Number:=VectorError.CrossProduct, _
               Source:=ErrorSource, _

@@ -210,3 +210,80 @@ TestExit:
 TestFail:
     Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
 End Sub
+
+'@TestMethod("Vector Operation")
+Private Sub TestCrossProduct()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim vectorA As IVector
+    Set vectorA = New DenseVectorAStub
+    
+    Dim vectorB As IVector
+    Set vectorB = New DenseVectorBStub
+
+    'Act:
+    Dim vectorC As IVector
+    Set vectorC = operator.CrossProduct(vectorA, vectorB)
+
+    'Assert:
+    Assert.AreEqual -15#, vectorC.Element(0)
+    Assert.AreEqual -2#, vectorC.Element(1)
+    Assert.AreEqual 39#, vectorC.Element(2)
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Expected Error")
+Private Sub TestCrossProductVectorLengthNotThree()
+    Const ExpectedError As Long = VectorError.CrossProduct
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim vectorA As IVector
+    Set vectorA = New DenseVectorXStub
+    
+    Dim vectorB As IVector
+    Set vectorB = New DenseVectorXStub
+
+    'Act:
+    Dim vectorC As IVector
+    Set vectorC = operator.CrossProduct(vectorA, vectorB)
+
+Assert:
+    Assert.Fail "Expected error was not raised"
+
+TestExit:
+    Exit Sub
+TestFail:
+    If Err.Number = ExpectedError Then
+        Resume TestExit
+    Else
+        Resume Assert
+    End If
+End Sub
+
+'@TestMethod("Vector Operation")
+Private Sub TestEuclideanDistance()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Const EXPECTEDVALUE As Double = 2#
+    Dim vectorA As IVector
+    Set vectorA = New DenseVectorXStub
+
+    'Act:
+    Dim distance As Double
+    distance = operator.EuclideanDistance(vectorA)
+
+    'Assert:
+    Assert.AreEqual EXPECTEDVALUE, distance
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub

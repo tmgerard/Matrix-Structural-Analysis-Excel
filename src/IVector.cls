@@ -28,7 +28,7 @@ End Property
 Public Function EuclideanDistance() As Double
 End Function
 
-Public Property Get Length() As Long
+Public Property Get length() As Long
 End Property
 
 Public Property Get Orientation() As VectorOrientation

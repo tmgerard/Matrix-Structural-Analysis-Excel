@@ -20,7 +20,7 @@ Private Storage As DenseColumnVectorStorage
 Private Sub ModuleInitialize()
     'this method runs once per module.
     Set Storage = New DenseColumnVectorStorage
-    Storage.Length = VECTOR_LENGTH
+    Storage.length = VECTOR_LENGTH
     
     #If LateBind Then
         Set Assert = CreateObject("Rubberduck.AssertClass")
@@ -55,7 +55,7 @@ Private Sub TestGetLength()
     On Error GoTo TestFail
 
     'Assert:
-    Assert.AreEqual VECTOR_LENGTH, Storage.Length
+    Assert.AreEqual VECTOR_LENGTH, Storage.length
 
 TestExit:
     Exit Sub

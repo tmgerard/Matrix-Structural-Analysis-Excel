@@ -2,7 +2,7 @@ VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
-Attribute VB_Name = "DenseRowVectorStub"
+Attribute VB_Name = "DenseVectorXStub"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
@@ -13,8 +13,8 @@ Implements ICloneable
 Implements IVector
 
 Private vectorStub As IVector
-Const ROW_COUNT As Long = 1
-Const COLUMN_COUNT As Long = 3
+Const ROW_COUNT As Long = 4
+Const COLUMN_COUNT As Long = 1
 
 Private Sub Class_Initialize()
     Set vectorStub = New DenseVector
@@ -22,13 +22,14 @@ Private Sub Class_Initialize()
     Dim Storage As IVectorStorage
     Set Storage = New DenseRowVectorStorage
     
-    Storage.length = COLUMN_COUNT
+    Storage.length = ROW_COUNT
     
     With vectorStub
         .Storage = Storage
         .Element(0) = 1
         .Element(1) = 1
         .Element(2) = 1
+        .Element(3) = 1
     End With
 End Sub
 
@@ -67,11 +68,11 @@ Private Function IVector_EuclideanDistance() As Double
 End Function
 
 Private Property Get IVector_Length() As Long
-    IVector_Length = COLUMN_COUNT
+    IVector_Length = ROW_COUNT
 End Property
 
 Private Property Get IVector_Orientation() As VectorOrientation
-    IVector_Orientation = RowVector
+    IVector_Orientation = ColumnVector
 End Property
 
 Private Function IVector_ScalarMultiply(ByVal scalarValue As Double) As IVector
@@ -89,3 +90,6 @@ End Property
 Private Function IVector_Subtract(ByVal otherVector As IVector) As IVector
 
 End Function
+
+
+

@@ -16,7 +16,7 @@ Public Enum VectorStorageScheme
 End Enum
 
 '@Description("Create empty matrix.")
-Public Function Create(ByVal Length As Long) As IVectorStorage
+Public Function Create(ByVal length As Long) As IVectorStorage
 End Function
 
 '@Description("Create matrix with values from worksheet range.")
