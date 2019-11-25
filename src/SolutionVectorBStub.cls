@@ -2,12 +2,12 @@ VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
-Attribute VB_Name = "DenseVectorBStub"
+Attribute VB_Name = "SolutionVectorBStub"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("Tests.Linear Algebra.Vector Stubs")
+'@Folder("Tests.Linear Algebra.Solver Stubs")
 Option Explicit
 Implements ICloneable
 Implements IVector
@@ -26,9 +26,9 @@ Private Sub Class_Initialize()
     
     With vectorStub
         .Storage = Storage
-        .Element(0) = 4
-        .Element(1) = 9
-        .Element(2) = 2
+        .Element(0) = 1
+        .Element(1) = 2
+        .Element(2) = 4
     End With
 End Sub
 
@@ -91,5 +91,5 @@ Private Function IVector_Subtract(ByVal otherVector As IVector) As IVector
 End Function
 
 Private Sub IVector_SwapValues(ByVal index1 As Long, ByVal index2 As Long)
-
+    vectorStub.SwapValues index1, index2
 End Sub

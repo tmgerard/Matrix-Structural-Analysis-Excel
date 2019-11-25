@@ -117,14 +117,14 @@ End Function
 
 Public Sub SwapRows(ByRef matrix As IMatrix, ByVal firstRowIndex As Long, ByVal secondRowIndex As Long)
 
-    Dim Temp As Double
+    Dim temp As Double
     Dim column As Long
     
     For column = 0 To matrix.Columns - 1
         With matrix
-            Temp = .Element(secondRowIndex, column)
+            temp = .Element(secondRowIndex, column)
             .Element(secondRowIndex, column) = .Element(firstRowIndex, column)
-            .Element(firstRowIndex, column) = Temp
+            .Element(firstRowIndex, column) = temp
         End With
     Next column
 

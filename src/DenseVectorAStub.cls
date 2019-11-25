@@ -90,4 +90,6 @@ Private Function IVector_Subtract(ByVal otherVector As IVector) As IVector
 
 End Function
 
+Private Sub IVector_SwapValues(ByVal index1 As Long, ByVal index2 As Long)
 
+End Sub

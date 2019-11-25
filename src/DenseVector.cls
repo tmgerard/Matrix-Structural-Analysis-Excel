@@ -96,6 +96,18 @@ Public Function ScalarMultiply(ByVal scalarValue As Double) As DenseVector
     ScalarMultiply = this.operator.ScalarMultiply(Me, scalarValue)
 End Function
 
+Public Sub SwapValues(ByVal index1 As Long, ByVal index2 As Long)
+
+    Dim temp As Double
+    
+    With this.vectorData
+        temp = .Element(index1)
+        .Element(index1) = .Element(index2)
+        .Element(index2) = temp
+    End With
+    
+End Sub
+
 Public Function Subtract(ByVal otherVector As IVector) As DenseVector
     Set Subtract = this.operator.Subtract(Me, otherVector)
 End Function
@@ -253,3 +265,7 @@ End Property
 Private Function IVector_Subtract(ByVal otherVector As IVector) As IVector
     Set IVector_Subtract = Me.Subtract(otherVector)
 End Function
+
+Private Sub IVector_SwapValues(ByVal index1 As Long, ByVal index2 As Long)
+    Me.SwapValues index1, index2
+End Sub

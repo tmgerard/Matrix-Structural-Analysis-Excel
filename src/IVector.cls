@@ -40,6 +40,9 @@ End Function
 Public Function ScalarMultiply(ByVal scalarValue As Double) As IVector
 End Function
 
+Public Sub SwapValues(ByVal index1 As Long, ByVal index2 As Long)
+End Sub
+
 Public Property Let Storage(ByVal vectorData As IVectorStorage)
 End Property
 
