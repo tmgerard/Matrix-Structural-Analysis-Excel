@@ -3,7 +3,8 @@ Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Linear Algebra.Solver")
+'@Folder("Tests.LinearAlgebra.Solver")
+'@IgnoreModule
 
 #If LateBind Then
     Private Assert As Object
@@ -62,15 +63,15 @@ Private Sub TestSolve()
     Dim b As IVector
     Set b = New SolutionVectorBStub
     
-    Dim x As IVector
+    Dim X As IVector
 
     'Act:
-    Set x = solver.Solve(A, b)
+    Set X = solver.Solve(A, b)
 
     'Assert:
     Dim i As Long
-    For i = 0 To x.length - 1
-        Assert.AreEqual expected.Element(i), x.Element(i)
+    For i = 0 To X.length - 1
+        Assert.AreEqual expected.Element(i), X.Element(i)
     Next i
 
 TestExit:
@@ -94,10 +95,10 @@ Private Sub TestSolveSingularMatrix()
     Dim b As IVector
     Set b = New SolutionVectorBStub
     
-    Dim x As IVector
+    Dim X As IVector
 
     'Act:
-    Set x = solver.Solve(A, b)
+    Set X = solver.Solve(A, b)
 
 Assert:
     Assert.Fail "Expected error was not raised"

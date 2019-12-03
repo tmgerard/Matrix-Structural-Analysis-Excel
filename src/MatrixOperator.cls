@@ -7,7 +7,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Operations")
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Matrix.Operations")
+Option Explicit
 
 Private Const CLASS_NAME As String = "MatrixOperator"
 
@@ -177,3 +178,4 @@ Public Function Transpose(ByVal matrix As IMatrix) As IMatrix
     Set Transpose = result
 
 End Function
+

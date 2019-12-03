@@ -7,7 +7,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("Tests.Linear Algebra.Vector Stubs")
+'@Folder("Tests.LinearAlgebra.VectorStubs")
+'@IgnoreModule
 Option Explicit
 Implements ICloneable
 Implements IVector

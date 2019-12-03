@@ -7,7 +7,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("Tests.Linear Algebra.Solver Stubs")
+'@Folder("Tests.LinearAlgebra.SolverStubs")
+'@IgnoreModule
 Option Explicit
 Implements IMatrix
 Implements ICloneable

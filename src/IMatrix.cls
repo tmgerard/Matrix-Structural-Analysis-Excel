@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Interface")
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Matrix.Interface")
 '@Interface IMatrix
 Option Explicit
 
@@ -23,6 +23,7 @@ End Function
 Public Property Let Storage(ByVal matrixData As IMatrixStorage)
 End Property
 
+'@Description("Return storage object.")
 Public Property Get Storage() As IMatrixStorage
 End Property
 

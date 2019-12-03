@@ -7,7 +7,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Vector")
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Vector")
+'@IgnoreModule ObjectVariableNotSet
 Option Explicit
 Implements ICloneable
 Implements IMatrix
@@ -96,6 +97,7 @@ Public Function ScalarMultiply(ByVal scalarValue As Double) As DenseVector
     ScalarMultiply = this.operator.ScalarMultiply(Me, scalarValue)
 End Function
 
+'@Ignore UseMeaningfulName
 Public Sub SwapValues(ByVal index1 As Long, ByVal index2 As Long)
 
     Dim temp As Double
@@ -266,6 +268,7 @@ Private Function IVector_Subtract(ByVal otherVector As IVector) As IVector
     Set IVector_Subtract = Me.Subtract(otherVector)
 End Function
 
+'@Ignore UseMeaningfulName
 Private Sub IVector_SwapValues(ByVal index1 As Long, ByVal index2 As Long)
     Me.SwapValues index1, index2
 End Sub

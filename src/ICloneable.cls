@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Interface")
+'@Folder("StructuralAnalysis.Interface")
 Option Explicit
 
 Public Function Clone() As Object

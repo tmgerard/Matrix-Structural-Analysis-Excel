@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Vector.Operations")
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Vector.Operations")
 Option Explicit
 
 Private Const CLASS_NAME As String = "VectorOperator"
@@ -164,20 +164,14 @@ End Function
 
 Private Function IsSameSize(ByVal leftVector As IVector, ByVal rightVector As IVector) As Boolean
     
-    If Not leftVector.length = rightVector.length Then
-        IsSameSize = False
-    Else
-        IsSameSize = True
-    End If
+    IsSameSize = Not (Not leftVector.length = rightVector.length)
     
 End Function
 
 Private Function IsSameOrientation(ByVal leftVector As IVector, ByVal rightVector As IVector) As Boolean
     
-    If Not leftVector.Orientation = rightVector.Orientation Then
-        IsSameOrientation = False
-    Else
-        IsSameOrientation = True
-    End If
+    IsSameOrientation = Not (Not leftVector.Orientation = rightVector.Orientation)
     
 End Function
+
+

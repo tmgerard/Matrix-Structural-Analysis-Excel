@@ -7,7 +7,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Solver.Interface")
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Solver.Interface")
+'@Interface ILinearSolver
 Option Explicit
 
 Public Function Solve(ByVal coefficientMatrix As IMatrix, ByVal solutionVector As IVector) As IVector

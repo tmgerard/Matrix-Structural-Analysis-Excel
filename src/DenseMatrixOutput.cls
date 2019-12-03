@@ -7,13 +7,12 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Output")
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Matrix.Output")
 Option Explicit
 Implements IMatrixOutput
 
 Private Const DEFAULT_NUMBER_FORMAT As String = "#0.0000"
 Private Const DEFAULT_FILENAME As String = "matrix_output"
-Private Const CLASS_NAME As String = "DenseMatrixOutput"
 
 Private Sub IMatrixOutput_ToImmediateWindow(ByVal matrixData As IMatrixStorage, Optional ByVal OutputFormat As String = DEFAULT_NUMBER_FORMAT)
 
@@ -107,6 +106,7 @@ Private Sub IMatrixOutput_ToWorksheet(ByVal matrixData As IMatrixStorage, ByVal 
     End With
 
 End Sub
+
 
 
 

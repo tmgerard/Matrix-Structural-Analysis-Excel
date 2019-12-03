@@ -7,6 +7,31 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Geometry")
+'@Folder("StructuralAnalysis.Model.Geometry.Node")
+'@IgnoreModule UseMeaningfulName
 Option Explicit
 Implements INode
+
+Private Type TNode2D
+    xCoordinate As Double
+    yCoordinate As Double
+End Type
+
+Private this As TNode2D
+Private Const CLASS_NAME As String = "Node2D"
+
+Public Property Get X() As Double
+    X = this.xCoordinate
+End Property
+
+Public Property Let X(ByVal value As Double)
+    this.xCoordinate = value
+End Property
+
+Public Property Get Y() As Double
+    Y = this.yCoordinate
+End Property
+
+Public Property Let Y(ByVal value As Double)
+    this.yCoordinate = value
+End Property

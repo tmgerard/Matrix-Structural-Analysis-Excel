@@ -11,7 +11,8 @@ Option Explicit
 Implements IMatrix
 Implements ICloneable
 
-'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix")
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Matrix")
+'@IgnoreModule ObjectVariableNotSet
 
 Private Type TDenseMatrix
     matrixData As IMatrixStorage
@@ -19,7 +20,6 @@ Private Type TDenseMatrix
 End Type
 
 Private this As TDenseMatrix
-Private Const CLASS_NAME As String = "DenseMatrix"
 
 Private Sub Class_Initialize()
     With this
@@ -138,7 +138,7 @@ Private Property Let IMatrix_storage(ByVal Storage As IMatrixStorage)
 End Property
 
 Private Property Get IMatrix_storage() As IMatrixStorage
-    IMatrix_storage = Me.Storage
+    Set IMatrix_storage = Me.Storage
 End Property
 
 '@Description("Sets element value at specified location.")

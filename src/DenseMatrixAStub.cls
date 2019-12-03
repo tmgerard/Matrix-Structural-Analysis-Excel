@@ -7,7 +7,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("Tests.Linear Algebra.Matrix Stubs")
+'@Folder("Tests.LinearAlgebra.MatrixStubs")
+'@IgnoreModule
 Option Explicit
 Implements IMatrix
 Implements ICloneable
@@ -77,6 +78,7 @@ Private Sub IMatrix_SetSize(ByVal Rows As Long, ByVal Columns As Long)
 
 End Sub
 
+'@Ignore UseMeaningfulName
 Private Property Let IMatrix_storage(ByVal RHS As IMatrixStorage)
 
 End Property

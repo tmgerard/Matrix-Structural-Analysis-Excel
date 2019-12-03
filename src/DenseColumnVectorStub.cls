@@ -7,14 +7,14 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("Tests.Linear Algebra.Vector Stubs")
+'@Folder("Tests.LinearAlgebra.VectorStubs")
+'@IgnoreModule
 Option Explicit
 Implements ICloneable
 Implements IVector
 
 Private vectorStub As IVector
 Const ROW_COUNT As Long = 3
-Const COLUMN_COUNT As Long = 1
 
 Private Sub Class_Initialize()
     Set vectorStub = New DenseVector
@@ -78,6 +78,7 @@ Private Function IVector_ScalarMultiply(ByVal scalarValue As Double) As IVector
 
 End Function
 
+'@Ignore UseMeaningfulName
 Private Property Let IVector_Storage(ByVal RHS As IVectorStorage)
 
 End Property
@@ -90,6 +91,7 @@ Private Function IVector_Subtract(ByVal otherVector As IVector) As IVector
 
 End Function
 
+'@Ignore UseMeaningfulName
 Private Sub IVector_SwapValues(ByVal index1 As Long, ByVal index2 As Long)
 
 End Sub

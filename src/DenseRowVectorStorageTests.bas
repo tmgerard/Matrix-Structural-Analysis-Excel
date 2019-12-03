@@ -3,7 +3,8 @@ Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Linear Algebra.Matrix Storage")
+'@Folder("Tests.LinearAlgebra.MatrixStorage")
+'@IgnoreModule
 
 Private Const VECTOR_LENGTH As Long = 4
 Private Storage As DenseRowVectorStorage

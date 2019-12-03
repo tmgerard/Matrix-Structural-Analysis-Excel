@@ -7,7 +7,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Vector.Errors")
+'@PredeclaredId
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Vector.Errors")
 
 Option Explicit
 
@@ -94,3 +95,4 @@ Public Sub ThrowCreateFromRangeError(Optional ByVal ErrorSource As String = vbNu
               Description:=ErrorMessage
 
 End Sub
+

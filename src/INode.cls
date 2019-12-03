@@ -9,4 +9,4 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Option Explicit
 
-'@Folder("StiffnessMethod.Interface")
+'@Folder("StructuralAnalysis.Model.Geometry.Interface")

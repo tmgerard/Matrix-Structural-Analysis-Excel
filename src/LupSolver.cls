@@ -7,7 +7,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Solver.Direct Methods")
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Solver.DirectMethods")
+'@IgnoreModule UseMeaningfulName, ObjectVariableNotSet
 Option Explicit
 Implements ILinearSolver
 
@@ -36,11 +37,12 @@ Public Function Solve(ByVal coefficientMatrix As IMatrix, ByVal solutionVector A
     
     LupDecomposition coefficientMatrix
     
-    Dim y As IVector
-    Set y = ForwardSubstitution(coefficientMatrix, solutionVector)
+    '@Ignore UseMeaningfulName
+    Dim Y As IVector
+    Set Y = ForwardSubstitution(coefficientMatrix, solutionVector)
     
     Dim result As IVector
-    Set result = BackSubstitution(coefficientMatrix, y)
+    Set result = BackSubstitution(coefficientMatrix, Y)
     
     Set Solve = result
 
@@ -51,20 +53,20 @@ Private Function BackSubstitution(ByVal factorizedMatrix As IMatrix, ByVal forwa
     Dim factory As IVectorStorageFactory
     Set factory = MatrixStorageFactory.CreateFactory(DenseColumnVector)
     
-    Dim result As New IVector
+    Dim result As IVector
     Set result = New DenseVector
     result.Storage = factory.Create(forwardSolvedVector.length)
     
     Set factory = Nothing
     
     Dim i As Long
-    Dim j As Long
+    Dim J As Long
     Dim sum As Double
     For i = forwardSolvedVector.length - 1 To 0 Step -1
         sum = 0
-        For j = 0 To forwardSolvedVector.length - 1
-            sum = sum + factorizedMatrix.Element(i, j) * result.Element(j)
-        Next j
+        For J = 0 To forwardSolvedVector.length - 1
+            sum = sum + factorizedMatrix.Element(i, J) * result.Element(J)
+        Next J
         
         result.Element(i) = (forwardSolvedVector.Element(i) - sum) _
             / factorizedMatrix.Element(i, i)
@@ -79,25 +81,25 @@ Private Function ForwardSubstitution(ByVal factorizedMatrix As IMatrix, ByVal so
     Dim factory As IVectorStorageFactory
     Set factory = MatrixStorageFactory.CreateFactory(DenseColumnVector)
     
-    Dim y As New IVector
-    Set y = New DenseVector
-    y.Storage = factory.Create(solutionVector.length)
+    Dim Y As IVector
+    Set Y = New DenseVector
+    Y.Storage = factory.Create(solutionVector.length)
     
     Set factory = Nothing
     
     Dim i As Long
-    Dim j As Long
+    Dim J As Long
     Dim sum As Double
     For i = 0 To solutionVector.length - 1
         sum = 0
-        For j = 0 To i
-            sum = sum + factorizedMatrix.Element(i, j) * y.Element(j)
-        Next j
+        For J = 0 To i
+            sum = sum + factorizedMatrix.Element(i, J) * Y.Element(J)
+        Next J
         
-        y.Element(i) = solutionVector.Element(this.permutation.Element(i)) - sum
+        Y.Element(i) = solutionVector.Element(this.permutation.Element(i)) - sum
     Next i
     
-    Set ForwardSubstitution = y
+    Set ForwardSubstitution = Y
     
 End Function
 
@@ -180,3 +182,7 @@ End Sub
 Private Function ILinearSolver_Solve(ByVal coefficientMatrix As IMatrix, ByVal solutionVector As IVector) As IVector
     Set ILinearSolver_Solve = Me.Solve(coefficientMatrix, solutionVector)
 End Function
+
+
+
+

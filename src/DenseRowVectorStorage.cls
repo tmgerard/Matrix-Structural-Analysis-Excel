@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Storage")
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Matrix.Storage")
 Option Explicit
 Implements IMatrixStorage
 Implements IVectorStorage
@@ -94,7 +94,7 @@ Public Function IsDense() As Boolean
     IsDense = True
 End Function
 
-Public Function IsMutable(ByVal index As Long) As Boolean
+Public Function IsMutable() As Boolean
     IsMutable = True
 End Function
 
@@ -139,10 +139,12 @@ Private Property Get IMatrixStorage_Columns() As Long
     IMatrixStorage_Columns = Me.Columns
 End Property
 
+'@Ignore ParameterNotUsed
 Private Property Let IMatrixStorage_Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal value As Double)
     Me.Element(columnIndex) = value
 End Property
 
+'@Ignore ParameterNotUsed
 Private Property Get IMatrixStorage_Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
     IMatrixStorage_Element = Me.Element(columnIndex)
 End Property
@@ -151,14 +153,16 @@ Private Function IMatrixStorage_IsDense() As Boolean
     IMatrixStorage_IsDense = Me.IsDense
 End Function
 
+'@Ignore ParameterNotUsed
 Private Function IMatrixStorage_IsMutable(ByVal rowIndex As Long, ByVal columnIndex As Long) As Boolean
-    IMatrixStorage_IsMutable = Me.IsMutable(columnIndex)
+    IMatrixStorage_IsMutable = Me.IsMutable()
 End Function
 
 Private Property Get IMatrixStorage_Rows() As Long
     IMatrixStorage_Rows = Me.Rows
 End Property
 
+'@Ignore ParameterNotUsed
 Private Sub IMatrixStorage_SetSize(ByVal Rows As Long, ByVal Columns As Long)
     Me.length = Columns
 End Sub

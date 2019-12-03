@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Factory")
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Matrix.Factory")
 Option Explicit
 Implements IMatrixStorageFactory
 Implements IVectorStorageFactory
@@ -27,7 +27,7 @@ Private Sub Class_Terminate()
     Set this.vectorData = Nothing
 End Sub
 
-'@Desctiption("Create an empty vector of a given length.")
+'@Description("Create an empty vector of a given length.")
 Public Function Create(ByVal length As Long) As DenseRowVectorStorage
     this.vectorData.length = length
     Set Create = this.vectorData
@@ -58,11 +58,7 @@ Private Function IsRangeAVector(ByVal WorksheetRange As Range) As Boolean
     Dim Columns As Long
     Columns = WorksheetRange.Columns.Count
     
-    If Rows > 1 And Columns > 1 Then
-        IsRangeAVector = False
-    Else
-        IsRangeAVector = True
-    End If
+    IsRangeAVector = Not (Rows > 1 And Columns > 1)
     
 End Function
 

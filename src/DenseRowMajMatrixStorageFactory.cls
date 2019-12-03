@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Factory")
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Matrix.Factory")
 
 Option Explicit
 Implements IMatrixStorageFactory
@@ -17,7 +17,6 @@ Private Type TDenseRowMajMatrixStorageFactory
 End Type
 
 Private this As TDenseRowMajMatrixStorageFactory
-Private Const CLASS_NAME As String = "DenseRowMajMatrixStorageFactory"
 
 '@Description("Initialize the MatrixData object")
 Private Sub Class_Initialize()

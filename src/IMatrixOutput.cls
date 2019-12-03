@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Interface")
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Matrix.Interface")
 '@Interface IMatrixOutput
 Option Explicit
 

@@ -7,7 +7,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'@Folder("StiffnessMethod.Model.Linear Algebra.Matrix.Errors")
+'@PredeclaredId
+'@Folder("StructuralAnalysis.Model.LinearAlgebra.Matrix.Errors")
 
 Option Explicit
 
@@ -93,6 +94,7 @@ Public Sub ThrowSubtractionError(Optional ByVal ErrorSource As String = vbNullSt
               Source:=ErrorSource, _
               Description:=ErrorMessage
 End Sub
+
 
 
 

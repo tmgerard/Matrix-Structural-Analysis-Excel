@@ -3,7 +3,8 @@ Option Explicit
 Option Private Module
 
 '@TestModule
-'@Folder("Tests.Linear Algebra.Factory")
+'@Folder("Tests.LinearAlgebra.Factory")
+'@IgnoreModule
 
 #If LateBind Then
     Private Assert As Object
@@ -17,7 +18,7 @@ Private factory As IMatrixStorageFactory
 Private Const CREATE_LENGTH As Long = 10
 
 '@ModuleInitialize
-Private Sub ModuleInitialize()
+Public Sub ModuleInitialize()
     'this method runs once per module.
     #If LateBind Then
         Set Assert = CreateObject("Rubberduck.AssertClass")

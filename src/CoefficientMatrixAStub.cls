@@ -7,7 +7,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("Tests.Linear Algebra.Solver Stubs")
+'@Folder("Tests.LinearAlgebra.SolverStubs")
+'@IgnoreModule
 Option Explicit
 Implements IMatrix
 Implements ICloneable
@@ -19,6 +20,7 @@ Const COLUMN_COUNT As Long = 3
 Private Sub Class_Initialize()
     Set matrixStub = New DenseMatrix
     With matrixStub
+        '@Ignore ObjectVariableNotSet
         .Storage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(ROW_COUNT, COLUMN_COUNT)
         .Element(0, 0) = 3
         .Element(0, 1) = 2
@@ -42,6 +44,7 @@ Private Function ICloneable_Clone() As Object
     Set ICloneable_Clone = cloned.Clone
 End Function
 
+'@Ignore NonReturningFunction
 Private Function IMatrix_Add(ByVal otherMatrix As IMatrix) As IMatrix
 
 End Function
@@ -58,6 +61,7 @@ Private Property Get IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex A
     IMatrix_Element = matrixStub.Element(rowIndex, columnIndex)
 End Property
 
+'@Ignore NonReturningFunction
 Private Function IMatrix_Equals(ByVal otherMatrix As IMatrix) As Boolean
 
 End Function
@@ -66,6 +70,7 @@ Private Function IMatrix_IsSquare() As Boolean
     IMatrix_IsSquare = matrixStub.IsSquare
 End Function
 
+'@Ignore NonReturningFunction
 Private Function IMatrix_Multiply(ByVal otherMatrix As IMatrix) As IMatrix
 
 End Function
@@ -74,6 +79,7 @@ Private Function IMatrix_Rows() As Long
     IMatrix_Rows = matrixStub.Rows
 End Function
 
+'@Ignore NonReturningFunction
 Private Function IMatrix_ScalarMultiply(ByVal scalarValue As Double) As IMatrix
 
 End Function
@@ -82,14 +88,17 @@ Private Sub IMatrix_SetSize(ByVal Rows As Long, ByVal Columns As Long)
 
 End Sub
 
+'@Ignore UseMeaningfulName
 Private Property Let IMatrix_storage(ByVal RHS As IMatrixStorage)
 
 End Property
 
+'@Ignore NonReturningFunction
 Private Property Get IMatrix_storage() As IMatrixStorage
 
 End Property
 
+'@Ignore NonReturningFunction
 Private Function IMatrix_Subtract(ByVal otherMatrix As IMatrix) As IMatrix
 
 End Function
@@ -98,6 +107,7 @@ Private Sub IMatrix_SwapRows(ByVal firstRowIndex As Long, ByVal secondRowIndex A
     matrixStub.SwapRows firstRowIndex, secondRowIndex
 End Sub
 
+'@Ignore NonReturningFunction
 Private Function IMatrix_Transpose() As IMatrix
 
 End Function
