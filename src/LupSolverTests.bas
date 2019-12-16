@@ -57,8 +57,8 @@ Private Sub TestSolve()
     Dim expected As IVector
     Set expected = New UnkownVectorXStub
     
-    Dim A As IMatrix
-    Set A = New CoefficientMatrixAStub
+    Dim a As IMatrix
+    Set a = New CoefficientMatrixAStub
     
     Dim b As IVector
     Set b = New SolutionVectorBStub
@@ -66,7 +66,7 @@ Private Sub TestSolve()
     Dim X As IVector
 
     'Act:
-    Set X = solver.Solve(A, b)
+    Set X = solver.Solve(a, b)
 
     'Assert:
     Dim i As Long
@@ -89,8 +89,8 @@ Private Sub TestSolveSingularMatrix()
     Dim expected As IVector
     Set expected = New UnkownVectorXStub
     
-    Dim A As IMatrix
-    Set A = New SingluarCeofficientMatrixAStub
+    Dim a As IMatrix
+    Set a = New SingluarCeofficientMatrixAStub
     
     Dim b As IVector
     Set b = New SolutionVectorBStub
@@ -98,7 +98,7 @@ Private Sub TestSolveSingularMatrix()
     Dim X As IVector
 
     'Act:
-    Set X = solver.Solve(A, b)
+    Set X = solver.Solve(a, b)
 
 Assert:
     Assert.Fail "Expected error was not raised"

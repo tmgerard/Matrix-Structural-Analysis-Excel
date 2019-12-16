@@ -20,12 +20,20 @@ End Function
 Public Function Cw() As Double
 End Function
 
-'@Description("Horizontal axis moment of inertia")
+'@Description("Horizontal principle axis moment of inertia")
 Public Function Ix() As Double
 End Function
 
-'@Description("Vertical axis moment of inertia")
+'@Description("Vertical principle axis moment of inertia")
 Public Function Iy() As Double
+End Function
+
+'@Description("Moment of inertia about rotated axis at a given angle from the horizontal principle axis")
+Public Function Iu() As Double
+End Function
+
+'@Description("Moment of inertia about rotated axis at a given angle from the vertical principle axis")
+Public Function Iv() As Double
 End Function
 
 '@Description("Polar moment of inertia")
@@ -36,16 +44,12 @@ End Function
 Public Function J() As Double
 End Function
 
-'@Description("Moment of inertia about axis rotated a given angle from the horizontal")
-Public Function MomentOfInertia(ByVal rotation As Double) As Double
-End Function
-
 '@Description("Horizontal axis radius of gyration")
-Public Function Rx()
+Public Function Rx() As Double
 End Function
 
 '@Description("Vertical axis radius of gyration")
-Public Function Ry()
+Public Function Ry() As Double
 End Function
 
 '@Description("Section modulus about horizontal axis")
