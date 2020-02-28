@@ -66,7 +66,7 @@ Public Function Area() As Double
 End Function
 
 '@Description("Warping constant")
-' The warping constant for closed sections is often taken as zero
+' The warping constant for closed sections is typically taken as zero
 Public Function Cw() As Double
     Cw = 0
 End Function
@@ -155,7 +155,7 @@ End Function
 
 '@Description("Plastic section modulus about horizontal axis")
 Public Function Zx() As Double
-    Zx = this.Width * this.Width ^ 2 / 4#
+    Zx = this.Width * this.Height ^ 2 / 4#
 End Function
 
 '@Description("Plastic section modulus about vertical axis")

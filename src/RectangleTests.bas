@@ -134,6 +134,27 @@ TestFail:
 End Sub
 
 '@TestMethod("Calculation")
+Private Sub TestArea()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim Expected As Double
+    Expected = 12
+    
+    plate.Create Width:=rectWidth, Height:=rectHeight
+
+    'Act:
+
+    'Assert:
+    Assert.AreEqual Expected:=Expected, actual:=plate.Area
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Calculation")
 Private Sub TestIx()
     On Error GoTo TestFail
     
@@ -231,6 +252,90 @@ Private Sub TestSy()
 
     'Assert:
     Assert.AreEqual Expected:=Expected, actual:=plate.Sy
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Calculation")
+Private Sub TestZx()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim Expected As Double
+    Expected = 9
+    
+    plate.Create Width:=rectWidth, Height:=rectHeight
+
+    'Act:
+
+    'Assert:
+    Assert.AreEqual Expected:=Expected, actual:=plate.Zx
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Calculation")
+Private Sub TestZy()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim Expected As Double
+    Expected = 12
+    
+    plate.Create Width:=rectWidth, Height:=rectHeight
+
+    'Act:
+
+    'Assert:
+    Assert.AreEqual Expected:=Expected, actual:=plate.Zy
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Calculation")
+Private Sub TestRx()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim Expected As Double
+    Expected = 0.866025
+    
+    plate.Create Width:=rectWidth, Height:=rectHeight
+
+    'Act:
+
+    'Assert:
+    Assert.AreEqual Expected:=Expected, actual:=Round(plate.Rx, 6)
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+End Sub
+
+'@TestMethod("Calculation")
+Private Sub TestRy()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim Expected As Double
+    Expected = 1.154701
+    
+    plate.Create Width:=rectWidth, Height:=rectHeight
+
+    'Act:
+
+    'Assert:
+    Assert.AreEqual Expected:=Expected, actual:=Round(plate.Ry, 6)
 
 TestExit:
     Exit Sub
