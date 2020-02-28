@@ -15,13 +15,13 @@ Implements IStructuralCrossSection
 Private Type TRectangle
     Width As Double
     Height As Double
-    Rotation As Double
+    rotation As Double
 End Type
 
 Private this As TRectangle
 Private Const CLASS_NAME As String = "Rectangle"
 
-Public Sub Create(ByVal Width As Double, ByVal Height As Double, ByVal Rotation As Double)
+Public Sub Create(ByVal Width As Double, ByVal Height As Double, Optional ByVal rotation As Double = 0)
     
     CheckDimension Width
     CheckDimension Height
@@ -29,7 +29,7 @@ Public Sub Create(ByVal Width As Double, ByVal Height As Double, ByVal Rotation 
     With this
         .Width = Width
         .Height = Height
-        .Rotation = Rotation
+        .rotation = rotation
     End With
     
 End Sub
@@ -43,12 +43,12 @@ Public Property Let Height(ByVal value As Double)
     this.Height = value
 End Property
 
-Public Property Get Rotation() As Double
-    Rotation = this.Rotation
+Public Property Get rotation() As Double
+    rotation = this.rotation
 End Property
 
-Public Property Let Rotation(ByVal radians As Double)
-    this.Rotation = radians
+Public Property Let rotation(ByVal radians As Double)
+    this.rotation = radians
 End Property
 
 Public Property Get Width() As Double
@@ -91,7 +91,7 @@ Public Function Iu() As Double
     Dim transform As MomentOfInertiaTransformer
     Set transform = New MomentOfInertiaTransformer
     
-    Iu = transform.Iu(Me.Ix, Me.Iy, Me.Ixy, this.Rotation)
+    Iu = transform.Iu(Me.Ix, Me.Iy, Me.Ixy, this.rotation)
 End Function
 
 '@Description("Moment of inertia about rotated axis at a given angle from the vertical principle axis")
@@ -99,7 +99,7 @@ Public Function Iv() As Double
     Dim transform As MomentOfInertiaTransformer
     Set transform = New MomentOfInertiaTransformer
     
-    Iv = transform.Iv(Me.Ix, Me.Iy, Me.Ixy, this.Rotation)
+    Iv = transform.Iv(Me.Ix, Me.Iy, Me.Ixy, this.rotation)
 End Function
 
 '@Description("Product of inertia for rotated cross-section")
@@ -107,7 +107,7 @@ Public Function Iuv() As Double
     Dim transform As MomentOfInertiaTransformer
     Set transform = New MomentOfInertiaTransformer
     
-    Iuv = transform.Iuv(Me.Ix, Me.Iy, Me.Ixy, this.Rotation)
+    Iuv = transform.Iuv(Me.Ix, Me.Iy, Me.Ixy, this.rotation)
 End Function
 
 '@Description("Polar moment of inertia")
@@ -120,12 +120,17 @@ End Function
 ' Table 10.7 for torsion constant formula of a rectangular cross-section
 Public Function J() As Double
     Dim a As Double
-    a = 0.5 * Max(this.Height, this.Width)
+    a = 0.5 * WorksheetFunction.Max(this.Height, this.Width)
     
     Dim b As Double
-    b = 0.5 * Min(this.Height, this.Width)
+    b = 0.5 * WorksheetFunction.Min(this.Height, this.Width)
     
-    J = a * b ^ 3 * (16# / 3#) - 3.36 * (b / a) * (1 - (b ^ 4 / (12# * a ^ 4)))
+    Dim result As Double
+    result = 3.36 * (b / a) * (1 - (b ^ 4 / (12# * a ^ 4)))
+    result = 16# / 3# - result
+    result = (a * b ^ 3) * result
+    
+    J = result
 End Function
 
 '@Description("Horizontal axis radius of gyration")

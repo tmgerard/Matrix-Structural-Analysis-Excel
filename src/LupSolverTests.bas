@@ -54,8 +54,8 @@ Private Sub TestSolve()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim expected As IVector
-    Set expected = New UnkownVectorXStub
+    Dim Expected As IVector
+    Set Expected = New UnkownVectorXStub
     
     Dim a As IMatrix
     Set a = New CoefficientMatrixAStub
@@ -71,7 +71,7 @@ Private Sub TestSolve()
     'Assert:
     Dim i As Long
     For i = 0 To X.length - 1
-        Assert.AreEqual expected.Element(i), X.Element(i)
+        Assert.AreEqual Expected.Element(i), X.Element(i)
     Next i
 
 TestExit:
@@ -86,8 +86,8 @@ Private Sub TestSolveSingularMatrix()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim expected As IVector
-    Set expected = New UnkownVectorXStub
+    Dim Expected As IVector
+    Set Expected = New UnkownVectorXStub
     
     Dim a As IMatrix
     Set a = New SingluarCeofficientMatrixAStub

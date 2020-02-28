@@ -13,12 +13,21 @@ Option Explicit
 Implements INode
 
 Private Type TNode2D
+    nodeName As String
     xCoordinate As Double
     yCoordinate As Double
 End Type
 
 Private this As TNode2D
 Private Const CLASS_NAME As String = "Node2D"
+
+Public Property Get Name() As String
+    Name = this.nodeName
+End Property
+
+Public Property Let Name(ByVal value As String)
+    this.nodeName = value
+End Property
 
 Public Property Get X() As Double
     X = this.xCoordinate

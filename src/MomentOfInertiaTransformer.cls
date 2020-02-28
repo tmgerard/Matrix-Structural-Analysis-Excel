@@ -40,7 +40,7 @@ Public Function Iv(ByVal Ix As Double, ByVal Iy As Double, ByVal Ixy As Double, 
     Dim c As Double
     c = Ixy * Math.Sin(2 * radians)
     
-    Iu = a + b - c
+    Iv = a - b + c
 
 End Function
 
