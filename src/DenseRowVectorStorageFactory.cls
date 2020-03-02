@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StructuralAnalysis.Model.LinearAlgebra.Matrix.Factory")
+'@Folder("StructuralAnalysis.Math.LinearAlgebra.Matrix.Factory")
 Option Explicit
 Implements IMatrixStorageFactory
 Implements IVectorStorageFactory

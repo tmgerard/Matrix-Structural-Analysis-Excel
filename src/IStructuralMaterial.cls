@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StructuralAnalysis.Model.Materials")
+'@Folder("StructuralAnalysis.StructuralModel.Materials")
 '@Interface IStructuralMaterial
 Option Explicit
 

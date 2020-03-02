@@ -7,6 +7,23 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'@Folder("StructuralAnalysis.StructuralModel.Interface")
+'@Interface INode
 Option Explicit
 
-'@Folder("StructuralAnalysis.Model.Geometry.Interface")
+Public Enum SupportCondition
+    Roller = 0
+    Pinned
+    Slider
+    Fixed
+End Enum
+
+Public Enum DegreeOfFreedom
+    Fx = 0
+    Mx
+    Fy
+    My
+    Fz
+    Mz
+End Enum
+

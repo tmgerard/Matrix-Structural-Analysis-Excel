@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StructuralAnalysis.Model.LinearAlgebra.Vector.Operations")
+'@Folder("StructuralAnalysis.Math.LinearAlgebra.Vector.Operations")
 Option Explicit
 
 Private Const CLASS_NAME As String = "VectorOperator"

@@ -11,7 +11,7 @@ Option Explicit
 Implements IMatrix
 Implements ICloneable
 
-'@Folder("StructuralAnalysis.Model.LinearAlgebra.Matrix")
+'@Folder("StructuralAnalysis.Math.LinearAlgebra.Matrix")
 '@IgnoreModule ObjectVariableNotSet
 
 Private Type TDenseMatrix

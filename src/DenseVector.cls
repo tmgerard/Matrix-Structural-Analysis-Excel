@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StructuralAnalysis.Model.LinearAlgebra.Vector")
+'@Folder("StructuralAnalysis.Math.LinearAlgebra.Vector")
 '@IgnoreModule ObjectVariableNotSet
 Option Explicit
 Implements ICloneable

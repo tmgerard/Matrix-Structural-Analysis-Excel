@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 '@PredeclaredId
-'@Folder("StructuralAnalysis.Model.LinearAlgebra.Vector.Errors")
+'@Folder("StructuralAnalysis.Math.LinearAlgebra.Vector.Errors")
 
 Option Explicit
 

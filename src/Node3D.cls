@@ -2,7 +2,7 @@ VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
-Attribute VB_Name = "Node2D"
+Attribute VB_Name = "Node3D"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
@@ -12,15 +12,15 @@ Attribute VB_Exposed = False
 Option Explicit
 Implements INode
 
-Private Type TNode2D
+Private Type TNode3D
     nodeDescription As String
-    Coordinate As Coordinate2d
+    Coordinate As Coordinate3d
     activeDOF() As Boolean
 End Type
 
-Private this As TNode2D
-Private Const CLASS_NAME As String = "Node2D"
-Private Const TotalDegreesOfFreedom As Integer = 4
+Private this As TNode3D
+Private Const CLASS_NAME As String = "Node3D"
+Private Const TotalDegreesOfFreedom As Integer = 6
 
 Private Sub Class_Initialize()
 
@@ -44,7 +44,7 @@ Public Property Get Coordinate() As ICoordinate
     Coordinate = this.Coordinate
 End Property
 
-Public Property Set Coordinate(ByRef value As Coordinate2d)
+Public Property Set Coordinate(ByRef value As Coordinate3d)
     this.Coordinate = value
 End Property
 
@@ -59,3 +59,5 @@ End Property
 Public Function DegreesOfFreedom() As Integer
     DegreesOfFreedom = TotalDegreesOfFreedom
 End Function
+
+

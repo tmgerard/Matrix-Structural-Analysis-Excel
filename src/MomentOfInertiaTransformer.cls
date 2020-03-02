@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StructuralAnalysis.Model.StructuralCrossSections.SectionProperties")
+'@Folder("StructuralAnalysis.StructuralModel.StructuralCrossSections.SectionProperties")
 Option Explicit
 
 '@Description("Moment of inertia about rotated axis at a given angle from the horizontal axis")

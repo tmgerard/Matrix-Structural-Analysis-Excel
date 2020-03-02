@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 '@PredeclaredId
-'@Folder("StructuralAnalysis.Model.LinearAlgebra.Matrix.Factory")
+'@Folder("StructuralAnalysis.Math.LinearAlgebra.Matrix.Factory")
 Option Explicit
 
 Private Const CLASS_NAME As String = "MatrixStorageFactory"

@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Folder("StructuralAnalysis.Model.LinearAlgebra.Solver.DirectMethods")
+'@Folder("StructuralAnalysis.Math.LinearAlgebra.Solver.DirectMethods")
 '@IgnoreModule UseMeaningfulName, ObjectVariableNotSet
 Option Explicit
 Implements ILinearSolver
@@ -59,18 +59,18 @@ Private Function BackSubstitution(ByVal factorizedMatrix As IMatrix, ByVal forwa
     
     Set factory = Nothing
     
-    Dim i As Long
+    Dim I As Long
     Dim J As Long
     Dim sum As Double
-    For i = forwardSolvedVector.length - 1 To 0 Step -1
+    For I = forwardSolvedVector.length - 1 To 0 Step -1
         sum = 0
         For J = 0 To forwardSolvedVector.length - 1
-            sum = sum + factorizedMatrix.Element(i, J) * result.Element(J)
+            sum = sum + factorizedMatrix.Element(I, J) * result.Element(J)
         Next J
         
-        result.Element(i) = (forwardSolvedVector.Element(i) - sum) _
-            / factorizedMatrix.Element(i, i)
-    Next i
+        result.Element(I) = (forwardSolvedVector.Element(I) - sum) _
+            / factorizedMatrix.Element(I, I)
+    Next I
     
     Set BackSubstitution = result
     
@@ -87,17 +87,17 @@ Private Function ForwardSubstitution(ByVal factorizedMatrix As IMatrix, ByVal so
     
     Set factory = Nothing
     
-    Dim i As Long
+    Dim I As Long
     Dim J As Long
     Dim sum As Double
-    For i = 0 To solutionVector.length - 1
+    For I = 0 To solutionVector.length - 1
         sum = 0
-        For J = 0 To i
-            sum = sum + factorizedMatrix.Element(i, J) * Y.Element(J)
+        For J = 0 To I
+            sum = sum + factorizedMatrix.Element(I, J) * Y.Element(J)
         Next J
         
-        Y.Element(i) = solutionVector.Element(this.permutation.Element(i)) - sum
-    Next i
+        Y.Element(I) = solutionVector.Element(this.permutation.Element(I)) - sum
+    Next I
     
     Set ForwardSubstitution = Y
     
@@ -171,10 +171,10 @@ Private Sub InitializePermutationVector(ByVal rowCount As Long)
     Set factory = Nothing
     
     ' store row indices in vector
-    Dim i As Long
-    For i = 0 To rowCount - 1
-        this.permutation.Element(i) = i
-    Next i
+    Dim I As Long
+    For I = 0 To rowCount - 1
+        this.permutation.Element(I) = I
+    Next I
 
 End Sub
 

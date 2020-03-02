@@ -69,10 +69,10 @@ Private Sub TestSolve()
     Set X = solver.Solve(a, b)
 
     'Assert:
-    Dim i As Long
-    For i = 0 To X.length - 1
-        Assert.AreEqual Expected.Element(i), X.Element(i)
-    Next i
+    Dim I As Long
+    For I = 0 To X.length - 1
+        Assert.AreEqual Expected.Element(I), X.Element(I)
+    Next I
 
 TestExit:
     Exit Sub

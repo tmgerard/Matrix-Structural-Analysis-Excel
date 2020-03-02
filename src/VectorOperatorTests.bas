@@ -277,11 +277,11 @@ Private Sub TestEuclideanDistance()
     Set vectorA = New DenseVectorXStub
 
     'Act:
-    Dim distance As Double
-    distance = operator.EuclideanDistance(vectorA)
+    Dim Distance As Double
+    Distance = operator.EuclideanDistance(vectorA)
 
     'Assert:
-    Assert.AreEqual EXPECTEDVALUE, distance
+    Assert.AreEqual EXPECTEDVALUE, Distance
 
 TestExit:
     Exit Sub
