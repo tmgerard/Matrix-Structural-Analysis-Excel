@@ -107,7 +107,7 @@ Private Sub TestHeightProperty()
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=rectHeight, actual:=plate.Height
+    Assert.AreEqual expected:=rectHeight, actual:=plate.Height
 
 TestExit:
     Exit Sub
@@ -125,7 +125,7 @@ Private Sub TestWidthProperty()
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=rectWidth, actual:=plate.Width
+    Assert.AreEqual expected:=rectWidth, actual:=plate.Width
 
 TestExit:
     Exit Sub
@@ -138,15 +138,15 @@ Private Sub TestArea()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 12
+    Dim expected As Double
+    expected = 12
     
     plate.Create Width:=rectWidth, Height:=rectHeight
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, actual:=plate.Area
+    Assert.AreEqual expected:=expected, actual:=plate.Area
 
 TestExit:
     Exit Sub
@@ -159,15 +159,15 @@ Private Sub TestIx()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 9
+    Dim expected As Double
+    expected = 9
     
     plate.Create Width:=rectWidth, Height:=rectHeight
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, actual:=plate.Ix
+    Assert.AreEqual expected:=expected, actual:=plate.Ix
 
 TestExit:
     Exit Sub
@@ -180,15 +180,15 @@ Private Sub TestIy()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 16
+    Dim expected As Double
+    expected = 16
     
     plate.Create Width:=rectWidth, Height:=rectHeight
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, actual:=plate.Iy
+    Assert.AreEqual expected:=expected, actual:=plate.Iy
 
 TestExit:
     Exit Sub
@@ -201,15 +201,15 @@ Private Sub TestIz()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 25
+    Dim expected As Double
+    expected = 25
     
     plate.Create Width:=rectWidth, Height:=rectHeight
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, actual:=plate.Iz
+    Assert.AreEqual expected:=expected, actual:=plate.Iz
 
 TestExit:
     Exit Sub
@@ -222,15 +222,15 @@ Private Sub TestSx()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 6
+    Dim expected As Double
+    expected = 6
     
     plate.Create Width:=rectWidth, Height:=rectHeight
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, actual:=plate.Sx
+    Assert.AreEqual expected:=expected, actual:=plate.Sx
 
 TestExit:
     Exit Sub
@@ -243,15 +243,15 @@ Private Sub TestSy()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 8
+    Dim expected As Double
+    expected = 8
     
     plate.Create Width:=rectWidth, Height:=rectHeight
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, actual:=plate.Sy
+    Assert.AreEqual expected:=expected, actual:=plate.Sy
 
 TestExit:
     Exit Sub
@@ -264,15 +264,15 @@ Private Sub TestZx()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 9
+    Dim expected As Double
+    expected = 9
     
     plate.Create Width:=rectWidth, Height:=rectHeight
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, actual:=plate.Zx
+    Assert.AreEqual expected:=expected, actual:=plate.Zx
 
 TestExit:
     Exit Sub
@@ -285,15 +285,15 @@ Private Sub TestZy()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 12
+    Dim expected As Double
+    expected = 12
     
     plate.Create Width:=rectWidth, Height:=rectHeight
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, actual:=plate.Zy
+    Assert.AreEqual expected:=expected, actual:=plate.Zy
 
 TestExit:
     Exit Sub
@@ -306,15 +306,15 @@ Private Sub TestRx()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 0.866025
+    Dim expected As Double
+    expected = 0.866025
     
     plate.Create Width:=rectWidth, Height:=rectHeight
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, actual:=Round(plate.Rx, 6)
+    Assert.AreEqual expected:=expected, actual:=Round(plate.Rx, 6)
 
 TestExit:
     Exit Sub
@@ -327,15 +327,15 @@ Private Sub TestRy()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 1.154701
+    Dim expected As Double
+    expected = 1.154701
     
     plate.Create Width:=rectWidth, Height:=rectHeight
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, actual:=Round(plate.Ry, 6)
+    Assert.AreEqual expected:=expected, actual:=Round(plate.Ry, 6)
 
 TestExit:
     Exit Sub
@@ -348,15 +348,15 @@ Private Sub TestJ()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 19.438506
+    Dim expected As Double
+    expected = 19.438506
     
     plate.Create Width:=rectWidth, Height:=rectHeight
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, actual:=Round(plate.J, 6)
+    Assert.AreEqual expected:=expected, actual:=Round(plate.J, 6)
 
 TestExit:
     Exit Sub

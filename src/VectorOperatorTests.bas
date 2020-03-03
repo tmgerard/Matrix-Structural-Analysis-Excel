@@ -202,9 +202,9 @@ Private Sub TestScalarMultiply()
     Set vectorC = operator.ScalarMultiply(vectorA, EXPECTEDVALUE)
 
     'Assert:
-    Assert.AreEqual EXPECTEDVALUE, vectorC.Element(0)
-    Assert.AreEqual EXPECTEDVALUE, vectorC.Element(1)
-    Assert.AreEqual EXPECTEDVALUE, vectorC.Element(2)
+    Assert.AreEqual EXPECTEDVALUE, vectorC.Storage.Element(0)
+    Assert.AreEqual EXPECTEDVALUE, vectorC.Storage.Element(1)
+    Assert.AreEqual EXPECTEDVALUE, vectorC.Storage.Element(2)
 
 TestExit:
     Exit Sub
@@ -228,9 +228,9 @@ Private Sub TestCrossProduct()
     Set vectorC = operator.CrossProduct(vectorA, vectorB)
 
     'Assert:
-    Assert.AreEqual -15#, vectorC.Element(0)
-    Assert.AreEqual -2#, vectorC.Element(1)
-    Assert.AreEqual 39#, vectorC.Element(2)
+    Assert.AreEqual -15#, vectorC.Storage.Element(0)
+    Assert.AreEqual -2#, vectorC.Storage.Element(1)
+    Assert.AreEqual 39#, vectorC.Storage.Element(2)
 
 TestExit:
     Exit Sub

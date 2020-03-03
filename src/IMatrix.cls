@@ -20,19 +20,11 @@ Public Function Columns() As Long
 End Function
 
 '@Description("Inject matrix data storage object.")
-Public Property Let Storage(ByVal matrixData As IMatrixStorage)
+Public Property Set Storage(ByVal matrixData As IMatrixStorage)
 End Property
 
 '@Description("Return storage object.")
 Public Property Get Storage() As IMatrixStorage
-End Property
-
-'@Description("Returns element value at specified location.")
-Public Property Get Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
-End Property
-
-'@Description("Set element value at specified location.")
-Public Property Let Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal value As Double)
 End Property
 
 '@Description("Check equality of two matrices")

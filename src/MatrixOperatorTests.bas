@@ -66,10 +66,10 @@ Private Sub TestAdd()
     Set MatrixC = operator.Add(MatrixA, MatrixB)
 
     'Assert:
-    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(0, 0)
-    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(0, 1)
-    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(1, 0)
-    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(1, 1)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Storage.Element(0, 0)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Storage.Element(0, 1)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Storage.Element(1, 0)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Storage.Element(1, 1)
 
 TestExit:
     Exit Sub
@@ -122,12 +122,12 @@ Private Sub TestMultiply()
     Set MatrixC = operator.Multiply(MatrixA, MatrixB)
 
     'Assert:
-    Assert.AreEqual 1#, MatrixC.Element(0, 0)
-    Assert.AreEqual 47#, MatrixC.Element(0, 1)
-    Assert.AreEqual 5#, MatrixC.Element(1, 0)
-    Assert.AreEqual 32#, MatrixC.Element(1, 1)
-    Assert.AreEqual -28#, MatrixC.Element(2, 0)
-    Assert.AreEqual 18#, MatrixC.Element(2, 1)
+    Assert.AreEqual 1#, MatrixC.Storage.Element(0, 0)
+    Assert.AreEqual 47#, MatrixC.Storage.Element(0, 1)
+    Assert.AreEqual 5#, MatrixC.Storage.Element(1, 0)
+    Assert.AreEqual 32#, MatrixC.Storage.Element(1, 1)
+    Assert.AreEqual -28#, MatrixC.Storage.Element(2, 0)
+    Assert.AreEqual 18#, MatrixC.Storage.Element(2, 1)
 
 TestExit:
     Exit Sub
@@ -181,10 +181,10 @@ Private Sub TestScalarMultiply()
     Set MatrixC = operator.ScalarMultiply(MatrixA, EXPECTED_VALUE)
 
     'Assert:
-    Assert.AreEqual EXPECTED_VALUE, MatrixC.Element(0, 0)
-    Assert.AreEqual EXPECTED_VALUE, MatrixC.Element(0, 1)
-    Assert.AreEqual EXPECTED_VALUE, MatrixC.Element(1, 0)
-    Assert.AreEqual EXPECTED_VALUE, MatrixC.Element(1, 1)
+    Assert.AreEqual EXPECTED_VALUE, MatrixC.Storage.Element(0, 0)
+    Assert.AreEqual EXPECTED_VALUE, MatrixC.Storage.Element(0, 1)
+    Assert.AreEqual EXPECTED_VALUE, MatrixC.Storage.Element(1, 0)
+    Assert.AreEqual EXPECTED_VALUE, MatrixC.Storage.Element(1, 1)
 
 TestExit:
     Exit Sub
@@ -210,10 +210,10 @@ Private Sub TestSubtraction()
     Set MatrixC = operator.Subtract(MatrixA, MatrixB)
 
     'Assert:
-    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(0, 0)
-    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(0, 1)
-    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(1, 0)
-    Assert.AreEqual EXPECTEDVALUE, MatrixC.Element(1, 1)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Storage.Element(0, 0)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Storage.Element(0, 1)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Storage.Element(1, 0)
+    Assert.AreEqual EXPECTEDVALUE, MatrixC.Storage.Element(1, 1)
 
 TestExit:
     Exit Sub
@@ -265,10 +265,10 @@ Private Sub TestSwapRows()
     operator.SwapRows matrix:=MatrixA, firstRowIndex:=0, secondRowIndex:=1
 
     'Assert:
-    Assert.AreEqual ROW_ONE_EXPECTED_VALUE, MatrixA.Element(0, 0)
-    Assert.AreEqual ROW_ONE_EXPECTED_VALUE, MatrixA.Element(0, 1)
-    Assert.AreEqual ROW_TWO_EXPECTED_VALUE, MatrixA.Element(1, 0)
-    Assert.AreEqual ROW_TWO_EXPECTED_VALUE, MatrixA.Element(1, 1)
+    Assert.AreEqual ROW_ONE_EXPECTED_VALUE, MatrixA.Storage.Element(0, 0)
+    Assert.AreEqual ROW_ONE_EXPECTED_VALUE, MatrixA.Storage.Element(0, 1)
+    Assert.AreEqual ROW_TWO_EXPECTED_VALUE, MatrixA.Storage.Element(1, 0)
+    Assert.AreEqual ROW_TWO_EXPECTED_VALUE, MatrixA.Storage.Element(1, 1)
 
 TestExit:
     Exit Sub
@@ -288,13 +288,13 @@ Private Sub TestTranspose()
     Set MatrixA = New DenseMatrix
     
     With MatrixA
-        .Storage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
-        .Element(0, 0) = 1#
-        .Element(0, 1) = 2#
-        .Element(1, 0) = 3#
-        .Element(1, 1) = 4#
-        .Element(2, 0) = 5#
-        .Element(2, 1) = 6#
+        Set .Storage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(Rows, Columns)
+        .Storage.Element(0, 0) = 1#
+        .Storage.Element(0, 1) = 2#
+        .Storage.Element(1, 0) = 3#
+        .Storage.Element(1, 1) = 4#
+        .Storage.Element(2, 0) = 5#
+        .Storage.Element(2, 1) = 6#
     End With
 
     'Act:
@@ -302,12 +302,12 @@ Private Sub TestTranspose()
     Set MatrixC = operator.Transpose(MatrixA)
 
     'Assert:
-    Assert.AreEqual 1#, MatrixC.Element(0, 0)
-    Assert.AreEqual 3#, MatrixC.Element(0, 1)
-    Assert.AreEqual 5#, MatrixC.Element(0, 2)
-    Assert.AreEqual 2#, MatrixC.Element(1, 0)
-    Assert.AreEqual 4#, MatrixC.Element(1, 1)
-    Assert.AreEqual 6#, MatrixC.Element(1, 2)
+    Assert.AreEqual 1#, MatrixC.Storage.Element(0, 0)
+    Assert.AreEqual 3#, MatrixC.Storage.Element(0, 1)
+    Assert.AreEqual 5#, MatrixC.Storage.Element(0, 2)
+    Assert.AreEqual 2#, MatrixC.Storage.Element(1, 0)
+    Assert.AreEqual 4#, MatrixC.Storage.Element(1, 1)
+    Assert.AreEqual 6#, MatrixC.Storage.Element(1, 2)
 
 TestExit:
     Exit Sub

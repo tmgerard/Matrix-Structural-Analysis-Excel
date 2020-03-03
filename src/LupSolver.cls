@@ -55,7 +55,7 @@ Private Function BackSubstitution(ByVal factorizedMatrix As IMatrix, ByVal forwa
     
     Dim result As IVector
     Set result = New DenseVector
-    result.Storage = factory.Create(forwardSolvedVector.length)
+    Set result.Storage = factory.Create(forwardSolvedVector.length)
     
     Set factory = Nothing
     
@@ -65,11 +65,11 @@ Private Function BackSubstitution(ByVal factorizedMatrix As IMatrix, ByVal forwa
     For I = forwardSolvedVector.length - 1 To 0 Step -1
         sum = 0
         For J = 0 To forwardSolvedVector.length - 1
-            sum = sum + factorizedMatrix.Element(I, J) * result.Element(J)
+            sum = sum + factorizedMatrix.Storage.Element(I, J) * result.Storage.Element(J)
         Next J
         
-        result.Element(I) = (forwardSolvedVector.Element(I) - sum) _
-            / factorizedMatrix.Element(I, I)
+        result.Storage.Element(I) = (forwardSolvedVector.Storage.Element(I) - sum) _
+            / factorizedMatrix.Storage.Element(I, I)
     Next I
     
     Set BackSubstitution = result
@@ -83,7 +83,7 @@ Private Function ForwardSubstitution(ByVal factorizedMatrix As IMatrix, ByVal so
     
     Dim Y As IVector
     Set Y = New DenseVector
-    Y.Storage = factory.Create(solutionVector.length)
+    Set Y.Storage = factory.Create(solutionVector.length)
     
     Set factory = Nothing
     
@@ -93,10 +93,10 @@ Private Function ForwardSubstitution(ByVal factorizedMatrix As IMatrix, ByVal so
     For I = 0 To solutionVector.length - 1
         sum = 0
         For J = 0 To I
-            sum = sum + factorizedMatrix.Element(I, J) * Y.Element(J)
+            sum = sum + factorizedMatrix.Storage.Element(I, J) * Y.Storage.Element(J)
         Next J
         
-        Y.Element(I) = solutionVector.Element(this.permutation.Element(I)) - sum
+        Y.Storage.Element(I) = solutionVector.Storage.Element(this.permutation.Storage.Element(I)) - sum
     Next I
     
     Set ForwardSubstitution = Y
@@ -123,8 +123,8 @@ Private Sub LupDecomposition(ByRef coefficientMatrix As IMatrix)
         ' find largest value in column to pivot on
         For rowIndex = pivotRowIndex To numRows - 1
             
-            If Math.Abs(coefficientMatrix.Element(rowIndex, pivotRowIndex)) > pivotValue Then
-                pivotValue = Math.Abs(coefficientMatrix.Element(rowIndex, pivotRowIndex))
+            If Math.Abs(coefficientMatrix.Storage.Element(rowIndex, pivotRowIndex)) > pivotValue Then
+                pivotValue = Math.Abs(coefficientMatrix.Storage.Element(rowIndex, pivotRowIndex))
                 swapRowIndex = rowIndex
             End If
         
@@ -139,7 +139,7 @@ Private Sub LupDecomposition(ByRef coefficientMatrix As IMatrix)
         ' reduce column below pivot
         For rowIndex = pivotRowIndex + 1 To numRows - 1
         
-            With coefficientMatrix
+            With coefficientMatrix.Storage
                 .Element(rowIndex, pivotRowIndex) = .Element(rowIndex, pivotRowIndex) _
                     / .Element(pivotRowIndex, pivotRowIndex)
             End With
@@ -147,7 +147,7 @@ Private Sub LupDecomposition(ByRef coefficientMatrix As IMatrix)
             ' update lower submatrix with Schur complement
             For columnIndex = pivotRowIndex + 1 To numRows - 1
             
-                With coefficientMatrix
+                With coefficientMatrix.Storage
                     .Element(rowIndex, columnIndex) = .Element(rowIndex, columnIndex) _
                         - .Element(rowIndex, pivotRowIndex) * .Element(pivotRowIndex, columnIndex)
                 End With
@@ -166,14 +166,14 @@ Private Sub InitializePermutationVector(ByVal rowCount As Long)
     Dim factory As IVectorStorageFactory
     Set factory = MatrixStorageFactory.CreateFactory(DenseColumnVector)
     
-    this.permutation.Storage = factory.Create(rowCount)
+    Set this.permutation.Storage = factory.Create(rowCount)
     
     Set factory = Nothing
     
     ' store row indices in vector
     Dim I As Long
     For I = 0 To rowCount - 1
-        this.permutation.Element(I) = I
+        this.permutation.Storage.Element(I) = I
     Next I
 
 End Sub

@@ -28,8 +28,8 @@ Public Function Add(ByVal leftMatrix As IMatrix, ByVal rightMatrix As IMatrix) A
     Dim column As Long
     For row = 0 To leftMatrix.Rows - 1
         For column = 0 To leftMatrix.Columns - 1
-            result.Element(row, column) = leftMatrix.Element(row, column) _
-                + rightMatrix.Element(row, column)
+            result.Storage.Element(row, column) = leftMatrix.Storage.Element(row, column) _
+                + rightMatrix.Storage.Element(row, column)
         Next column
     Next row
     
@@ -56,7 +56,7 @@ Public Function Equals(ByVal leftMatrix As IMatrix, ByVal rightMatrix As IMatrix
     Dim column As Long
     For row = 0 To leftMatrix.Rows - 1
         For column = 0 To leftMatrix.Columns - 1
-            If Not leftMatrix.Element(row, column) = rightMatrix.Element(row, column) Then
+            If Not leftMatrix.Storage.Element(row, column) = rightMatrix.Storage.Element(row, column) Then
                 result = False
                 Exit For
             End If
@@ -86,8 +86,8 @@ Public Function Multiply(ByVal leftMatrix As IMatrix, ByVal rightMatrix As IMatr
     For row = 0 To leftMatrix.Rows - 1
         For column = 0 To rightMatrix.Columns - 1
             For InnerProduct = 0 To leftMatrix.Columns - 1
-                result.Element(row, column) = result.Element(row, column) + _
-                    leftMatrix.Element(row, InnerProduct) * rightMatrix.Element(InnerProduct, column)
+                result.Storage.Element(row, column) = result.Storage.Element(row, column) + _
+                    leftMatrix.Storage.Element(row, InnerProduct) * rightMatrix.Storage.Element(InnerProduct, column)
             Next InnerProduct
         Next column
     Next row
@@ -108,7 +108,7 @@ Public Function ScalarMultiply(ByVal leftMatrix As IMatrix, ByVal scalarValue As
     Dim column As Long
     For row = 0 To leftMatrix.Rows - 1
         For column = 0 To leftMatrix.Columns - 1
-            result.Element(row, column) = leftMatrix.Element(row, column) * scalarValue
+            result.Storage.Element(row, column) = leftMatrix.Storage.Element(row, column) * scalarValue
         Next column
     Next row
     
@@ -123,9 +123,9 @@ Public Sub SwapRows(ByRef matrix As IMatrix, ByVal firstRowIndex As Long, ByVal 
     
     For column = 0 To matrix.Columns - 1
         With matrix
-            temp = .Element(secondRowIndex, column)
-            .Element(secondRowIndex, column) = .Element(firstRowIndex, column)
-            .Element(firstRowIndex, column) = temp
+            temp = .Storage.Element(secondRowIndex, column)
+            .Storage.Element(secondRowIndex, column) = .Storage.Element(firstRowIndex, column)
+            .Storage.Element(firstRowIndex, column) = temp
         End With
     Next column
 
@@ -147,8 +147,8 @@ Public Function Subtract(ByVal leftMatrix As IMatrix, ByVal rightMatrix As IMatr
     Dim column As Long
     For row = 0 To leftMatrix.Rows - 1
         For column = 0 To leftMatrix.Columns - 1
-            result.Element(row, column) = leftMatrix.Element(row, column) _
-                - rightMatrix.Element(row, column)
+            result.Storage.Element(row, column) = leftMatrix.Storage.Element(row, column) _
+                - rightMatrix.Storage.Element(row, column)
         Next column
     Next row
     
@@ -171,7 +171,7 @@ Public Function Transpose(ByVal matrix As IMatrix) As IMatrix
     
     For row = 0 To matrix.Columns - 1
         For column = 0 To matrix.Rows - 1
-            result.Element(row, column) = matrix.Element(column, row)
+            result.Storage.Element(row, column) = matrix.Storage.Element(column, row)
         Next column
     Next row
     

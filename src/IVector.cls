@@ -19,11 +19,11 @@ End Function
 Public Function DotProduct(ByVal otherVector As IVector) As Double
 End Function
 
-Public Property Get Element(ByVal index As Long) As Double
-End Property
-
-Public Property Let Element(ByVal index As Long, ByVal value As Double)
-End Property
+'Public Property Get Element(ByVal index As Long) As Double
+'End Property
+'
+'Public Property Let Element(ByVal index As Long, ByVal value As Double)
+'End Property
 
 Public Function EuclideanDistance() As Double
 End Function
@@ -44,7 +44,7 @@ End Function
 Public Sub SwapValues(ByVal index1 As Long, ByVal index2 As Long)
 End Sub
 
-Public Property Let Storage(ByVal vectorData As IVectorStorage)
+Public Property Set Storage(ByVal vectorData As IVectorStorage)
 End Property
 
 Public Property Get Storage() As IVectorStorage

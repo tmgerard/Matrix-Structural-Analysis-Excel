@@ -56,7 +56,7 @@ Private Sub TestIsSquareTrue()
     Set storageStub = New SquareDenseStorageStub
     
     With MatrixA
-        .Storage = storageStub
+        Set .Storage = storageStub
     End With
 
     'Act:
@@ -85,7 +85,7 @@ Private Sub TestIsSquareFalse()
     Set storageStub = New NotSquareDenseStorageStub
     
     With MatrixA
-        .Storage = storageStub
+        Set .Storage = storageStub
     End With
 
     'Act:

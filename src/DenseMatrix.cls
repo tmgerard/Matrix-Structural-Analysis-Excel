@@ -50,25 +50,17 @@ Public Function Clone() As DenseMatrix
     Dim cloneMatrix As DenseMatrix
     Set cloneMatrix = New DenseMatrix
     
-    cloneMatrix.Storage = matrixData.Clone
+    Set cloneMatrix.Storage = matrixData.Clone
     
     Set Clone = cloneMatrix
 End Function
 
-Public Property Let Storage(ByVal matrixData As IMatrixStorage)
+Public Property Set Storage(ByVal matrixData As IMatrixStorage)
     Set this.matrixData = matrixData
 End Property
 
 Public Property Get Storage() As IMatrixStorage
     Set Storage = this.matrixData
-End Property
-
-Public Property Let Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal value As Double)
-    this.matrixData.Element(rowIndex, columnIndex) = value
-End Property
-
-Public Property Get Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
-    Element = this.matrixData.Element(rowIndex, columnIndex)
 End Property
 
 Public Function Equals(ByVal otherMatrix As IMatrix) As Boolean
@@ -133,22 +125,12 @@ Private Sub IMatrix_SetSize(ByVal Rows As Long, ByVal Columns As Long)
     Me.SetSize Rows, Columns
 End Sub
 
-Private Property Let IMatrix_storage(ByVal Storage As IMatrixStorage)
-    Me.Storage = Storage
+Private Property Set IMatrix_storage(ByVal Storage As IMatrixStorage)
+    Set Me.Storage = Storage
 End Property
 
 Private Property Get IMatrix_storage() As IMatrixStorage
     Set IMatrix_storage = Me.Storage
-End Property
-
-'@Description("Sets element value at specified location.")
-Private Property Let IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal value As Double)
-    Me.Element(rowIndex, columnIndex) = value
-End Property
-
-'@Description("Returns element value at specified location.")
-Private Property Get IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
-    IMatrix_Element = Me.Element(rowIndex, columnIndex)
 End Property
 
 '@Description("Returns true if the matrix is square.")

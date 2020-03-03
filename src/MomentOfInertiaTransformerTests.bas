@@ -56,13 +56,13 @@ Private Sub TestIu()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 2.5
+    Dim expected As Double
+    expected = 2.5
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, _
+    Assert.AreEqual expected:=expected, _
         actual:=transform.Iu(Ix, Iy, Ixy, WorksheetFunction.radians(rotation))
 
 TestExit:
@@ -76,13 +76,13 @@ Private Sub TestIv()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 22.5
+    Dim expected As Double
+    expected = 22.5
 
     'Act:
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, _
+    Assert.AreEqual expected:=expected, _
         actual:=transform.Iv(Ix, Iy, Ixy, WorksheetFunction.radians(rotation))
 
 TestExit:
@@ -96,15 +96,15 @@ Private Sub TestIuv()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim Expected As Double
-    Expected = 3.5
+    Dim expected As Double
+    expected = 3.5
 
     'Act:
     Dim actual As Double
     actual = transform.Iuv(Ix, Iy, Ixy, WorksheetFunction.radians(rotation))
 
     'Assert:
-    Assert.AreEqual Expected:=Expected, _
+    Assert.AreEqual expected:=expected, _
         actual:=Round(actual, 1)
 
 TestExit:

@@ -26,7 +26,7 @@ Public Function Add(ByVal leftVector As IVector, ByVal rightVector As IVector) A
     
     Dim index As Long
     For index = 0 To leftVector.length - 1
-        result.Element(index) = leftVector.Element(index) + rightVector.Element(index)
+        result.Storage.Element(index) = leftVector.Storage.Element(index) + rightVector.Storage.Element(index)
     Next index
     
     Set Add = result
@@ -47,10 +47,13 @@ Public Function CrossProduct(ByVal leftVector As IVector, ByVal rightVector As I
     Dim result As IVector
     Set result = cloneVector(leftVector)
     
-    With result
-        .Element(0) = (leftVector.Element(1) * rightVector.Element(2)) - (leftVector.Element(2) * rightVector.Element(1))
-        .Element(1) = (leftVector.Element(2) * rightVector.Element(0)) - (leftVector.Element(0) * rightVector.Element(2))
-        .Element(2) = (leftVector.Element(0) * rightVector.Element(1)) - (leftVector.Element(1) * rightVector.Element(0))
+    With result.Storage
+        .Element(0) = (leftVector.Storage.Element(1) * rightVector.Storage.Element(2)) _
+            - (leftVector.Storage.Element(2) * rightVector.Storage.Element(1))
+        .Element(1) = (leftVector.Storage.Element(2) * rightVector.Storage.Element(0)) _
+            - (leftVector.Storage.Element(0) * rightVector.Storage.Element(2))
+        .Element(2) = (leftVector.Storage.Element(0) * rightVector.Storage.Element(1)) _
+            - (leftVector.Storage.Element(1) * rightVector.Storage.Element(0))
     End With
     
     Set CrossProduct = result
@@ -70,7 +73,7 @@ Public Function DotProduct(ByVal leftVector As IVector, ByVal rightVector As IVe
     
     Dim index As Long
     For index = 0 To leftVector.length - 1
-        result = result + leftVector.Element(index) * rightVector.Element(index)
+        result = result + leftVector.Storage.Element(index) * rightVector.Storage.Element(index)
     Next index
     
     DotProduct = result
@@ -84,7 +87,7 @@ Public Function EuclideanDistance(ByVal vector As IVector) As Double
     
     Dim index As Long
     For index = 0 To vector.length - 1
-        result = result + vector.Element(index) * vector.Element(index)
+        result = result + vector.Storage.Element(index) * vector.Storage.Element(index)
     Next index
     
     EuclideanDistance = Math.Sqr(result)
@@ -108,7 +111,7 @@ Public Function Equals(ByVal leftVector As IVector, ByVal rightVector As IVector
     
     Dim index As Long
     For index = 0 To leftVector.length - 1
-        If Not leftVector.Element(index) = rightVector.Element(index) Then
+        If Not leftVector.Storage.Element(index) = rightVector.Storage.Element(index) Then
             result = False
             Exit For
         End If
@@ -125,7 +128,7 @@ Public Function ScalarMultiply(ByVal leftVector As IVector, ByVal scalarValue As
     
     Dim index As Long
     For index = 0 To leftVector.length - 1
-        result.Element(index) = leftVector.Element(index) * scalarValue
+        result.Storage.Element(index) = leftVector.Storage.Element(index) * scalarValue
     Next index
     
     Set ScalarMultiply = result
@@ -146,7 +149,7 @@ Public Function Subtract(ByVal leftVector As IVector, ByVal rightVector As IVect
     
     Dim index As Long
     For index = 0 To leftVector.length - 1
-        result.Element(index) = leftVector.Element(index) - rightVector.Element(index)
+        result.Storage.Element(index) = leftVector.Storage.Element(index) - rightVector.Storage.Element(index)
     Next index
     
     Set Subtract = result

@@ -26,10 +26,10 @@ Private Sub Class_Initialize()
     Storage.length = COLUMN_COUNT
     
     With vectorStub
-        .Storage = Storage
-        .Element(0) = 1
-        .Element(1) = 1
-        .Element(2) = 1
+        Set .Storage = Storage
+        .Storage.Element(0) = 1
+        .Storage.Element(1) = 1
+        .Storage.Element(2) = 1
     End With
 End Sub
 
@@ -55,14 +55,6 @@ Private Function IVector_DotProduct(ByVal otherVector As IVector) As Double
 
 End Function
 
-Private Property Let IVector_Element(ByVal index As Long, ByVal value As Double)
-    vectorStub.Element(index) = value
-End Property
-
-Private Property Get IVector_Element(ByVal index As Long) As Double
-    IVector_Element = vectorStub.Element(index)
-End Property
-
 Private Function IVector_EuclideanDistance() As Double
 
 End Function
@@ -79,12 +71,12 @@ Private Function IVector_ScalarMultiply(ByVal scalarValue As Double) As IVector
 
 End Function
 
-Private Property Let IVector_Storage(ByVal RHS As IVectorStorage)
-
+Private Property Set IVector_Storage(ByVal RHS As IVectorStorage)
+    Set IVector_Storage = RHS
 End Property
 
 Private Property Get IVector_Storage() As IVectorStorage
-
+    Set IVector_Storage = vectorStub.Storage
 End Property
 
 Private Function IVector_Subtract(ByVal otherVector As IVector) As IVector

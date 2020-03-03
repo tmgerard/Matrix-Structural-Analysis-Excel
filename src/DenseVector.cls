@@ -55,7 +55,7 @@ Public Property Get Storage() As IVectorStorage
     Set Storage = this.vectorData
 End Property
 
-Public Property Let Storage(ByVal vectorData As IVectorStorage)
+Public Property Set Storage(ByVal vectorData As IVectorStorage)
     Dim storageClone As ICloneable
     Set storageClone = vectorData
     Set this.vectorData = storageClone.Clone
@@ -72,7 +72,7 @@ Public Function Clone() As DenseVector
     Dim cloneVector As DenseVector
     Set cloneVector = New DenseVector
     
-    cloneVector.Storage = vectorData.Clone
+    Set cloneVector.Storage = vectorData.Clone
     
     Set Clone = cloneVector
 End Function
@@ -136,22 +136,6 @@ Private Function IMatrix_Columns() As Long
     End If
 End Function
 
-Private Property Let IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal value As Double)
-    If Me.Orientation = ColumnVector Then
-        Me.Element(rowIndex) = value
-    Else
-        Me.Element(columnIndex) = value
-    End If
-End Property
-
-Private Property Get IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
-    If Me.Orientation = ColumnVector Then
-        IMatrix_Element = Me.Element(rowIndex)
-    Else
-        IMatrix_Element = Me.Element(columnIndex)
-    End If
-End Property
-
 Private Function IMatrix_Equals(ByVal otherMatrix As IMatrix) As Boolean
     Dim operator As MatrixOperator
     Set operator = New MatrixOperator
@@ -192,7 +176,7 @@ Private Sub IMatrix_SetSize(ByVal Rows As Long, ByVal Columns As Long)
     End If
 End Sub
 
-Private Property Let IMatrix_storage(ByVal matrixData As IMatrixStorage)
+Private Property Set IMatrix_storage(ByVal matrixData As IMatrixStorage)
     Set Me.Storage = matrixData
 End Property
 
@@ -232,13 +216,13 @@ Private Function IVector_DotProduct(ByVal otherVector As IVector) As Double
     IVector_DotProduct = Me.DotProduct(otherVector)
 End Function
 
-Private Property Let IVector_Element(ByVal index As Long, ByVal value As Double)
-    Me.Element(index) = value
-End Property
-
-Private Property Get IVector_Element(ByVal index As Long) As Double
-    IVector_Element = Me.Element(index)
-End Property
+'Private Property Let IVector_Element(ByVal index As Long, ByVal value As Double)
+'    Me.Element(index) = value
+'End Property
+'
+'Private Property Get IVector_Element(ByVal index As Long) As Double
+'    IVector_Element = Me.Element(index)
+'End Property
 
 Private Function IVector_EuclideanDistance() As Double
     IVector_EuclideanDistance = Me.EuclideanDistance
@@ -260,8 +244,8 @@ Private Property Get IVector_Storage() As IVectorStorage
     Set IVector_Storage = Me.Storage
 End Property
 
-Private Property Let IVector_Storage(ByVal vectorData As IVectorStorage)
-    Me.Storage = vectorData
+Private Property Set IVector_Storage(ByVal vectorData As IVectorStorage)
+    Set Me.Storage = vectorData
 End Property
 
 Private Function IVector_Subtract(ByVal otherVector As IVector) As IVector

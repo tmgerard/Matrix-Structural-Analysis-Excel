@@ -20,16 +20,16 @@ Const COLUMN_COUNT As Long = 3
 Private Sub Class_Initialize()
     Set matrixStub = New DenseMatrix
     With matrixStub
-        .Storage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(ROW_COUNT, COLUMN_COUNT)
-        .Element(0, 0) = 0
-        .Element(0, 1) = 2
-        .Element(0, 2) = 1
-        .Element(1, 0) = 0
-        .Element(1, 1) = 1
-        .Element(1, 2) = -1
-        .Element(2, 0) = 0
-        .Element(2, 1) = 0
-        .Element(2, 2) = 2
+        Set .Storage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(ROW_COUNT, COLUMN_COUNT)
+        .Storage.Element(0, 0) = 0
+        .Storage.Element(0, 1) = 2
+        .Storage.Element(0, 2) = 1
+        .Storage.Element(1, 0) = 0
+        .Storage.Element(1, 1) = 1
+        .Storage.Element(1, 2) = -1
+        .Storage.Element(2, 0) = 0
+        .Storage.Element(2, 1) = 0
+        .Storage.Element(2, 2) = 2
     End With
 End Sub
 
@@ -50,14 +50,6 @@ End Function
 Private Function IMatrix_Columns() As Long
     IMatrix_Columns = matrixStub.Columns
 End Function
-
-Private Property Let IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex As Long, ByVal value As Double)
-    matrixStub.Element(rowIndex, columnIndex) = value
-End Property
-
-Private Property Get IMatrix_Element(ByVal rowIndex As Long, ByVal columnIndex As Long) As Double
-    IMatrix_Element = matrixStub.Element(rowIndex, columnIndex)
-End Property
 
 Private Function IMatrix_Equals(ByVal otherMatrix As IMatrix) As Boolean
 
@@ -83,12 +75,12 @@ Private Sub IMatrix_SetSize(ByVal Rows As Long, ByVal Columns As Long)
 
 End Sub
 
-Private Property Let IMatrix_storage(ByVal RHS As IMatrixStorage)
+Private Property Set IMatrix_storage(ByVal RHS As IMatrixStorage)
 
 End Property
 
 Private Property Get IMatrix_storage() As IMatrixStorage
-
+    Set IMatrix_storage = matrixStub.Storage
 End Property
 
 Private Function IMatrix_Subtract(ByVal otherMatrix As IMatrix) As IMatrix
