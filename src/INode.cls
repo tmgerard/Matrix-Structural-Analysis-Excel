@@ -27,3 +27,5 @@ Public Enum DegreeOfFreedom
     Mz
 End Enum
 
+Public Property Get Coordinate() As ICoordinate
+End Property

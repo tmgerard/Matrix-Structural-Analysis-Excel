@@ -55,16 +55,16 @@ Private Function BackSubstitution(ByVal factorizedMatrix As IMatrix, ByVal forwa
     
     Dim result As IVector
     Set result = New DenseVector
-    Set result.Storage = factory.Create(forwardSolvedVector.length)
+    Set result.Storage = factory.Create(forwardSolvedVector.Length)
     
     Set factory = Nothing
     
     Dim I As Long
     Dim J As Long
     Dim sum As Double
-    For I = forwardSolvedVector.length - 1 To 0 Step -1
+    For I = forwardSolvedVector.Length - 1 To 0 Step -1
         sum = 0
-        For J = 0 To forwardSolvedVector.length - 1
+        For J = 0 To forwardSolvedVector.Length - 1
             sum = sum + factorizedMatrix.Storage.Element(I, J) * result.Storage.Element(J)
         Next J
         
@@ -83,14 +83,14 @@ Private Function ForwardSubstitution(ByVal factorizedMatrix As IMatrix, ByVal so
     
     Dim Y As IVector
     Set Y = New DenseVector
-    Set Y.Storage = factory.Create(solutionVector.length)
+    Set Y.Storage = factory.Create(solutionVector.Length)
     
     Set factory = Nothing
     
     Dim I As Long
     Dim J As Long
     Dim sum As Double
-    For I = 0 To solutionVector.length - 1
+    For I = 0 To solutionVector.Length - 1
         sum = 0
         For J = 0 To I
             sum = sum + factorizedMatrix.Storage.Element(I, J) * Y.Storage.Element(J)

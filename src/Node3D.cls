@@ -41,11 +41,11 @@ Private Sub Class_Terminate()
 End Sub
 
 Public Property Get Coordinate() As ICoordinate
-    Coordinate = this.Coordinate
+    Set Coordinate = this.Coordinate
 End Property
 
 Public Property Set Coordinate(ByRef value As Coordinate3d)
-    this.Coordinate = value
+    Set this.Coordinate = value
 End Property
 
 Public Property Get Description() As String
@@ -60,4 +60,8 @@ Public Function DegreesOfFreedom() As Integer
     DegreesOfFreedom = TotalDegreesOfFreedom
 End Function
 
+'INode Implementation
 
+Private Property Get INode_Coordinate() As ICoordinate
+    Set INode_Coordinate = this.Coordinate
+End Property

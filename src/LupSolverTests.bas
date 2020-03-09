@@ -70,7 +70,7 @@ Private Sub TestSolve()
 
     'Assert:
     Dim I As Long
-    For I = 0 To X.length - 1
+    For I = 0 To X.Length - 1
         Assert.AreEqual expected.Storage.Element(I), X.Storage.Element(I)
     Next I
 

@@ -25,7 +25,7 @@ Public Function Add(ByVal leftVector As IVector, ByVal rightVector As IVector) A
     Set result = cloneVector(leftVector)
     
     Dim index As Long
-    For index = 0 To leftVector.length - 1
+    For index = 0 To leftVector.Length - 1
         result.Storage.Element(index) = leftVector.Storage.Element(index) + rightVector.Storage.Element(index)
     Next index
     
@@ -37,8 +37,8 @@ Public Function CrossProduct(ByVal leftVector As IVector, ByVal rightVector As I
 
     Const VECTOR_DIMENSION_CONSTRAINT As Long = 3
 
-    If Not rightVector.length = VECTOR_DIMENSION_CONSTRAINT Or _
-       Not leftVector.length = VECTOR_DIMENSION_CONSTRAINT Then
+    If Not rightVector.Length = VECTOR_DIMENSION_CONSTRAINT Or _
+       Not leftVector.Length = VECTOR_DIMENSION_CONSTRAINT Then
        
         VectorErrors.ThrowCrossProductError CLASS_NAME
         
@@ -72,7 +72,7 @@ Public Function DotProduct(ByVal leftVector As IVector, ByVal rightVector As IVe
     result = 0
     
     Dim index As Long
-    For index = 0 To leftVector.length - 1
+    For index = 0 To leftVector.Length - 1
         result = result + leftVector.Storage.Element(index) * rightVector.Storage.Element(index)
     Next index
     
@@ -86,7 +86,7 @@ Public Function EuclideanDistance(ByVal vector As IVector) As Double
     result = 0
     
     Dim index As Long
-    For index = 0 To vector.length - 1
+    For index = 0 To vector.Length - 1
         result = result + vector.Storage.Element(index) * vector.Storage.Element(index)
     Next index
     
@@ -104,13 +104,13 @@ Public Function Equals(ByVal leftVector As IVector, ByVal rightVector As IVector
         Exit Function
     End If
     
-    If Not leftVector.length = rightVector.length Then
+    If Not leftVector.Length = rightVector.Length Then
         result = False
         Exit Function
     End If
     
     Dim index As Long
-    For index = 0 To leftVector.length - 1
+    For index = 0 To leftVector.Length - 1
         If Not leftVector.Storage.Element(index) = rightVector.Storage.Element(index) Then
             result = False
             Exit For
@@ -127,7 +127,7 @@ Public Function ScalarMultiply(ByVal leftVector As IVector, ByVal scalarValue As
     Set result = cloneVector(leftVector)
     
     Dim index As Long
-    For index = 0 To leftVector.length - 1
+    For index = 0 To leftVector.Length - 1
         result.Storage.Element(index) = leftVector.Storage.Element(index) * scalarValue
     Next index
     
@@ -148,7 +148,7 @@ Public Function Subtract(ByVal leftVector As IVector, ByVal rightVector As IVect
     Set result = cloneVector(leftVector)
     
     Dim index As Long
-    For index = 0 To leftVector.length - 1
+    For index = 0 To leftVector.Length - 1
         result.Storage.Element(index) = leftVector.Storage.Element(index) - rightVector.Storage.Element(index)
     Next index
     
@@ -167,7 +167,7 @@ End Function
 
 Private Function IsSameSize(ByVal leftVector As IVector, ByVal rightVector As IVector) As Boolean
     
-    IsSameSize = Not (Not leftVector.length = rightVector.length)
+    IsSameSize = Not (Not leftVector.Length = rightVector.Length)
     
 End Function
 

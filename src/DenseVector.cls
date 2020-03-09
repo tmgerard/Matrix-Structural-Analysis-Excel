@@ -43,8 +43,8 @@ Public Property Let Element(ByVal index As Long, ByVal value As Double)
     this.vectorData.Element(index) = value
 End Property
 
-Public Property Get length() As Long
-    length = this.vectorData.length
+Public Property Get Length() As Long
+    Length = this.vectorData.Length
 End Property
 
 Public Property Get Orientation() As VectorOrientation
@@ -130,7 +130,7 @@ End Function
 
 Private Function IMatrix_Columns() As Long
     If Me.Orientation = ColumnVector Then
-        IMatrix_Columns = Me.length
+        IMatrix_Columns = Me.Length
     Else
         IMatrix_Columns = 1
     End If
@@ -154,7 +154,7 @@ End Function
 
 Private Function IMatrix_Rows() As Long
     If Me.Orientation = RowVector Then
-        IMatrix_Rows = Me.length
+        IMatrix_Rows = Me.Length
     Else
         IMatrix_Rows = 1
     End If
@@ -170,9 +170,9 @@ Private Sub IMatrix_SetSize(ByVal Rows As Long, ByVal Columns As Long)
     If Rows > 1 And Columns > 1 Then VectorErrors.ThrowBadLengthError CLASS_NAME
     
     If Me.Orientation = ColumnVector Then
-        this.vectorData.length = Rows
+        this.vectorData.Length = Rows
     Else
-        this.vectorData.length = Columns
+        this.vectorData.Length = Columns
     End If
 End Sub
 
@@ -229,7 +229,7 @@ Private Function IVector_EuclideanDistance() As Double
 End Function
 
 Private Property Get IVector_Length() As Long
-    IVector_Length = Me.length
+    IVector_Length = Me.Length
 End Property
 
 Private Property Get IVector_Orientation() As VectorOrientation

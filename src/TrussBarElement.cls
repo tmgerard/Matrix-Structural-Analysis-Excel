@@ -19,6 +19,8 @@ Private Type tTrussBarElement
 End Type
 
 Private this As tTrussBarElement
+Private Const LocalDOFs As Integer = 2
+Private Const GlobalDOFs As Integer = 4
 
 Public Property Get StartNode() As INode
     StartNode = this.StartNode
@@ -56,6 +58,23 @@ End Property
 
 Public Function ElementStiffnessMatrix() As DenseMatrix
 
+    Dim stiffnessMatrix As DenseMatrix
+    Set stiffnessMatrix = New DenseMatrix
     
+    With stiffnessMatrix
+        Set .Storage = MatrixStorageFactory.CreateFactory(DenseColumnMajor).Create(LocalDOFs, LocalDOFs)
+        
+        Dim axialStiffness As Double
+        axialStiffness = this.CrossSection.Area * this.Material.ModulusOfElasticity / _
+            this.StartNode.Coordinate.Distance(this.EndNode.Coordinate)
+        
+        .Storage.Element(0, 0) = axialStiffness
+        .Storage.Element(0, 1) = -axialStiffness
+        .Storage.Element(1, 0) = axialStiffness
+        .Storage.Element(1, 1) = -axialStiffness
+        
+    End With
+    
+    Set ElementStiffnessMatrix = stiffnessMatrix
 
 End Function

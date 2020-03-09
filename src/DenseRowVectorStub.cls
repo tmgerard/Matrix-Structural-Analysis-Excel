@@ -23,7 +23,7 @@ Private Sub Class_Initialize()
     Dim Storage As IVectorStorage
     Set Storage = New DenseRowVectorStorage
     
-    Storage.length = COLUMN_COUNT
+    Storage.Length = COLUMN_COUNT
     
     With vectorStub
         Set .Storage = Storage

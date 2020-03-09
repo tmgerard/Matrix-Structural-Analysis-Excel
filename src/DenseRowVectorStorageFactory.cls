@@ -28,8 +28,8 @@ Private Sub Class_Terminate()
 End Sub
 
 '@Description("Create an empty vector of a given length.")
-Public Function Create(ByVal length As Long) As DenseRowVectorStorage
-    this.vectorData.length = length
+Public Function Create(ByVal Length As Long) As DenseRowVectorStorage
+    this.vectorData.Length = Length
     Set Create = this.vectorData
 End Function
 
@@ -71,7 +71,7 @@ Private Function VectorFromRowRange(ByVal WorksheetRange As Range) As DenseRowVe
     Dim Columns As Long
     Columns = WorksheetRange.Columns.Count
     
-    this.vectorData.length = Columns
+    this.vectorData.Length = Columns
     
     Dim column As Long
     For column = 0 To Columns - 1
@@ -91,7 +91,7 @@ Private Function VectorFromColumnRange(ByVal WorksheetRange As Range) As DenseRo
     Dim rangeColumn As Long
     rangeColumn = WorksheetRange.column
     
-    this.vectorData.length = Rows
+    this.vectorData.Length = Rows
     
     Dim row As Long
     For row = 0 To Rows - 1
@@ -122,8 +122,8 @@ End Function
 
 ' IVectorStorageFactory Implementation
 
-Private Function IVectorStorageFactory_Create(ByVal length As Long) As IVectorStorage
-    Set IVectorStorageFactory_Create = Me.Create(length)
+Private Function IVectorStorageFactory_Create(ByVal Length As Long) As IVectorStorage
+    Set IVectorStorageFactory_Create = Me.Create(Length)
 End Function
 
 Private Function IVectorStorageFactory_CreateFromRange(ByVal WorksheetRange As Range) As IVectorStorage

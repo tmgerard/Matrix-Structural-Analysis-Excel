@@ -16,7 +16,7 @@ Implements ICloneable
 Private Type TDenseColumnVectorStorage
     Rows As Long
     Columns As Long
-    length As Long
+    Length As Long
     Data() As Double
     Orientation As VectorOrientation
 End Type
@@ -29,7 +29,7 @@ Private Sub Class_Initialize()
     With this
         .Rows = 0
         .Columns = COLUMN_COUNT
-        .length = 0
+        .Length = 0
         .Orientation = ColumnVector
     End With
 End Sub
@@ -49,8 +49,8 @@ Public Property Let Columns(ByVal Columns As Long)
 End Property
 
 '@Description("Return the number of elements in vector")
-Public Property Get length() As Long
-    length = this.length
+Public Property Get Length() As Long
+    Length = this.Length
 End Property
 
 Public Property Get Rows() As Long
@@ -58,13 +58,13 @@ Public Property Get Rows() As Long
 End Property
 
 '@Description("Set the number of elements to store in the vector")
-Public Property Let length(ByVal length As Long)
-    If length <= 0 Then VectorErrors.ThrowBadLengthError
+Public Property Let Length(ByVal Length As Long)
+    If Length <= 0 Then VectorErrors.ThrowBadLengthError
     
     With this
-        .length = length
-        .Rows = length
-        ReDim .Data(length - 1)
+        .Length = Length
+        .Rows = Length
+        ReDim .Data(Length - 1)
     End With
 End Property
 
@@ -74,13 +74,13 @@ End Property
 
 '@Description("Return element at a given index")
 Public Property Get Element(ByVal index As Long) As Double
-    If index < 0 Or index > this.length - 1 Then VectorErrors.ThrowBadRangeError ErrorSource:=CLASS_NAME
+    If index < 0 Or index > this.Length - 1 Then VectorErrors.ThrowBadRangeError ErrorSource:=CLASS_NAME
     Element = this.Data(index)
 End Property
 
 '@Description("Set element value at a given index")
 Public Property Let Element(ByVal index As Long, ByVal value As Double)
-    If index < 0 Or index > this.length - 1 Then VectorErrors.ThrowBadLengthError ErrorSource:=CLASS_NAME
+    If index < 0 Or index > this.Length - 1 Then VectorErrors.ThrowBadLengthError ErrorSource:=CLASS_NAME
     this.Data(index) = value
 End Property
 
@@ -98,7 +98,7 @@ Public Function Clone() As Object
     Dim newVector As DenseColumnVectorStorage
     Set newVector = New DenseColumnVectorStorage
     
-    newVector.length = Me.length
+    newVector.Length = Me.Length
     
     Dim index As Long
     For index = LBound(this.Data) To UBound(this.Data)
@@ -158,7 +158,7 @@ End Property
 
 '@Ignore ParameterNotUsed
 Private Sub IMatrixStorage_SetSize(ByVal Rows As Long, ByVal Columns As Long)
-    Me.length = Rows
+    Me.Length = Rows
 End Sub
 
 ' IVectorStorage Implementation
@@ -176,11 +176,11 @@ Private Property Get IVectorStorage_Element(ByVal index As Long) As Double
 End Property
 
 Private Property Get IVectorStorage_Length() As Long
-    IVectorStorage_Length = Me.length
+    IVectorStorage_Length = Me.Length
 End Property
 
-Private Property Let IVectorStorage_Length(ByVal length As Long)
-    Me.length = length
+Private Property Let IVectorStorage_Length(ByVal Length As Long)
+    Me.Length = Length
 End Property
 
 Private Property Get IVectorStorage_Orientation() As VectorOrientation
