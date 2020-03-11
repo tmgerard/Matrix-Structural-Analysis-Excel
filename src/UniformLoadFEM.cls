@@ -10,6 +10,7 @@ Attribute VB_Exposed = False
 '@Folder("StructuralAnalysis.StructuralModel.FixedEndForces")
 '@Description("Fixed end forces for uniformly loaded beam element.")
 Option Explicit
+Implements IFixedEndForce
 
 Private Type tUniformLoadFEM
     BeamLoad As Double
@@ -60,4 +61,14 @@ End Function
 
 Private Function EndReaction() As Double
     EndReaction = (this.BeamLoad * this.BeamLength) / 2
+End Function
+
+' IFixedEndForce Implementation
+
+Private Function IFixedEndForce_FixedEndMoment(ByVal location As FixedEndForceLocation) As Double
+    IFixedEndForce_FixedEndMoment = Me.FixedEndMoment(location)
+End Function
+
+Private Function IFixedEndForce_FixedEndReaction(ByVal location As FixedEndForceLocation) As Double
+    IFixedEndForce_FixedEndReaction = Me.FixedEndReaction(location)
 End Function
