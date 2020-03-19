@@ -30,7 +30,7 @@ Public Sub ThrowBadLoadLocationError(Optional ByVal ErrorSource As String = vbNu
 
     Const ErrorMessage As String = "Element load is not located on the element."
     
-    Err.Raise Number:=StructuralModelError.BadElementLength, _
+    Err.Raise Number:=StructuralModelError.BadElementLoadLocation, _
               Source:=ErrorSource, _
               Description:=ErrorMessage
               
