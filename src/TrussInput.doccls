@@ -1,0 +1,48 @@
+﻿Option Explicit
+
+Private Sub RunTrussAnalysis_Click()
+    Main
+End Sub
+
+Private Sub Worksheet_Change(ByVal Target As Range)
+    On Error GoTo ErrorHandler
+    
+    Dim NodeTable As ListObject
+    Set NodeTable = TrussInput.ListObjects(InputSettings.NodesTableName)
+    
+    Dim MemberTable As ListObject
+    Set MemberTable = TrussInput.ListObjects(InputSettings.MembersTableName)
+    
+    Dim ChangedTableRow As Long
+    If Not Intersect(Target, NodeTable.DataBodyRange) Is Nothing Then
+    
+        ChangedTableRow = Target.row - NodeTable.Range.row
+        CheckForDuplicateNode NodeTable, ChangedTableRow
+        
+    ElseIf Not Intersect(Target, MemberTable.DataBodyRange) Is Nothing Then
+    
+        ChangedTableRow = Target.row - MemberTable.Range.row
+        CheckForDuplicateMember MemberTable, ChangedTableRow
+        
+    End If
+    
+SubExit:
+    Exit Sub
+    
+ErrorHandler:
+
+    Select Case Err.Number
+    
+    Case InputErrors.DuplicateNode
+        MsgBox Err.Description, vbCritical, "Duplicate Node Input"
+    
+    Case InputErrors.DuplicateMember
+        MsgBox Err.Description, vbCritical, "Duplicate Member Input"
+        
+    Case Else
+        MsgBox "An error occured" & vbCrLf & Err.Description
+    
+    End Select
+    
+    Resume SubExit
+End Sub
