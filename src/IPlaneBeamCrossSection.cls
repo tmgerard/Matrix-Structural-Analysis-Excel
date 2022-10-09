@@ -2,14 +2,16 @@ VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
-Attribute VB_Name = "ILinearSolver"
+Attribute VB_Name = "IPlaneBeamCrossSection"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'@Interface
-'@Folder("StructuralAnalysis.Equations")
+'@Folder("StructuralAnalysis.Model.Structure Model")
 Option Explicit
 
-Public Function Solve(ByRef mat As Matrix, ByRef vec As Vector) As Vector
-End Function
+Public Property Get Area() As Double
+End Property
+
+Public Property Get I() As Double
+End Property
