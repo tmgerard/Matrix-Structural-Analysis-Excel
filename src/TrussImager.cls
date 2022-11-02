@@ -120,14 +120,14 @@ End Sub
 
 Private Sub DrawNodes(ByRef truss As SolutionStructure)
     Dim Node As SolutionNode2D
-    For Each Node In truss.Nodes
+    For Each Node In truss.nodes
         DrawNode Node
     Next Node
 End Sub
 
 Private Sub DrawLoads(ByRef truss As SolutionStructure)
     Dim Node As SolutionNode2D
-    For Each Node In truss.Nodes
+    For Each Node In truss.nodes
         If Node.IsLoaded Then
             DrawNodalLoads Node
         End If

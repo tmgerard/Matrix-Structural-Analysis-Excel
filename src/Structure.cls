@@ -16,7 +16,7 @@ End Enum
 
 Private Type TStructure
     Bars As Collection
-    Nodes As Collection
+    nodes As Collection
     DOF_Dict As Scripting.Dictionary
     SystemMatrix As Matrix
     SystemVector As Vector
@@ -30,7 +30,7 @@ Private this As TStructure
 Private Sub Class_Initialize()
     With this
         Set .Bars = New Collection
-        Set .Nodes = New Collection
+        Set .nodes = New Collection
         Set .DOF_Dict = New Scripting.Dictionary
         Set .SystemMatrix = New Matrix
         Set .SystemVector = New Vector
@@ -41,7 +41,7 @@ End Sub
 Private Sub Class_Terminate()
     With this
         Set .Bars = Nothing
-        Set .Nodes = Nothing
+        Set .nodes = Nothing
         Set .DOF_Dict = Nothing
         Set .SystemMatrix = Nothing
         Set .SystemVector = Nothing
@@ -57,16 +57,16 @@ Public Property Set Bars(ByRef barCollection As Collection)
     Set this.Bars = barCollection
 End Property
 
-Public Property Get Nodes() As Collection
-    Set Nodes = this.Nodes
+Public Property Get nodes() As Collection
+    Set nodes = this.nodes
 End Property
 
-Public Property Set Nodes(ByRef nodeCollection As Collection)
-    Set this.Nodes = nodeCollection
+Public Property Set nodes(ByRef nodeCollection As Collection)
+    Set this.nodes = nodeCollection
 End Property
 
 Public Property Get NodeCount() As Long
-    NodeCount = this.Nodes.count
+    NodeCount = this.nodes.count
 End Property
 
 Public Property Get BarCount() As Long
@@ -82,7 +82,7 @@ Public Property Get LoadCount() As Long
     
     Dim index As Long
     For index = 1 To Me.NodeCount
-        Set Node = this.Nodes.Item(index)
+        Set Node = this.nodes.Item(index)
         count = count + Node.LoadCount
     Next index
     
@@ -97,7 +97,7 @@ Public Property Get ReactionCount() As Long
     Dim Node As Node2D
     Dim index As Long
     For index = 1 To Me.NodeCount
-        Set Node = this.Nodes.Item(index)
+        Set Node = this.nodes.Item(index)
         If Node.xConstrained Then count = count + 1
         If Node.yConstrained Then count = count + 1
     Next index
@@ -132,8 +132,8 @@ End Function
 Private Sub AssignDegreesOfFreedom()
     Set this.DOF_Dict = New Scripting.Dictionary
     Dim index As Long
-    For index = 1 To this.Nodes.count
-        this.DOF_Dict.Add Key:=this.Nodes.Item(index).ID, Item:=Array(2 * (index - 1), 2 * (index - 1) + 1)
+    For index = 1 To this.nodes.count
+        this.DOF_Dict.Add Key:=this.nodes.Item(index).ID, Item:=Array(2 * (index - 1), 2 * (index - 1) + 1)
     Next index
 End Sub
 
@@ -152,18 +152,18 @@ End Sub
 
 Private Function MakeStructureSolution() As SolutionStructure
     
-    Dim Nodes As Collection
-    Set Nodes = New Collection
+    Dim nodes As Collection
+    Set nodes = New Collection
     Dim index As Long
-    For index = 1 To this.Nodes.count
-        Nodes.Add NodeToSolution(this.Nodes.Item(index))
+    For index = 1 To this.nodes.count
+        nodes.Add NodeToSolution(this.nodes.Item(index))
     Next index
     
     ' Create nodes dictionary to aid in creating SolutionBarElement2D collection
     Dim NodesDict As Scripting.Dictionary
     Set NodesDict = New Scripting.Dictionary
-    For index = 1 To Nodes.count
-        NodesDict.Add Key:=Nodes.Item(index).ID, Item:=Nodes.Item(index)
+    For index = 1 To nodes.count
+        NodesDict.Add Key:=nodes.Item(index).ID, Item:=nodes.Item(index)
     Next index
     
     Dim Bars As Collection
@@ -180,7 +180,7 @@ Private Function MakeStructureSolution() As SolutionStructure
     Set solution = New SolutionStructure
     With solution
         Set .Bars = Bars
-        Set .Nodes = Nodes
+        Set .nodes = nodes
     End With
     
     Set MakeStructureSolution = solution
@@ -265,8 +265,8 @@ Private Sub AssembleSystemVector(ByRef size As Long)
     Dim net_Load As Vector2D
     Set net_Load = New Vector2D
     Dim nodeIndex As Long
-    For nodeIndex = 1 To this.Nodes.count
-        Set net_Load = this.Nodes.Item(nodeIndex).NetLoad
+    For nodeIndex = 1 To this.nodes.count
+        Set net_Load = this.nodes.Item(nodeIndex).NetLoad
         Set vec = vec.AddTo(CLng(this.DOF_Dict.Item(nodeIndex)(0)), net_Load.u)
         Set vec = vec.AddTo(CLng(this.DOF_Dict.Item(nodeIndex)(1)), net_Load.v)
     Next nodeIndex
@@ -281,8 +281,8 @@ Private Sub ApplyExternalConstraints()
     Dim dofY As Long
     Dim nodeIndex As Long
     Dim currentNode As Node2D
-    For nodeIndex = 1 To this.Nodes.count
-        Set currentNode = this.Nodes.Item(nodeIndex)
+    For nodeIndex = 1 To this.nodes.count
+        Set currentNode = this.nodes.Item(nodeIndex)
         dofX = this.DOF_Dict(currentNode.ID)(0)
         dofY = this.DOF_Dict(currentNode.ID)(1)
         

@@ -12,7 +12,7 @@ Option Explicit
 
 Private Type TStructureBuilder
     CrossSections As Collection
-    Nodes As Collection
+    nodes As Collection
     Materials As Collection
     Members As Collection
     CrossSectionTable As ListObject
@@ -27,7 +27,7 @@ Private this As TStructureBuilder
 Private Sub Class_Initialize()
     With this
         Set .CrossSections = New Collection
-        Set .Nodes = New Collection
+        Set .nodes = New Collection
         Set .Materials = New Collection
         Set .Members = New Collection
         Set .CrossSectionTable = TrussInput.ListObjects(InputSettings.CrossSectionTableName)
@@ -41,7 +41,7 @@ End Sub
 Private Sub Class_Terminate()
     With this
         Set .CrossSections = Nothing
-        Set .Nodes = Nothing
+        Set .nodes = Nothing
         Set .Materials = Nothing
         Set .Members = Nothing
         Set .CrossSectionTable = Nothing
@@ -54,7 +54,7 @@ End Sub
 
 Public Function Build() As Structure
 
-    If this.Nodes Is Nothing Or this.Members Is Nothing Then
+    If this.nodes Is Nothing Or this.Members Is Nothing Then
         ' TODO: raise error if no loads or members defined
     End If
     
@@ -73,7 +73,7 @@ Public Function Build() As Structure
     Dim struct As Structure
     Set struct = New Structure
     With struct
-        Set .Nodes = this.Nodes
+        Set .nodes = this.nodes
         Set .Bars = this.Members
     End With
     
@@ -101,7 +101,7 @@ Private Sub GetNodes()
         End Select
         
         With this
-            .Nodes.Add MakeNode2D( _
+            .nodes.Add MakeNode2D( _
                 .NodeTable.DataBodyRange.Item(row, 1), _
                 MakePoint2D(.NodeTable.DataBodyRange.Item(row, 2), .NodeTable.DataBodyRange.Item(row, 3)), _
                 xConstrained, _
@@ -147,8 +147,8 @@ Private Sub GetMembers()
         
             StartID = .MemberTable.DataBodyRange.Item(row, 2)
             EndID = .MemberTable.DataBodyRange.Item(row, 3)
-            Set StartNode = .Nodes.Item(StartID)
-            Set EndNode = .Nodes.Item(EndID)
+            Set StartNode = .nodes.Item(StartID)
+            Set EndNode = .nodes.Item(EndID)
             CrossSectionID = .MemberTable.DataBodyRange.Item(row, 4)
             MaterialID = .MemberTable.DataBodyRange.Item(row, 5)
             Area = .CrossSections.Item(MaterialID)
@@ -177,7 +177,7 @@ Private Sub GetLoads()
             nodeID = .LoadTable.DataBodyRange.Item(row, 1)
             xLoad = .LoadTable.DataBodyRange.Item(row, 2)
             yLoad = .LoadTable.DataBodyRange.Item(row, 3)
-            Set currentNode = .Nodes.Item(nodeID)
+            Set currentNode = .nodes.Item(nodeID)
         End With
         
         currentNode.AddLoad MakeVector(xLoad, yLoad)

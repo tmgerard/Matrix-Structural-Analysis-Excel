@@ -32,7 +32,7 @@ Public Sub WriteToWorksheet(ByRef solution As SolutionStructure, ByRef outputShe
         .Cells.Clear
         .Cells(1, 1) = "Truss Solution"
         .Cells(2, 1) = solution.Bars.count & " Members"
-        .Cells(3, 1) = solution.Nodes.count & " Nodes"
+        .Cells(3, 1) = solution.nodes.count & " Nodes"
     End With
     
     With this
@@ -58,8 +58,8 @@ Private Sub NodeToSheet(ByRef row As Long)
     Dim currentNode As SolutionNode2D
     
     Dim I As Long
-    For I = 1 To this.solution.Nodes.count
-        Set currentNode = this.solution.Nodes.Item(I)
+    For I = 1 To this.solution.nodes.count
+        Set currentNode = this.solution.nodes.Item(I)
         
         With currentNode
             this.outputSheet.Cells(row, 1).Value2 = "Node " & .ID

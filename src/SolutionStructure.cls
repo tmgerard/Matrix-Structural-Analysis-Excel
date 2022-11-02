@@ -12,7 +12,7 @@ Option Explicit
 
 Private Type TSolutionStructure
     Bars As Collection
-    Nodes As Collection
+    nodes As Collection
 End Type
 
 Private this As TSolutionStructure
@@ -20,14 +20,14 @@ Private this As TSolutionStructure
 Private Sub Class_Initialize()
     With this
         Set .Bars = New Collection
-        Set .Nodes = New Collection
+        Set .nodes = New Collection
     End With
 End Sub
 
 Private Sub Class_Terminate()
     With this
         Set .Bars = Nothing
-        Set .Nodes = Nothing
+        Set .nodes = Nothing
     End With
 End Sub
 
@@ -39,12 +39,12 @@ Public Property Set Bars(ByRef barCollection As Collection)
     Set this.Bars = barCollection
 End Property
 
-Public Property Get Nodes() As Collection
-    Set Nodes = this.Nodes
+Public Property Get nodes() As Collection
+    Set nodes = this.nodes
 End Property
 
-Public Property Set Nodes(ByRef nodeCollection As Collection)
-    Set this.Nodes = nodeCollection
+Public Property Set nodes(ByRef nodeCollection As Collection)
+    Set this.nodes = nodeCollection
 End Property
 
 Public Function BoundingRectangle(ByRef margin As Double, Optional ByRef scalingFactor As Double = 1) As Rectangle2D
@@ -53,8 +53,8 @@ Public Function BoundingRectangle(ByRef margin As Double, Optional ByRef scaling
     Set displacedPoints = New Collection
     
     Dim index As Long
-    For index = 1 To this.Nodes.count
-        displacedPoints.Add this.Nodes.Item(index).DisplacedPositionScaled(scalingFactor)
+    For index = 1 To this.nodes.count
+        displacedPoints.Add this.nodes.Item(index).DisplacedPositionScaled(scalingFactor)
     Next index
     
     Set BoundingRectangle = MakeRectangleContainingWithMargins(displacedPoints, margin)

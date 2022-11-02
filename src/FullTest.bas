@@ -30,7 +30,7 @@ Public Sub TestTruss()
     Dim truss As Structure
     Set truss = New Structure
     With truss
-        Set .Nodes = trussNodes
+        Set .nodes = trussNodes
         Set .Bars = trussBars
     End With
     
