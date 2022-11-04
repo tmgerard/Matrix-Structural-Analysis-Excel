@@ -255,7 +255,7 @@ Private Sub TestCentroidPolygon4()
     Set expected = New Point2D
     With expected
         .x = 8.0283
-        .y = 4.6604
+        .y = 4.0566
     End With
 
     'Act:
@@ -281,7 +281,7 @@ Private Sub TestCentroidPolygon4_reverse()
     Set expected = New Point2D
     With expected
         .x = 8.0283
-        .y = 4.6604
+        .y = 4.0566
     End With
 
     'Act:
