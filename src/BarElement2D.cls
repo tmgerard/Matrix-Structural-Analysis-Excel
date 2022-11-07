@@ -9,6 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '@Folder("StructuralAnalysis.Model.Structure Model")
 Option Explicit
+Implements IElementConnectivity
 
 Private Type TBarElement
     BarID As Long
@@ -74,6 +75,16 @@ Public Property Let ElasticModulus(ByRef Modulus_E As Double)
     this.ElasticModulus = Modulus_E
 End Property
 
+Public Function ElementNodes() As Collection
+    Dim result As Collection
+    Set result = New Collection
+    
+    result.Add this.StartNode
+    result.Add this.EndNode
+    
+    Set ElementNodes = result
+End Function
+
 Public Function Geometry() As Segment2D
     Dim barSegment As Segment2D
     Set barSegment = New Segment2D
@@ -136,4 +147,9 @@ Public Function GlobalStiffnessMatrix() As Matrix
     
     Set GlobalStiffnessMatrix = stiffnessMatrix
 
+End Function
+
+' IElementConnectivity Implementation
+Private Function IElementConnectivity_ElementNodes() As Collection
+    Set IElementConnectivity_ElementNodes = Me.ElementNodes
 End Function

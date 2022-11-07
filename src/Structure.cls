@@ -23,7 +23,7 @@ Private Type TStructure
     GlobalDisplacements As Vector
 End Type
 
-Private Const DOFsPerNode As Long = 2
+Private Const DofsPerNode As Long = 2
 
 Private this As TStructure
 
@@ -139,7 +139,7 @@ End Sub
 
 Private Sub SolveSystemOfEquations()
     Dim size As Long
-    size = Me.NodeCount * DOFsPerNode
+    size = Me.NodeCount * DofsPerNode
     
     AssembleSystemMatrix size
     AssembleSystemVector size
