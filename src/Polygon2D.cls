@@ -55,6 +55,30 @@ Public Property Set Vertices(ByRef points As Collection)
 
 End Property
 
+'@Description "Calculates the area of a Polygon2D"
+Public Function Area() As Double
+Attribute Area.VB_Description = "Calculates the area of a Polygon2D"
+    Area = Math.Abs(AreaSigned)
+End Function
+
+Private Function AreaSigned() As Double
+    ' Calculated area will be positive or negative based on
+    ' how the points are added to the Point2D collection
+    Dim result As Double
+    result = 0
+    
+    Dim currentPoint As Point2D
+    Dim nextPoint As Point2D
+    Dim pointIndex As Long
+    For pointIndex = 1 To this.points.count - 1
+        Set currentPoint = this.points.Item(pointIndex)
+        Set nextPoint = this.points.Item(pointIndex + 1)
+        result = result + currentPoint.x * nextPoint.y - nextPoint.x * currentPoint.y
+    Next pointIndex
+    
+    AreaSigned = 0.5 * result
+End Function
+
 '@Description "Returns a collection of Segment2D objects representing the sides of the Polygon2D object."
 Public Function Sides() As Collection
 Attribute Sides.VB_Description = "Returns a collection of Segment2D objects representing the sides of the Polygon2D object."
@@ -95,20 +119,34 @@ Attribute Centroid.VB_Description = "Point2D object representing the centroid of
     Dim sum_y As Double
     sum_y = 0
     
-    Dim point As Point2D
-    For Each point In this.points
-        sum_x = sum_x + point.x
-        sum_y = sum_y + point.y
-    Next point
+    Dim currentPoint As Point2D
+    Dim nextPoint As Point2D
+    Dim pointIndex As Long
+    For pointIndex = 1 To this.points.count - 1
+        Set currentPoint = this.points.Item(pointIndex)
+        Set nextPoint = this.points.Item(pointIndex + 1)
+        
+        sum_x = sum_x + (currentPoint.x + nextPoint.x) * _
+            (currentPoint.x * nextPoint.y - nextPoint.x * currentPoint.y)
+        
+        sum_y = sum_y + (currentPoint.y + nextPoint.y) * _
+            (currentPoint.x * nextPoint.y - nextPoint.x * currentPoint.y)
+            
+    Next pointIndex
     
-    Dim center As Point2D
-    Set center = New Point2D
-    With center
-        .x = sum_x / this.points.count
-        .y = sum_y / this.points.count
+    Dim result As Point2D
+    Set result = New Point2D
+    
+    Dim signedArea As Double
+    signedArea = AreaSigned
+    
+    With result
+        .x = sum_x / (6 * signedArea)
+        .y = sum_y / (6 * signedArea)
     End With
     
-    Set Centroid = center
+    Set Centroid = result
+    
 End Function
 
 '@Description "Returns True if the given Point2D object lies within the Polygon2D object."

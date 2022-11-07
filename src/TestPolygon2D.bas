@@ -15,6 +15,8 @@ Private point4 As Point2D
 Private polygon As Polygon2D
 Private polygon2 As Polygon2D
 Private polygon3 As Polygon2D
+Private polygon4 As Polygon2D
+Private polygon4_reverse As Polygon2D
 
 '@ModuleInitialize
 Private Sub ModuleInitialize()
@@ -66,6 +68,34 @@ Private Sub ModuleInitialize()
     
     Set polygon3 = New Polygon2D
     Set polygon3.Vertices = points
+    
+    Dim poly4points As Collection
+    Set poly4points = New Collection
+    poly4points.Add MakePoint2D(0, 0)
+    poly4points.Add MakePoint2D(15, 0)
+    poly4points.Add MakePoint2D(15, 6)
+    poly4points.Add MakePoint2D(12, 6)
+    poly4points.Add MakePoint2D(12, 14)
+    poly4points.Add MakePoint2D(10, 14)
+    poly4points.Add MakePoint2D(10, 6)
+    poly4points.Add MakePoint2D(0, 6)
+    
+    Set polygon4 = New Polygon2D
+    Set polygon4.Vertices = poly4points
+    
+    Dim poly4_reversePoints As Collection
+    Set poly4_reversePoints = New Collection
+    poly4_reversePoints.Add MakePoint2D(0, 0)
+    poly4_reversePoints.Add MakePoint2D(0, 6)
+    poly4_reversePoints.Add MakePoint2D(10, 6)
+    poly4_reversePoints.Add MakePoint2D(10, 14)
+    poly4_reversePoints.Add MakePoint2D(12, 14)
+    poly4_reversePoints.Add MakePoint2D(12, 6)
+    poly4_reversePoints.Add MakePoint2D(15, 6)
+    poly4_reversePoints.Add MakePoint2D(15, 0)
+    
+    Set polygon4_reverse = New Polygon2D
+    Set polygon4_reverse.Vertices = poly4_reversePoints
     
 End Sub
 
@@ -148,6 +178,49 @@ TestFail:
 End Sub
 
 '@TestMethod("Basic Operation")
+Private Sub TestAreaAddPointsCounterClockwise()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Const expected As Double = 106
+
+    'Act:
+    Dim actual As Double
+    actual = polygon4.Area
+
+
+    'Assert:
+    Assert.AreEqual expected, actual
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Resume TestExit
+End Sub
+
+'@TestMethod("Basic Operation")
+Private Sub TestAreaAddPointsClockwise()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Const expected As Double = 106
+
+    'Act:
+    Dim actual As Double
+    actual = polygon4_reverse.Area
+
+    'Assert:
+    Assert.AreEqual expected, actual
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Resume TestExit
+End Sub
+
+'@TestMethod("Basic Operation")
 Private Sub TestCentroid()
     On Error GoTo TestFail
     
@@ -162,6 +235,58 @@ Private Sub TestCentroid()
     'Act:
     Dim actual As Point2D
     Set actual = polygon.Centroid
+
+    'Assert:
+    Assert.IsTrue actual.Equals(expected)
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Resume TestExit
+End Sub
+
+'@TestMethod("Basic Operation")
+Private Sub TestCentroidPolygon4()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim expected As Point2D
+    Set expected = New Point2D
+    With expected
+        .x = 8.0283
+        .y = 4.0566
+    End With
+
+    'Act:
+    Dim actual As Point2D
+    Set actual = polygon4.Centroid
+
+    'Assert:
+    Assert.IsTrue actual.Equals(expected)
+
+TestExit:
+    Exit Sub
+TestFail:
+    Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
+    Resume TestExit
+End Sub
+
+'@TestMethod("Basic Operation")
+Private Sub TestCentroidPolygon4_reverse()
+    On Error GoTo TestFail
+    
+    'Arrange:
+    Dim expected As Point2D
+    Set expected = New Point2D
+    With expected
+        .x = 8.0283
+        .y = 4.0566
+    End With
+
+    'Act:
+    Dim actual As Point2D
+    Set actual = polygon4_reverse.Centroid
 
     'Assert:
     Assert.IsTrue actual.Equals(expected)
