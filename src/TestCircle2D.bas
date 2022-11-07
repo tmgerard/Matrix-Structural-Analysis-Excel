@@ -26,7 +26,7 @@ Private Sub ModuleInitialize()
     Set circ = New Circle2D
     With circ
         Set .center = originPt
-        .Radius = 10
+        .radius = 10
     End With
 End Sub
 
@@ -143,7 +143,7 @@ Private Sub NegativeRadius()
     'Arrange:
 
     'Act:
-    circ.Radius = -10
+    circ.radius = -10
 
 Assert:
     Assert.Fail "Expected error was not raised"
