@@ -54,6 +54,12 @@ Private Property Get IDOFMapper_DofMap() As Matrix
     Set IDOFMapper_DofMap = Me.DofMap
 End Property
 
+Private Property Get IDOFMapper_DofsPerNode() As Integer
+    IDOFMapper_DofsPerNode = MaxDOFsPerNode
+End Property
+
 Private Property Get IDOFMapper_GetDofEq(dofIndex As Long, nodeIndex As Long) As Long
     IDOFMapper_GetDofEq = Me.GetDofEq(dofIndex, nodeIndex)
 End Property
+
+

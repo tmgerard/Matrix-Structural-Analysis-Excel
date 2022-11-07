@@ -16,3 +16,6 @@ End Property
 
 Public Property Get DofMap() As Matrix
 End Property
+
+Public Property Get DofsPerNode() As Integer
+End Property
