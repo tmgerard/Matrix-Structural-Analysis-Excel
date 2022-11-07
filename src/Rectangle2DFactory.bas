@@ -11,7 +11,7 @@ Public Function MakeRectangleContaining(ByRef points As Collection) As Rectangle
 
     If points.count = 0 Then
         Err.Raise Number:=RectangleFactoryErrors.NoPoints, _
-                  Source:="Rectangle2DFactory.MakeRectangleContaining", _
+                  source:="Rectangle2DFactory.MakeRectangleContaining", _
                   Description:="Expected at least one point"
     End If
     
@@ -19,7 +19,7 @@ Public Function MakeRectangleContaining(ByRef points As Collection) As Rectangle
     For Each point In points
         If Not TypeOf point Is Point2D Then
             Err.Raise Number:=RectangleFactoryErrors.BadPointObject, _
-                      Source:="Rectangle2DFactory.MakeRectangleContaining", _
+                      source:="Rectangle2DFactory.MakeRectangleContaining", _
                       Description:="All objects must be of type Point2D"
         End If
     Next point

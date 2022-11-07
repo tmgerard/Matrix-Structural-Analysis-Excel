@@ -50,7 +50,7 @@ End Function
 Public Function SetData(ByRef vecData() As Double) As Vector
     If Not ArrayLength(this.Data) = ArrayLength(vecData) Then
         Err.Raise Number:=VectorErrors.LengthMismatch, _
-                  Source:="Vector.SetData()", _
+                  source:="Vector.SetData()", _
                   Description:="Vector data array length mismatch"
     End If
     

@@ -24,7 +24,7 @@ End Enum
 Public Sub SetInterval(ByRef IntStart As Double, ByRef IntEnd As Double)
     If IntStart > IntEnd Then
         Err.Raise Number:=OpenIntervalErrors.BadInterval, _
-                  Source:="OpenInterval.SetInterval", _
+                  source:="OpenInterval.SetInterval", _
                   Description:="Interval start value must be less than the end value."
     End If
     this.Start = IntStart

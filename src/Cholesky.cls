@@ -38,13 +38,13 @@ Private Sub ValidateSystem(ByRef mat As Matrix, ByRef vec As Vector)
 Attribute ValidateSystem.VB_Description = "Checks that the coefficient matrix and free vector are compatible with Cholesky Decomposition."
     If Not mat.Columns = vec.Length Then
         Err.Raise Number:=CholeskyErrors.BadSize, _
-                  Source:="Cholesky.ValidateSystem", _
+                  source:="Cholesky.ValidateSystem", _
                   Description:="Size mismatch between matrix and vector."
     End If
     
     If Not mat.IsSquare Then
         Err.Raise Number:=CholeskyErrors.NotSquare, _
-                  Source:="Cholesky.ValidateSystem", _
+                  source:="Cholesky.ValidateSystem", _
                   Description:="System matrix must be square"
     End If
 End Sub

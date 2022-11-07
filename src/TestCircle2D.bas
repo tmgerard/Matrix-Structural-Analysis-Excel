@@ -26,7 +26,7 @@ Private Sub ModuleInitialize()
     Set circ = New Circle2D
     With circ
         Set .center = originPt
-        .radius = 10
+        .Radius = 10
     End With
 End Sub
 
@@ -133,4 +133,27 @@ TestExit:
 TestFail:
     Assert.Fail "Test raised an error: #" & Err.Number & " - " & Err.Description
     Resume TestExit
+End Sub
+
+'@TestMethod("Expected Error")
+Private Sub NegativeRadius()
+    Const ExpectedError As Long = GeometryError.NegativeDimension
+    On Error GoTo TestFail
+    
+    'Arrange:
+
+    'Act:
+    circ.Radius = -10
+
+Assert:
+    Assert.Fail "Expected error was not raised"
+
+TestExit:
+    Exit Sub
+TestFail:
+    If Err.Number = ExpectedError Then
+        Resume TestExit
+    Else
+        Resume Assert
+    End If
 End Sub

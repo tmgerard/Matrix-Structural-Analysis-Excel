@@ -30,13 +30,13 @@ Attribute SetSize.VB_Description = "Sets the number of rows and columns in the m
 
     If numRows <= 0 Then
         Err.Raise Number:=MatrixErrors.BadRows, _
-                  Source:="Matrix.SetSize", _
+                  source:="Matrix.SetSize", _
                   Description:="Row size cannot be zero or negative."
     End If
     
     If numColumns <= 0 Then
         Err.Raise Number:=MatrixErrors.BadColumns, _
-                  Source:="Matrix.SetSize", _
+                  source:="Matrix.SetSize", _
                   Description:="Column size cannot be zero or negative."
     End If
 
@@ -99,7 +99,7 @@ Attribute SetData.VB_Description = "Populates Matrix object with the values of a
     ' matrixData array must be stored in row-major format
     If Not ArrayLength(matrixData) = (this.numColumns * this.numRows) Then
         Err.Raise Number:=MatrixErrors.MatrixSizeMismatch, _
-                  Source:="Matrix.SetData", _
+                  source:="Matrix.SetData", _
                   Description:="Cannot set data: Size mismatch"
     End If
     

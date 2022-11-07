@@ -43,13 +43,13 @@ Public Sub SetSolutionBar(ByRef OriginalBar As BarElement2D, ByRef StartNode As 
 
     If Not OriginalBar.StartNode.ID = StartNode.ID Then
         Err.Raise Number:=SolutionBarElement2DErrors.NodeMismatch, _
-                  Source:="SolutionBarElement2D.SetSolutionBar", _
+                  source:="SolutionBarElement2D.SetSolutionBar", _
                   Description:="Wrong start node."
     End If
     
     If Not OriginalBar.EndNode.ID = EndNode.ID Then
         Err.Raise Number:=SolutionBarElement2DErrors.NodeMismatch, _
-                  Source:="SolutionBarElement2D.SetSolutionBar", _
+                  source:="SolutionBarElement2D.SetSolutionBar", _
                   Description:="Wrong end node."
     End If
     
@@ -140,7 +140,7 @@ Public Function ForceInNode(ByRef Node As SolutionNode2D) As Vector2D
     Else ' unkown node
     
         Err.Raise Number:=SolutionBarElement2DErrors.UnkownNode, _
-                  Source:="SolutionBarElement2D.ForceInNode", _
+                  source:="SolutionBarElement2D.ForceInNode", _
                   Description:="Bar " & Me.ID & " does not know about node " & Node.ID
     
     End If

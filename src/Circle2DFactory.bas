@@ -2,12 +2,12 @@ Attribute VB_Name = "Circle2DFactory"
 '@Folder("StructuralAnalysis.Geometry")
 Option Explicit
 
-Public Function MakeCircle(ByRef radius As Double, ByRef center As Point2D) As Circle2D
+Public Function MakeCircle(ByRef Radius As Double, ByRef center As Point2D) As Circle2D
 
     Dim circ As Circle2D
     Set circ = New Circle2D
     With circ
-        .radius = radius
+        .Radius = Radius
         Set .center = center
     End With
     
@@ -39,14 +39,14 @@ Public Function MakeCircleFromPoints(ByRef pointA As Point2D, ByRef pointB As Po
     Dim center As Point2D
     Set center = seg1Bisector.IntersectionWith(seg2Bisector)
     
-    Dim radius As Double
-    radius = center.DistanceTo(pointA)
+    Dim Radius As Double
+    Radius = center.DistanceTo(pointA)
     
     Dim newCircle As Circle2D
     Set newCircle = New Circle2D
     With newCircle
         Set .center = center
-        .radius = radius
+        .Radius = Radius
     End With
     
     Set MakeCircleFromPoints = newCircle

@@ -23,7 +23,7 @@ End Function
 Public Sub EnsureValidRatio(ByRef ratio As Double)
     If ratio < MIN Or ratio > MAX Then
         Err.Raise Number:=SegmentRatioError.BadValue, _
-                  Source:="Segment2DRatio", _
+                  source:="Segment2DRatio", _
                   Description:="Expected ratio to be in [0, 1] but was " & ratio
     End If
 End Sub

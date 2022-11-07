@@ -37,7 +37,7 @@ Public Property Set Vertices(ByRef points As Collection)
 
     If points.count < 3 Then
         Err.Raise Number:=Polygon2DErrors.NotEnoughVertices, _
-                  Source:="Polygon2D.Vertices (Set)", _
+                  source:="Polygon2D.Vertices (Set)", _
                   Description:=MinVertices & " or more vertices required for Polygon2D object"
     End If
 
@@ -47,7 +47,7 @@ Public Property Set Vertices(ByRef points As Collection)
             this.points.Add point
         Else    ' Throw vba type mismatch error code
             Err.Raise Number:=13, _
-                      Source:="Polygon2D.Vertices (Set)", _
+                      source:="Polygon2D.Vertices (Set)", _
                       Description:="Polygon2D vertex type Mismatch. Point2D objects required."
 
         End If
