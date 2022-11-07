@@ -18,8 +18,8 @@ End Type
 Private this As TPlaneTrussDOFMapper
 Private Const MaxDOFsPerNode As Integer = 2
 
-Public Property Get GetDofEq(ByRef elementIndex As Long, ByRef nodeIndex As Long) As Long
-    GetDofEq = this.dofMat.ValueAt(elementIndex, nodeIndex)
+Public Property Get GetDofEq(ByRef dofIndex As Long, ByRef nodeIndex As Long) As Long
+    GetDofEq = this.dofMat.ValueAt(dofIndex, nodeIndex)
 End Property
 
 Public Property Get DofMap() As Matrix
@@ -54,6 +54,6 @@ Private Property Get IDOFMapper_DofMap() As Matrix
     Set IDOFMapper_DofMap = Me.DofMap
 End Property
 
-Private Property Get IDOFMapper_GetDofEq(elementIndex As Long, nodeIndex As Long) As Long
-    IDOFMapper_GetDofEq = Me.GetDofEq(elementIndex, nodeIndex)
+Private Property Get IDOFMapper_GetDofEq(dofIndex As Long, nodeIndex As Long) As Long
+    IDOFMapper_GetDofEq = Me.GetDofEq(dofIndex, nodeIndex)
 End Property

@@ -11,7 +11,7 @@ Attribute VB_Exposed = False
 '@Folder("StructuralAnalysis.Model.Structure Model")
 Option Explicit
 
-Public Property Get GetDofEq(ByRef elementIndex As Long, ByRef nodeIndex As Long) As Long
+Public Property Get GetDofEq(ByRef dofIndex As Long, ByRef nodeIndex As Long) As Long
 End Property
 
 Public Property Get DofMap() As Matrix
