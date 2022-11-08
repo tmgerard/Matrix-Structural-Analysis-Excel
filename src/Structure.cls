@@ -243,17 +243,17 @@ Private Sub AssembleSystemMatrix(ByRef size As Long)
 End Sub
 
 Private Function BarDegreesOfFreedom(ByRef bar As BarElement2D) As Collection
-    Dim dofs As Collection
-    Set dofs = New Collection
+    Dim Dofs As Collection
+    Set Dofs = New Collection
     Dim index As Long
     For index = 1 To this.DOF_Dict.count
         If index = bar.StartNode.ID Or index = bar.EndNode.ID Then
-            dofs.Add this.DOF_Dict.Item(index)(0)
-            dofs.Add this.DOF_Dict.Item(index)(1)
+            Dofs.Add this.DOF_Dict.Item(index)(0)
+            Dofs.Add this.DOF_Dict.Item(index)(1)
         End If
     Next index
     
-    Set BarDegreesOfFreedom = dofs
+    Set BarDegreesOfFreedom = Dofs
 End Function
 
 Private Sub AssembleSystemVector(ByRef size As Long)
