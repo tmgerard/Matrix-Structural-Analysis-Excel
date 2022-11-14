@@ -34,17 +34,21 @@ Public Function GetConnectivityArray(ByRef elementID As Long) As Long()
     Set eNodes = elem.ElementNodes
     
     Dim result() As Long
-    ReDim result(eNodes.count)
+    ReDim result(this.map.DofsPerNode * eNodes.count - 1)
     
     Dim dofIndex As Long
-    Dim eNode As Variant
+    Dim elementIndex As Long
     Dim elementDof As Long
-    For Each eNode In eNodes
-        For dofIndex = 0 To this.map.DofsPerNode
-            elementDof = (eNode.ID - 1) * (this.map.DofsPerNode - 1) + dofIndex
-            result(elementDof) = this.map.GetDofEq(dofIndex, eNode.ID - 1)
-        Next dofIndex
-    Next eNode
+    Dim nodeIndex As Long
+    Dim globalDofIndex As Long
     
+    For nodeIndex = 0 To eNodes.count - 1
+        For dofIndex = 0 To this.map.DofsPerNode - 1
+            result(elementDof) = this.map.GetDofEq(dofIndex, nodeIndex)
+            elementDof = elementDof + 1
+        Next dofIndex
+    Next nodeIndex
+    
+    GetConnectivityArray = result
     
 End Function
