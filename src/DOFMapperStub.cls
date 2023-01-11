@@ -8,7 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '@Folder("Tests.Model.Structure Model")
-' Stub for texting element connectivity manager
+' Stub for testing element connectivity manager
 Option Explicit
 Implements IDOFMapper
 
