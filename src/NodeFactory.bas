@@ -3,14 +3,16 @@ Attribute VB_Name = "NodeFactory"
 Option Explicit
 
 Public Function MakeNode2D(ByRef nodeID As Long, ByRef nodeCoordinates As Point2D, _
-    Optional ByRef xConstrained As Boolean = False, Optional ByRef yConstrained As Boolean = False) As Node2D
+    Optional ByRef xTrans As Boolean = True, Optional ByRef yTrans As Boolean = True, _
+    Optional ByRef zRot As Boolean = True) As Node2D
 
     Dim node As Node2D
     Set node = New Node2D
     With node
         Set .Position = nodeCoordinates
-        .xConstrained = xConstrained
-        .yConstrained = yConstrained
+        .DOF(xTranslation) = xTrans
+        .DOF(yTranslation) = yTrans
+        .DOF(zRotation) = zRot
     End With
     
     node.ID = nodeID
