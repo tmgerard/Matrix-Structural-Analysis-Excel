@@ -148,6 +148,51 @@ Public Function ScaleValues(ByRef factor As Double) As Matrix
     Set ScaleValues = Me
 End Function
 
+Public Function Transpose() As Matrix
+
+    Dim Trans As Matrix
+    Set Trans = New Matrix
+    Trans.SetSize numRows:=Me.Columns, numColumns:=Me.Rows
+    
+    Dim i As Long
+    Dim j As Long
+    For i = 0 To Trans.Rows
+        For j = 0 To Trans.Columns
+            Trans.ValueAt(i, j) = Me.ValueAt(j, i)
+        Next j
+    Next i
+    
+    Set Transpose = Trans
+
+End Function
+
+Public Function Multiply(ByRef other As Matrix) As Matrix
+
+    If Not Me.Columns = other.Rows Then
+        Err.Raise Number:=MatrixErrors.MatrixSizeMismatch, _
+                  source:="Matrix.Multiply", _
+                  Description:="Matrices not compatible for multiplication"
+    End If
+    
+    Dim result As Matrix
+    Set result = New Matrix
+    result.SetSize numRows:=Me.Rows, numColumns:=other.Columns
+    
+    Dim i As Long, j As Long, k As Long, sum As Double
+    For i = 0 To result.Rows
+        For j = 0 To result.Columns
+            sum = 0
+            For k = 0 To Me.Columns
+                sum = sum + Me.ValueAt(i, k) * other.ValueAt(k, j)
+            Next k
+            result.ValueAt(i, j) = sum
+        Next j
+    Next i
+    
+    Set Multiply = result
+
+End Function
+
 
 Public Function Equals(ByRef other As Matrix) As Boolean
 
