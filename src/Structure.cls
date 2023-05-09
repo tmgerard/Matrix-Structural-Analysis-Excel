@@ -78,12 +78,12 @@ Public Property Get LoadCount() As Long
     Dim Count As Long
     Count = 0
     
-    Dim node As Node2D
+    Dim Node As Node2D
     
     Dim index As Long
     For index = 1 To Me.NodeCount
-        Set node = this.Nodes.Item(index)
-        Count = Count + node.LoadCount
+        Set Node = this.Nodes.Item(index)
+        Count = Count + Node.LoadCount
     Next index
     
     LoadCount = Count
@@ -94,12 +94,12 @@ Public Property Get ReactionCount() As Long
     Dim Count As Long
     Count = 0
     
-    Dim node As Node2D
+    Dim Node As Node2D
     Dim index As Long
     For index = 1 To Me.NodeCount
-        Set node = this.Nodes.Item(index)
-        If node.xConstrained Then Count = Count + 1
-        If node.yConstrained Then Count = Count + 1
+        Set Node = this.Nodes.Item(index)
+        If Node.xConstrained Then Count = Count + 1
+        If Node.yConstrained Then Count = Count + 1
     Next index
     
     ReactionCount = Count

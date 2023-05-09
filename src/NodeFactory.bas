@@ -6,17 +6,17 @@ Public Function MakeNode2D(ByRef nodeID As Long, ByRef nodeCoordinates As Point2
     Optional ByRef xTrans As Boolean = True, Optional ByRef yTrans As Boolean = True, _
     Optional ByRef zRot As Boolean = True) As Node2D
 
-    Dim node As Node2D
-    Set node = New Node2D
-    With node
+    Dim Node As Node2D
+    Set Node = New Node2D
+    With Node
         Set .Position = nodeCoordinates
         .DOF(xTranslation) = xTrans
         .DOF(yTranslation) = yTrans
         .DOF(zRotation) = zRot
     End With
     
-    node.ID = nodeID
+    Node.ID = nodeID
     
-    Set MakeNode2D = node
+    Set MakeNode2D = Node
 
 End Function

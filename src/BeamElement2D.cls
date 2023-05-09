@@ -47,16 +47,16 @@ Public Property Get StartNode() As Node2D
     Set StartNode = this.StartNode
 End Property
 
-Public Property Set StartNode(ByRef node As Node2D)
-    Set this.StartNode = node
+Public Property Set StartNode(ByRef Node As Node2D)
+    Set this.StartNode = Node
 End Property
 
 Public Property Get EndNode() As Node2D
     Set EndNode = this.EndNode
 End Property
 
-Public Property Set EndNode(ByRef node As Node2D)
-    Set this.EndNode = node
+Public Property Set EndNode(ByRef Node As Node2D)
+    Set this.EndNode = Node
 End Property
 
 Public Property Get Material() As IPlaneBeamMaterial

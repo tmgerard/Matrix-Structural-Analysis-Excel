@@ -123,16 +123,16 @@ Public Function InternalForceValue() As Double
     InternalForceValue = Me.stress * Me.Area
 End Function
 
-Public Function ForceInNode(ByRef node As SolutionNode2D) As Vector2D
+Public Function ForceInNode(ByRef Node As SolutionNode2D) As Vector2D
     
     Dim force As Vector2D
     
-    If node Is this.StartNode Then
+    If Node Is this.StartNode Then
     
         Set force = MakeVectorBetween(this.EndNode.displacedPosition, _
             this.StartNode.displacedPosition).WithLength(InternalForceValue)
     
-    ElseIf node Is this.EndNode Then
+    ElseIf Node Is this.EndNode Then
     
         Set force = MakeVectorBetween(this.StartNode.displacedPosition, _
             this.EndNode.displacedPosition).WithLength(InternalForceValue)
@@ -141,7 +141,7 @@ Public Function ForceInNode(ByRef node As SolutionNode2D) As Vector2D
     
         Err.Raise Number:=SolutionBarElement2DErrors.UnkownNode, _
                   source:="SolutionBarElement2D.ForceInNode", _
-                  Description:="Bar " & Me.ID & " does not know about node " & node.ID
+                  Description:="Bar " & Me.ID & " does not know about node " & Node.ID
     
     End If
     
@@ -149,8 +149,8 @@ Public Function ForceInNode(ByRef node As SolutionNode2D) As Vector2D
     
 End Function
 
-Public Function HasNode(ByRef node As SolutionNode2D) As Boolean
-    HasNode = (node Is this.StartNode) Or (node Is this.EndNode)
+Public Function HasNode(ByRef Node As SolutionNode2D) As Boolean
+    HasNode = (Node Is this.StartNode) Or (Node Is this.EndNode)
 End Function
 
 Public Function FinalGeometryScalingDisplacement(ByRef factor As Double) As Segment2D

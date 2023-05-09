@@ -4,9 +4,9 @@ Option Explicit
 
 Public Sub TestTruss()
 
-    Dim load As Vector2D
-    Set load = New Vector2D
-    With load
+    Dim Load As Vector2D
+    Set Load = New Vector2D
+    With Load
         .u = 10
         .v = -5
     End With
@@ -18,7 +18,7 @@ Public Sub TestTruss()
     trussNodes.Add NodeFactory.MakeNode2D(2, Point2DFactory.MakePoint2D(48, 0), False, True)    ' Roller
     trussNodes.Add NodeFactory.MakeNode2D(3, Point2DFactory.MakePoint2D(48, 36), False, False)
     
-    trussNodes.Item(3).AddLoad load
+    trussNodes.Item(3).AddLoad Load
     
     Dim trussBars As Collection
     Set trussBars = New Collection

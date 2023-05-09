@@ -61,21 +61,21 @@ Public Function BoundingRectangle(ByRef margin As Double, Optional ByRef scaling
     
 End Function
 
-Public Function NodeReaction(ByRef node As SolutionNode2D) As Vector2D
+Public Function NodeReaction(ByRef Node As SolutionNode2D) As Vector2D
 ' TODO: Add NodeReaction Test
     Dim reaction As Vector2D
     Set reaction = New Vector2D
     reaction.u = 0
     reaction.v = 0
     
-    If node.IsConstrained Then
+    If Node.IsConstrained Then
         Dim nodeForce As Vector2D
         Dim currentBar As SolutionBarElement2D
         Dim bar As Long
         For bar = 1 To this.Bars.Count
             Set currentBar = this.Bars.Item(bar)
-            If currentBar.HasNode(node) Then
-                Set nodeForce = currentBar.ForceInNode(node)
+            If currentBar.HasNode(Node) Then
+                Set nodeForce = currentBar.ForceInNode(Node)
                 Set reaction = reaction.Add(nodeForce)
             End If
         Next bar
@@ -86,8 +86,8 @@ Public Function NodeReaction(ByRef node As SolutionNode2D) As Vector2D
         End With
     End If
     
-    If node.IsLoaded Then
-        Set reaction = reaction.Add(node.NetLoad.Opposite)
+    If Node.IsLoaded Then
+        Set reaction = reaction.Add(Node.NetLoad.Opposite)
     End If
     
     
