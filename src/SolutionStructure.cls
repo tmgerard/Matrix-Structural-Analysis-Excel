@@ -12,7 +12,7 @@ Option Explicit
 
 Private Type TSolutionStructure
     Bars As Collection
-    nodes As Collection
+    Nodes As Collection
 End Type
 
 Private this As TSolutionStructure
@@ -20,14 +20,14 @@ Private this As TSolutionStructure
 Private Sub Class_Initialize()
     With this
         Set .Bars = New Collection
-        Set .nodes = New Collection
+        Set .Nodes = New Collection
     End With
 End Sub
 
 Private Sub Class_Terminate()
     With this
         Set .Bars = Nothing
-        Set .nodes = Nothing
+        Set .Nodes = Nothing
     End With
 End Sub
 
@@ -39,12 +39,12 @@ Public Property Set Bars(ByRef barCollection As Collection)
     Set this.Bars = barCollection
 End Property
 
-Public Property Get nodes() As Collection
-    Set nodes = this.nodes
+Public Property Get Nodes() As Collection
+    Set Nodes = this.Nodes
 End Property
 
-Public Property Set nodes(ByRef nodeCollection As Collection)
-    Set this.nodes = nodeCollection
+Public Property Set Nodes(ByRef nodeCollection As Collection)
+    Set this.Nodes = nodeCollection
 End Property
 
 Public Function BoundingRectangle(ByRef margin As Double, Optional ByRef scalingFactor As Double = 1) As Rectangle2D
@@ -53,29 +53,29 @@ Public Function BoundingRectangle(ByRef margin As Double, Optional ByRef scaling
     Set displacedPoints = New Collection
     
     Dim index As Long
-    For index = 1 To this.nodes.count
-        displacedPoints.Add this.nodes.Item(index).DisplacedPositionScaled(scalingFactor)
+    For index = 1 To this.Nodes.Count
+        displacedPoints.Add this.Nodes.Item(index).DisplacedPositionScaled(scalingFactor)
     Next index
     
     Set BoundingRectangle = MakeRectangleContainingWithMargins(displacedPoints, margin)
     
 End Function
 
-Public Function NodeReaction(ByRef Node As SolutionNode2D) As Vector2D
+Public Function NodeReaction(ByRef node As SolutionNode2D) As Vector2D
 ' TODO: Add NodeReaction Test
     Dim reaction As Vector2D
     Set reaction = New Vector2D
     reaction.u = 0
     reaction.v = 0
     
-    If Node.IsConstrained Then
+    If node.IsConstrained Then
         Dim nodeForce As Vector2D
         Dim currentBar As SolutionBarElement2D
         Dim bar As Long
-        For bar = 1 To this.Bars.count
+        For bar = 1 To this.Bars.Count
             Set currentBar = this.Bars.Item(bar)
-            If currentBar.HasNode(Node) Then
-                Set nodeForce = currentBar.ForceInNode(Node)
+            If currentBar.HasNode(node) Then
+                Set nodeForce = currentBar.ForceInNode(node)
                 Set reaction = reaction.Add(nodeForce)
             End If
         Next bar
@@ -86,8 +86,8 @@ Public Function NodeReaction(ByRef Node As SolutionNode2D) As Vector2D
         End With
     End If
     
-    If Node.IsLoaded Then
-        Set reaction = reaction.Add(Node.NetLoad.Opposite)
+    If node.IsLoaded Then
+        Set reaction = reaction.Add(node.NetLoad.Opposite)
     End If
     
     

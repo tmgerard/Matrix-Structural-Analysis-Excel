@@ -9,10 +9,10 @@ End Enum
 Public Sub CheckTableForNull(ByRef table As ListObject)
 
     Dim rowCount As Long
-    rowCount = table.DataBodyRange.Rows.count
+    rowCount = table.DataBodyRange.Rows.Count
     
     Dim columnCount As Long
-    columnCount = table.DataBodyRange.Columns.count
+    columnCount = table.DataBodyRange.Columns.Count
     
     Dim row As Long
     Dim column As Long

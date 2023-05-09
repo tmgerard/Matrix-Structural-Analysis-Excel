@@ -119,39 +119,39 @@ Private Sub DrawMembers(ByRef truss As SolutionStructure)
 End Sub
 
 Private Sub DrawNodes(ByRef truss As SolutionStructure)
-    Dim Node As SolutionNode2D
-    For Each Node In truss.nodes
-        DrawNode Node
-    Next Node
+    Dim node As SolutionNode2D
+    For Each node In truss.Nodes
+        DrawNode node
+    Next node
 End Sub
 
 Private Sub DrawLoads(ByRef truss As SolutionStructure)
-    Dim Node As SolutionNode2D
-    For Each Node In truss.nodes
-        If Node.IsLoaded Then
-            DrawNodalLoads Node
+    Dim node As SolutionNode2D
+    For Each node In truss.Nodes
+        If node.IsLoaded Then
+            DrawNodalLoads node
         End If
-    Next Node
+    Next node
 End Sub
 
-Private Sub DrawNodalLoads(ByRef Node As SolutionNode2D)
+Private Sub DrawNodalLoads(ByRef node As SolutionNode2D)
     Const bgArrowNudge As Long = 3
     
     Dim transNode As Point2D
-    Set transNode = this.Transform.ApplyToPoint(Node.OriginalPosition)
+    Set transNode = this.Transform.ApplyToPoint(node.OriginalPosition)
     
     Dim load As Vector2D
-    Set load = Node.NetLoad
+    Set load = node.NetLoad
     
     If Not IsEffectivelyZero(load.u) Then
         With this.Target.Shapes.AddLine(transNode.x, transNode.y, transNode.x + (LoadArrowLength + bgArrowNudge) * Math.Sgn(load.u), transNode.y)
-            .Name = Node.ID & "-xbg"
+            .Name = node.ID & "-xbg"
             .Line.Weight = 4
             .Line.ForeColor.RGB = NodeColor
             .Line.EndArrowheadStyle = msoArrowheadTriangle
         End With
         With this.Target.Shapes.AddLine(transNode.x, transNode.y, transNode.x + LoadArrowLength * Math.Sgn(load.u), transNode.y)
-            .Name = Node.ID & "-x"
+            .Name = node.ID & "-x"
             .Line.Weight = 2
             .Line.ForeColor.RGB = LoadArrowColor
             .Line.EndArrowheadStyle = msoArrowheadTriangle
@@ -160,13 +160,13 @@ Private Sub DrawNodalLoads(ByRef Node As SolutionNode2D)
     
     If Not IsEffectivelyZero(load.v) Then
         With this.Target.Shapes.AddLine(transNode.x, transNode.y, transNode.x, transNode.y - (LoadArrowLength + bgArrowNudge) * Math.Sgn(load.v))
-            .Name = Node.ID & "-ybg"
+            .Name = node.ID & "-ybg"
             .Line.Weight = 4
             .Line.ForeColor.RGB = NodeColor
             .Line.EndArrowheadStyle = msoArrowheadTriangle
         End With
         With this.Target.Shapes.AddLine(transNode.x, transNode.y, transNode.x, transNode.y - LoadArrowLength * Math.Sgn(load.v))
-            .Name = Node.ID & "-y"
+            .Name = node.ID & "-y"
             .Line.Weight = 2
             .Line.ForeColor.RGB = LoadArrowColor
             .Line.EndArrowheadStyle = msoArrowheadTriangle
@@ -193,28 +193,28 @@ Private Sub DrawSegment(ByRef segment As Segment2D, ByRef BarID As String, ByRef
     End With
 End Sub
 
-Private Sub DrawNode(ByRef Node As SolutionNode2D)
+Private Sub DrawNode(ByRef node As SolutionNode2D)
 
     Dim transNode As Polygon2D
-    Set transNode = this.Transform.ApplyToPolygon(MakeCircle(NodeRadius / this.nodeRadiusModifier, Node.OriginalPosition).ToPolygon(NodeDivisions))
+    Set transNode = this.Transform.ApplyToPolygon(MakeCircle(NodeRadius / this.nodeRadiusModifier, node.OriginalPosition).ToPolygon(NodeDivisions))
     
     Dim circlePoints() As Single
-    ReDim circlePoints(transNode.Vertices.count, 0 To 1)
+    ReDim circlePoints(transNode.Vertices.Count, 0 To 1)
     
     Dim currentPoint As Point2D
     Dim I As Long
-    For I = 0 To transNode.Vertices.count - 1
+    For I = 0 To transNode.Vertices.Count - 1
         Set currentPoint = transNode.Vertices.Item(I + 1)
         circlePoints(I, 0) = CSng(currentPoint.x)
         circlePoints(I, 1) = CSng(currentPoint.y)
     Next I
     
     Set currentPoint = transNode.Vertices.Item(1)
-    circlePoints(transNode.Vertices.count, 0) = CSng(currentPoint.x)
-    circlePoints(transNode.Vertices.count, 1) = CSng(currentPoint.y)
+    circlePoints(transNode.Vertices.Count, 0) = CSng(currentPoint.x)
+    circlePoints(transNode.Vertices.Count, 1) = CSng(currentPoint.y)
     
     With this.Target.Shapes.AddPolyline(circlePoints)
-        .Name = CStr(Node.ID)
+        .Name = CStr(node.ID)
         .Fill.BackColor.RGB = NodeColor
         .Fill.ForeColor.RGB = NodeColor
     End With

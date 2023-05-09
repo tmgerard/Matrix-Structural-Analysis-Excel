@@ -19,7 +19,7 @@ Public Sub CheckForDuplicateNode(ByRef NodeTable As ListObject, ByRef ChangedRow
         Set modifiedInput = MakeNode2D(.Item(ChangedRow, 1), MakePoint2D(.Item(ChangedRow, 2), .Item(ChangedRow, 3)))
     
         Dim rowCount As Long
-        rowCount = NodeTable.DataBodyRange.Rows.count
+        rowCount = NodeTable.DataBodyRange.Rows.Count
         
         Dim row As Long
         Dim currentNode As Node2D
@@ -51,7 +51,7 @@ Public Sub CheckForDuplicateMember(ByRef MemberTable As ListObject, ByRef Change
         End If
     
         Dim rowCount As Long
-        rowCount = MemberTable.DataBodyRange.Rows.count
+        rowCount = MemberTable.DataBodyRange.Rows.Count
         
         Dim row As Long
         Dim currentMemberID As Long

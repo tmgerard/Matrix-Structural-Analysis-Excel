@@ -12,7 +12,7 @@ Option Explicit
 
 Private Type TStructureBuilder
     CrossSections As Collection
-    nodes As Collection
+    Nodes As Collection
     Materials As Collection
     Members As Collection
     CrossSectionTable As ListObject
@@ -27,7 +27,7 @@ Private this As TStructureBuilder
 Private Sub Class_Initialize()
     With this
         Set .CrossSections = New Collection
-        Set .nodes = New Collection
+        Set .Nodes = New Collection
         Set .Materials = New Collection
         Set .Members = New Collection
         Set .CrossSectionTable = TrussInput.ListObjects(InputSettings.CrossSectionTableName)
@@ -41,7 +41,7 @@ End Sub
 Private Sub Class_Terminate()
     With this
         Set .CrossSections = Nothing
-        Set .nodes = Nothing
+        Set .Nodes = Nothing
         Set .Materials = Nothing
         Set .Members = Nothing
         Set .CrossSectionTable = Nothing
@@ -54,7 +54,7 @@ End Sub
 
 Public Function Build() As Structure
 
-    If this.nodes Is Nothing Or this.Members Is Nothing Then
+    If this.Nodes Is Nothing Or this.Members Is Nothing Then
         ' TODO: raise error if no loads or members defined
     End If
     
@@ -73,7 +73,7 @@ Public Function Build() As Structure
     Dim struct As Structure
     Set struct = New Structure
     With struct
-        Set .nodes = this.nodes
+        Set .Nodes = this.Nodes
         Set .Bars = this.Members
     End With
     
@@ -86,7 +86,7 @@ Private Sub GetNodes()
     Dim yConstrained As Boolean
     
     Dim row As Long
-    For row = 1 To this.NodeTable.DataBodyRange.Rows.count
+    For row = 1 To this.NodeTable.DataBodyRange.Rows.Count
         
         Select Case UCase$(this.NodeTable.DataBodyRange.Item(row, 4))
         Case Pin
@@ -101,7 +101,7 @@ Private Sub GetNodes()
         End Select
         
         With this
-            .nodes.Add MakeNode2D( _
+            .Nodes.Add MakeNode2D( _
                 .NodeTable.DataBodyRange.Item(row, 1), _
                 MakePoint2D(.NodeTable.DataBodyRange.Item(row, 2), .NodeTable.DataBodyRange.Item(row, 3)), _
                 xConstrained, _
@@ -113,7 +113,7 @@ End Sub
 
 Private Sub GetMaterials()
     Dim row As Long
-    For row = 1 To this.MaterialTable.DataBodyRange.Rows.count
+    For row = 1 To this.MaterialTable.DataBodyRange.Rows.Count
         With this
             ' add array with cross-sectional area and Modulus of Elasticity to collection
             .Materials.Add .MaterialTable.DataBodyRange.Item(row, 2).value
@@ -123,7 +123,7 @@ End Sub
 
 Private Sub GetCrossSections()
     Dim row As Long
-    For row = 1 To this.CrossSectionTable.DataBodyRange.Rows.count
+    For row = 1 To this.CrossSectionTable.DataBodyRange.Rows.Count
         With this
             .CrossSections.Add .MaterialTable.DataBodyRange.Item(row, 2)
         End With
@@ -142,13 +142,13 @@ Private Sub GetMembers()
     Dim youngsMod As Double
     
     Dim row As Long
-    For row = 1 To this.MemberTable.DataBodyRange.Rows.count
+    For row = 1 To this.MemberTable.DataBodyRange.Rows.Count
         With this
         
             StartID = .MemberTable.DataBodyRange.Item(row, 2)
             EndID = .MemberTable.DataBodyRange.Item(row, 3)
-            Set StartNode = .nodes.Item(StartID)
-            Set EndNode = .nodes.Item(EndID)
+            Set StartNode = .Nodes.Item(StartID)
+            Set EndNode = .Nodes.Item(EndID)
             CrossSectionID = .MemberTable.DataBodyRange.Item(row, 4)
             MaterialID = .MemberTable.DataBodyRange.Item(row, 5)
             Area = .CrossSections.Item(MaterialID)
@@ -172,12 +172,12 @@ Private Sub GetLoads()
     Dim yLoad As Double
     Dim currentNode As Node2D
     Dim row As Long
-    For row = 1 To this.LoadTable.DataBodyRange.Rows.count
+    For row = 1 To this.LoadTable.DataBodyRange.Rows.Count
         With this
             nodeID = .LoadTable.DataBodyRange.Item(row, 1)
             xLoad = .LoadTable.DataBodyRange.Item(row, 2)
             yLoad = .LoadTable.DataBodyRange.Item(row, 3)
-            Set currentNode = .nodes.Item(nodeID)
+            Set currentNode = .Nodes.Item(nodeID)
         End With
         
         currentNode.AddLoad MakeVector(xLoad, yLoad)

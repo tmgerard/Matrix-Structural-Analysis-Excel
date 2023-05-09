@@ -46,16 +46,16 @@ Public Property Get StartNode() As Node2D
     Set StartNode = this.StartNode
 End Property
 
-Public Property Set StartNode(ByRef Node As Node2D)
-    Set this.StartNode = Node
+Public Property Set StartNode(ByRef node As Node2D)
+    Set this.StartNode = node
 End Property
 
 Public Property Get EndNode() As Node2D
     Set EndNode = this.EndNode
 End Property
 
-Public Property Set EndNode(ByRef Node As Node2D)
-    Set this.EndNode = Node
+Public Property Set EndNode(ByRef node As Node2D)
+    Set this.EndNode = node
 End Property
 
 Public Property Get Material() As IPlaneBeamMaterial
@@ -154,6 +154,7 @@ Public Function K_Local() As Matrix
     
     Set K_Local = kMatrix
 End Function
+
 
 
 

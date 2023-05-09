@@ -10,7 +10,7 @@ Private Fakes As Rubberduck.FakesProvider
 Private point As Point2D
 Private load1 As Vector2D
 Private load2 As Vector2D
-Dim Node As Node2D
+Dim node As Node2D
 
 '@ModuleInitialize
 Private Sub ModuleInitialize()
@@ -36,9 +36,9 @@ Private Sub ModuleInitialize()
         .v = 40
     End With
     
-    Set Node = MakeNode2D(1, point)
-    Node.AddLoad load1
-    Node.AddLoad load2
+    Set node = MakeNode2D(1, point)
+    node.AddLoad load1
+    node.AddLoad load2
 End Sub
 
 '@ModuleCleanup
@@ -49,7 +49,7 @@ Private Sub ModuleCleanup()
     Set point = Nothing
     Set load1 = Nothing
     Set load2 = Nothing
-    Set Node = Nothing
+    Set node = Nothing
 End Sub
 
 '@TestInitialize
@@ -76,7 +76,7 @@ Private Sub TestNetLoad()
 
     'Act:
     Dim actual As Vector2D
-    Set actual = Node.NetLoad
+    Set actual = node.NetLoad
     
 
     'Assert:

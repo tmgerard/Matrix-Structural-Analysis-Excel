@@ -9,7 +9,7 @@ End Enum
 
 Public Function MakeRectangleContaining(ByRef points As Collection) As Rectangle2D
 
-    If points.count = 0 Then
+    If points.Count = 0 Then
         Err.Raise Number:=RectangleFactoryErrors.NoPoints, _
                   source:="Rectangle2DFactory.MakeRectangleContaining", _
                   Description:="Expected at least one point"
@@ -37,7 +37,7 @@ Public Function MakeRectangleContaining(ByRef points As Collection) As Rectangle
     maxY = firstPoint.y
     
     Dim index As Long
-    For index = 2 To points.count
+    For index = 2 To points.Count
         minX = WorksheetFunction.MIN(minX, points.Item(index).x)
         maxX = WorksheetFunction.MAX(maxX, points.Item(index).x)
         minY = WorksheetFunction.MIN(minY, points.Item(index).y)

@@ -35,7 +35,7 @@ End Property
 
 Public Property Set Vertices(ByRef points As Collection)
 
-    If points.count < 3 Then
+    If points.Count < 3 Then
         Err.Raise Number:=Polygon2DErrors.NotEnoughVertices, _
                   source:="Polygon2D.Vertices (Set)", _
                   Description:=MinVertices & " or more vertices required for Polygon2D object"
@@ -70,7 +70,7 @@ Private Function AreaSigned() As Double
     Dim currentPoint As Point2D
     Dim nextPoint As Point2D
     Dim pointIndex As Long
-    For pointIndex = 1 To this.points.count - 1
+    For pointIndex = 1 To this.points.Count - 1
         Set currentPoint = this.points.Item(pointIndex)
         Set nextPoint = this.points.Item(pointIndex + 1)
         result = result + currentPoint.x * nextPoint.y - nextPoint.x * currentPoint.y
@@ -88,10 +88,10 @@ Attribute Sides.VB_Description = "Returns a collection of Segment2D objects repr
     
     Dim segment As Segment2D
     Dim point As Long
-    For point = 1 To this.points.count
+    For point = 1 To this.points.Count
     
         Dim nextPoint As Long
-        If point < this.points.count Then
+        If point < this.points.Count Then
             nextPoint = point + 1
         Else ' Go back to first point index
             nextPoint = 1
@@ -122,7 +122,7 @@ Attribute Centroid.VB_Description = "Point2D object representing the centroid of
     Dim currentPoint As Point2D
     Dim nextPoint As Point2D
     Dim pointIndex As Long
-    For pointIndex = 1 To this.points.count - 1
+    For pointIndex = 1 To this.points.Count - 1
         Set currentPoint = this.points.Item(pointIndex)
         Set nextPoint = this.points.Item(pointIndex + 1)
         
@@ -156,7 +156,7 @@ Attribute ContainsPoint.VB_Description = "Returns True if the given Point2D obje
 ' when the point lies inside the polygon and zero if outside.
 
     Dim vertexIndex As Long
-    For vertexIndex = 1 To this.points.count
+    For vertexIndex = 1 To this.points.Count
         If point.Equals(this.points.Item(vertexIndex)) Then
             ContainsPoint = True
             Exit Function
@@ -177,10 +177,10 @@ Attribute ContainsPoint.VB_Description = "Returns True if the given Point2D obje
     Dim v1 As Vector2D
     Dim v2 As Vector2D
     Dim vectorIndex As Long
-    For vectorIndex = 1 To pointToVertexVectors.count
+    For vectorIndex = 1 To pointToVertexVectors.Count
     
         Dim nextVector As Long
-        If vectorIndex < pointToVertexVectors.count Then
+        If vectorIndex < pointToVertexVectors.Count Then
             nextVector = vectorIndex + 1
         Else
             nextVector = 1
@@ -204,11 +204,11 @@ Public Function Equals(ByRef other As Polygon2D) As Boolean
     ElseIf Not TypeOf other Is Polygon2D Then ' other is not a Vector2D
         Equals = False
     Else    ' check that polygon vertices are equal
-        If Not Me.Vertices.count = other.Vertices.count Then
+        If Not Me.Vertices.Count = other.Vertices.Count Then
             Equals = False
         Else
             Dim vertexIndex As Long
-            For vertexIndex = 1 To this.points.count
+            For vertexIndex = 1 To this.points.Count
                 If Not this.points.Item(vertexIndex).Equals(other.Vertices.Item(vertexIndex)) Then
                     Equals = False
                     Exit Function

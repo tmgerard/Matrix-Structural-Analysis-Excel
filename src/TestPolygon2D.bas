@@ -164,7 +164,7 @@ Private Sub TestSides()
     Dim actualSegment As Segment2D
     Dim expectedSegment As Segment2D
     Dim segment As Long
-    For segment = 1 To actual.count
+    For segment = 1 To actual.Count
         Set actualSegment = actual.Item(segment)
         Set expectedSegment = segments.Item(segment)
         Assert.IsTrue actualSegment.Equals(expectedSegment)

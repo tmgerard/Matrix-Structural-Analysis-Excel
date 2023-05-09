@@ -31,8 +31,8 @@ Public Sub WriteToWorksheet(ByRef solution As SolutionStructure, ByRef outputShe
     With outputSheet
         .Cells.Clear
         .Cells(1, 1) = "Truss Solution"
-        .Cells(2, 1) = solution.Bars.count & " Members"
-        .Cells(3, 1) = solution.nodes.count & " Nodes"
+        .Cells(2, 1) = solution.Bars.Count & " Members"
+        .Cells(3, 1) = solution.Nodes.Count & " Nodes"
     End With
     
     With this
@@ -58,8 +58,8 @@ Private Sub NodeToSheet(ByRef row As Long)
     Dim currentNode As SolutionNode2D
     
     Dim I As Long
-    For I = 1 To this.solution.nodes.count
-        Set currentNode = this.solution.nodes.Item(I)
+    For I = 1 To this.solution.Nodes.Count
+        Set currentNode = this.solution.Nodes.Item(I)
         
         With currentNode
             this.outputSheet.Cells(row, 1).Value2 = "Node " & .ID
@@ -97,7 +97,7 @@ Private Sub BarsToSheet(ByRef row As Long)
     Dim barForce As String
     
     Dim I As Long
-    For I = 1 To this.solution.Bars.count
+    For I = 1 To this.solution.Bars.Count
         Set currentBar = this.solution.Bars.Item(I)
         
         nodeString = "Node " & currentBar.StartNode.ID & " to Node " & currentBar.EndNode.ID

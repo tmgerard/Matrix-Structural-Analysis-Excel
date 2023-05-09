@@ -36,6 +36,6 @@ Private Property Get IDOFMapper_DofsPerNode() As Integer
     IDOFMapper_DofsPerNode = Dofs
 End Property
 
-Private Property Get IDOFMapper_GetDofEq(dofIndex As Long, nodeIndex As Long) As Long
-    IDOFMapper_GetDofEq = map.ValueAt(dofIndex, nodeIndex)
+Private Property Get IDOFMapper_GetDofEq(DOFIndex As Long, nodeIndex As Long) As Long
+    IDOFMapper_GetDofEq = map.ValueAt(DOFIndex, nodeIndex)
 End Property

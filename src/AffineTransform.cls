@@ -126,7 +126,7 @@ Public Function ApplyToPolygon(ByRef polygon As Polygon2D) As Polygon2D
     Set newVertices = New Collection
 
     Dim index As Long
-    For index = 1 To polygon.Vertices.count
+    For index = 1 To polygon.Vertices.Count
         newVertices.Add Me.ApplyToPoint(polygon.Vertices.Item(index))
     Next index
     
