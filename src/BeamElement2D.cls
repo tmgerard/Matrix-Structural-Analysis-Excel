@@ -140,7 +140,9 @@ Public Function K_Global() As Matrix
     Set T = GetTransform
     
     Dim temp As Matrix
-    Set temp = T.Transpose  ' TODO: implement matrix multiplication
+    Set temp = T.Transpose.Multiply(Me.K_Local)
+    
+    Set K_Global = temp.Multiply(T)
 End Function
 
 Private Function GetTransform() As Matrix
