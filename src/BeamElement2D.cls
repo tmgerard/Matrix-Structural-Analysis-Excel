@@ -19,6 +19,7 @@ Private Type TBeamElement2D
 End Type
 
 Private this As TBeamElement2D
+Private Const MaxDofs As Long = 6
 
 Private Sub Class_Initialize()
     With this
@@ -91,70 +92,99 @@ End Function
 
 Public Function K_Local() As Matrix
     ' Define the unique stiffness terms
-    Dim A As Double, E As Double, I As Double, L As Double
+    Dim A As Double, E As Double, i As Double, L As Double
     A = this.Section.Area
     E = this.Material.E
-    I = this.Section.I
+    i = this.Section.i
     L = Me.Length
 
     Dim k1 As Double, k2 As Double, k3 As Double, k4 As Double, k5 As Double
-    k1 = 4 * E * I / L
-    k2 = 2 * E * I / L ^ 2
-    k3 = 6 * E * I / L ^ 2
-    k4 = 12 * E * I / L ^ 3
-    k5 = A * E / L
-    
-    Dim matrixData(35) As Double
-    ' row 1
-    matrixData(0) = k1
-    matrixData(1) = k2
-    matrixData(2) = k3
-    matrixData(3) = -k3
-    matrixData(4) = 0
-    matrixData(5) = 0
-    ' row 2
-    matrixData(6) = k2
-    matrixData(7) = k1
-    matrixData(8) = k3
-    matrixData(9) = -k3
-    matrixData(10) = 0
-    matrixData(11) = 0
-    ' row 3
-    matrixData(12) = k3
-    matrixData(13) = k3
-    matrixData(14) = k4
-    matrixData(15) = -k4
-    matrixData(16) = 0
-    matrixData(17) = 0
-    ' row 4
-    matrixData(18) = -k3
-    matrixData(19) = -k3
-    matrixData(20) = -k4
-    matrixData(21) = k4
-    matrixData(22) = 0
-    matrixData(23) = 0
-    ' row 5
-    matrixData(24) = 0
-    matrixData(25) = 0
-    matrixData(26) = 0
-    matrixData(27) = 0
-    matrixData(28) = k5
-    matrixData(29) = -k5
-    ' row 6
-    matrixData(30) = 0
-    matrixData(31) = 0
-    matrixData(32) = 0
-    matrixData(33) = 0
-    matrixData(34) = -k5
-    matrixData(35) = k5
+    k1 = A * E / L
+    k2 = 12 * E * i / L ^ 3
+    k3 = 6 * E * i / L ^ 2
+    k4 = 4 * E * i / L
+    k5 = 2 * E * i / L ^ 2
     
     Dim kMatrix As Matrix
     Set kMatrix = New Matrix
-    Set kMatrix = kMatrix.SetSize(6, 6).SetData(matrixData)
+    Set kMatrix = kMatrix.SetSize(6, 6)
+    
+    With kMatrix
+        .ValueAt(0, 0) = k1
+        .ValueAt(0, 3) = -k1
+        .ValueAt(1, 1) = k2
+        .ValueAt(1, 2) = k3
+        .ValueAt(1, 4) = -k2
+        .ValueAt(1, 5) = -k3
+        .ValueAt(2, 1) = k3
+        .ValueAt(2, 2) = k4
+        .ValueAt(2, 4) = -k3
+        .ValueAt(2, 4) = k5
+        .ValueAt(3, 0) = -k1
+        .ValueAt(3, 3) = k1
+        .ValueAt(4, 1) = -k2
+        .ValueAt(4, 2) = -k3
+        .ValueAt(4, 4) = k2
+        .ValueAt(4, 5) = -k3
+        .ValueAt(5, 1) = k3
+        .ValueAt(5, 2) = k5
+        .ValueAt(5, 4) = -k3
+        .ValueAt(5, 5) = k4
+    End With
     
     Set K_Local = kMatrix
 End Function
 
+Public Function K_Global() As Matrix
+    Dim T As Matrix
+    Set T = GetTransform
+    
+    Dim temp As Matrix
+    Set temp = T.Transpose  ' TODO: implement matrix multiplication
+End Function
+
+Private Function GetTransform() As Matrix
+    
+    Dim vec As Vector2D
+    Set vec = MakeVector(1, 0)  ' unit vector along x-axis
+    
+    Dim angle As Double
+    angle = vec.AngleTo(this.EndNode.Position - this.StartNode.Position)
+    
+    Dim transform As Matrix
+    Set transform = New Matrix
+    Set transform = transform.SetSize(MaxDofs, MaxDofs)
+    
+    Dim c As Double
+    c = Math.cos(angle)
+    
+    ' for rounding errors
+    If Doubles.IsEffectivelyZero(c) Then c = 0#
+    If Doubles.IsEffectivelyOne(c) Then c = 1#
+    
+    Dim s As Double
+    s = Math.sin(angle)
+    
+    ' for rounding errors
+    If Doubles.IsEffectivelyZero(s) Then s = 0#
+    If Doubles.IsEffectivelyOne(s) Then s = 1#
+    
+    With transform
+        .ValueAt(0, 0) = c
+        .ValueAt(0, 1) = s
+        .ValueAt(1, 0) = -s
+        .ValueAt(1, 1) = c
+        .ValueAt(2, 2) = 1#
+        .ValueAt(3, 3) = c
+        .ValueAt(3, 4) = s
+        .ValueAt(4, 3) = -s
+        .ValueAt(4, 4) = c
+        .ValueAt(5, 5) = 1#
+    End With
+    
+    Set GetTransform = transform
+    
+End Function
 
 
 
