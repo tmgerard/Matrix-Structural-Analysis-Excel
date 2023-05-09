@@ -12,7 +12,7 @@ Option Explicit
 
 Private Type TTrussDrawer
     Target As Worksheet
-    Transform As AffineTransform
+    transform As AffineTransform
     nodeRadiusModifier As Double
     WindowMargin As Double
 End Type
@@ -30,14 +30,14 @@ Private Const LoadArrowLength As Long = 20
 
 Private Sub Class_Initialize()
     With this
-        Set .Transform = New AffineTransform
+        Set .transform = New AffineTransform
     End With
 End Sub
 
 Private Sub Class_Terminate()
     With this
         Set this.Target = Nothing
-        Set this.Transform = Nothing
+        Set this.transform = Nothing
     End With
 End Sub
 
@@ -45,8 +45,8 @@ Public Property Set Target(ByRef sheet As Worksheet)
     Set this.Target = sheet
 End Property
 
-Public Property Set Transform(ByRef trans As AffineTransform)
-    Set this.Transform = trans
+Public Property Set transform(ByRef Trans As AffineTransform)
+    Set this.transform = Trans
 End Property
 
 Private Sub FitWindow(ByRef truss As SolutionStructure)
@@ -77,7 +77,7 @@ Private Sub FitWindow(ByRef truss As SolutionStructure)
     
     this.nodeRadiusModifier = bestRatio
 
-    With this.Transform
+    With this.transform
         .ScaleX = bestRatio
         .ScaleY = -bestRatio
         .translateX = this.WindowMargin * bestRatio
@@ -138,7 +138,7 @@ Private Sub DrawNodalLoads(ByRef node As SolutionNode2D)
     Const bgArrowNudge As Long = 3
     
     Dim transNode As Point2D
-    Set transNode = this.Transform.ApplyToPoint(node.OriginalPosition)
+    Set transNode = this.transform.ApplyToPoint(node.OriginalPosition)
     
     Dim load As Vector2D
     Set load = node.NetLoad
@@ -184,7 +184,7 @@ End Sub
 Private Sub DrawSegment(ByRef segment As Segment2D, ByRef BarID As String, ByRef Color As Long)
 
     Dim transSegment As Segment2D
-    Set transSegment = this.Transform.ApplyToSegment(segment)
+    Set transSegment = this.transform.ApplyToSegment(segment)
     
     With this.Target.Shapes.AddLine(transSegment.StartPoint.x, transSegment.StartPoint.y, transSegment.EndPoint.x, transSegment.EndPoint.y)
         .Name = BarID
@@ -196,18 +196,18 @@ End Sub
 Private Sub DrawNode(ByRef node As SolutionNode2D)
 
     Dim transNode As Polygon2D
-    Set transNode = this.Transform.ApplyToPolygon(MakeCircle(NodeRadius / this.nodeRadiusModifier, node.OriginalPosition).ToPolygon(NodeDivisions))
+    Set transNode = this.transform.ApplyToPolygon(MakeCircle(NodeRadius / this.nodeRadiusModifier, node.OriginalPosition).ToPolygon(NodeDivisions))
     
     Dim circlePoints() As Single
     ReDim circlePoints(transNode.Vertices.Count, 0 To 1)
     
     Dim currentPoint As Point2D
-    Dim I As Long
-    For I = 0 To transNode.Vertices.Count - 1
-        Set currentPoint = transNode.Vertices.Item(I + 1)
-        circlePoints(I, 0) = CSng(currentPoint.x)
-        circlePoints(I, 1) = CSng(currentPoint.y)
-    Next I
+    Dim i As Long
+    For i = 0 To transNode.Vertices.Count - 1
+        Set currentPoint = transNode.Vertices.Item(i + 1)
+        circlePoints(i, 0) = CSng(currentPoint.x)
+        circlePoints(i, 1) = CSng(currentPoint.y)
+    Next i
     
     Set currentPoint = transNode.Vertices.Item(1)
     circlePoints(transNode.Vertices.Count, 0) = CSng(currentPoint.x)

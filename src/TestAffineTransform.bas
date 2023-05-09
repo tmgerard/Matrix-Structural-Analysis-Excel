@@ -184,16 +184,16 @@ Private Sub TestInverseTransform()
     On Error GoTo TestFail
     
     'Arrange:
-    Dim trans As AffineTransform
-    Set trans = New AffineTransform
-    trans.SetTransform 1, 2, 3, 4, 5, 6
+    Dim Trans As AffineTransform
+    Set Trans = New AffineTransform
+    Trans.SetTransform 1, 2, 3, 4, 5, 6
     
     Dim expected As AffineTransform
     Set expected = New AffineTransform
 
     'Act:
     Dim actual As AffineTransform
-    Set actual = trans.Concatenate(trans.Inverse)
+    Set actual = Trans.Concatenate(Trans.Inverse)
 
     'Assert:
     Assert.IsTrue actual.Equals(expected)

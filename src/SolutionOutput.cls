@@ -57,9 +57,9 @@ End Sub
 Private Sub NodeToSheet(ByRef row As Long)
     Dim currentNode As SolutionNode2D
     
-    Dim I As Long
-    For I = 1 To this.solution.Nodes.Count
-        Set currentNode = this.solution.Nodes.Item(I)
+    Dim i As Long
+    For i = 1 To this.solution.Nodes.Count
+        Set currentNode = this.solution.Nodes.Item(i)
         
         With currentNode
             this.outputSheet.Cells(row, 1).Value2 = "Node " & .ID
@@ -83,7 +83,7 @@ Private Sub NodeToSheet(ByRef row As Long)
         End With
         
         row = row + 1
-    Next I
+    Next i
     
 End Sub
 
@@ -96,9 +96,9 @@ Private Sub BarsToSheet(ByRef row As Long)
     Dim stress As String
     Dim barForce As String
     
-    Dim I As Long
-    For I = 1 To this.solution.Bars.Count
-        Set currentBar = this.solution.Bars.Item(I)
+    Dim i As Long
+    For i = 1 To this.solution.Bars.Count
+        Set currentBar = this.solution.Bars.Item(i)
         
         nodeString = "Node " & currentBar.StartNode.ID & " to Node " & currentBar.EndNode.ID
         
@@ -124,5 +124,5 @@ Private Sub BarsToSheet(ByRef row As Long)
         this.outputSheet.Cells(row, 1).Value2 = vbTab & "Axial Force = " & barForce
         
         row = row + 2
-    Next I
+    Next i
 End Sub

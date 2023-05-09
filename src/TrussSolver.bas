@@ -32,18 +32,18 @@ Public Sub Main()
     Application.StatusBar = "Creating truss analysis report"
     solutionReporter.WriteToWorksheet solution, TrussOutput
     
-    Dim trans As AffineTransform
-    Set trans = New AffineTransform
-    trans.ScaleX = 0.5
-    trans.ScaleY = -0.5
-    trans.translateY = 300
-    trans.translateX = 15
+    Dim Trans As AffineTransform
+    Set Trans = New AffineTransform
+    Trans.ScaleX = 0.5
+    Trans.ScaleY = -0.5
+    Trans.translateY = 300
+    Trans.translateX = 15
     
     Dim drawer As TrussImager
     Set drawer = New TrussImager
     With drawer
         Set .Target = TrussDrawing
-        Set .Transform = trans
+        Set .transform = Trans
     End With
     
     Application.StatusBar = "Drawing truss"

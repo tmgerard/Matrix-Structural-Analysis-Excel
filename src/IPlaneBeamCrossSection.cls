@@ -13,5 +13,5 @@ Option Explicit
 Public Property Get Area() As Double
 End Property
 
-Public Property Get I() As Double
+Public Property Get i() As Double
 End Property

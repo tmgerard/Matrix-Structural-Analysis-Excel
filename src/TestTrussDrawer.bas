@@ -34,16 +34,16 @@ Private Sub TestTrussDrawer()
         Set .Bars = trussBars
     End With
     
-    Dim trans As AffineTransform
-    Set trans = New AffineTransform
-    trans.ScaleY = -1
-    trans.translateY = 100
+    Dim Trans As AffineTransform
+    Set Trans = New AffineTransform
+    Trans.ScaleY = -1
+    Trans.translateY = 100
     
     Dim drawer As TrussImager
     Set drawer = New TrussImager
     With drawer
         Set .Target = TrussDrawing
-        Set .Transform = trans
+        Set .transform = Trans
     End With
     
     drawer.Draw truss
