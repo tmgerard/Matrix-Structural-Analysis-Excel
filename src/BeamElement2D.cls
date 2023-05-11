@@ -9,6 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '@Folder("StructuralAnalysis.Model.Structure Model")
 Option Explicit
+Implements ILinearElement
 
 Private Type TBeamElement2D
     BeamID As Long
@@ -188,6 +189,28 @@ Private Function GetTransform() As Matrix
     
 End Function
 
+' ILinearElement Implementation
 
+Private Property Get ILinearElement_EndNode() As Node2D
+    Set ILinearElement_EndNode = Me.EndNode
+End Property
 
+Private Function ILinearElement_GlobalKMatrix() As Matrix
+    Set ILinearElement_GlobalKMatrix = Me.K_Global
+End Function
 
+Private Property Let ILinearElement_ID(ByRef value As Long)
+    Me.ID = value
+End Property
+
+Private Property Get ILinearElement_ID() As Long
+    ILinearElement_ID = Me.ID
+End Property
+
+Private Function ILinearElement_LocalKMatrix() As Matrix
+    Set ILinearElement_LocalKMatrix = Me.K_Local
+End Function
+
+Private Property Get ILinearElement_StartNode() As Node2D
+    Set ILinearElement_StartNode = Me.StartNode
+End Property

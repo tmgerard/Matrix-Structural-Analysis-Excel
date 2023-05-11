@@ -9,7 +9,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 '@Folder("StructuralAnalysis.Model.Structure Model")
 Option Explicit
-Implements IElementConnectivity
+Implements ILinearElement
 
 Private Type TBarElement
     BarID As Long
@@ -100,7 +100,7 @@ Public Function Length() As Double
     Length = Me.Geometry.Length
 End Function
 
-Public Function GlobalStiffnessMatrix() As Matrix
+Public Function K_Global() As Matrix
 
     Dim direction As Vector2D
     Set direction = Me.Geometry.DirectionVector
@@ -149,7 +149,28 @@ Public Function GlobalStiffnessMatrix() As Matrix
 
 End Function
 
-' IElementConnectivity Implementation
-Private Function IElementConnectivity_ElementNodes() As Collection
-    Set IElementConnectivity_ElementNodes = Me.ElementNodes
+' ILinearElement Implementation
+
+Private Property Get ILinearElement_EndNode() As Node2D
+    Set ILinearElement_EndNode = Me.EndNode
+End Property
+
+Private Function ILinearElement_GlobalKMatrix() As Matrix
+    Set ILinearElement_GlobalKMatrix = Me.K_Global
 End Function
+
+Private Property Let ILinearElement_ID(ByRef value As Long)
+    Me.ID = value
+End Property
+
+Private Property Get ILinearElement_ID() As Long
+    ILinearElement_ID = Me.ID
+End Property
+
+Private Function ILinearElement_LocalKMatrix() As Matrix
+    Set ILinearElement_LocalKMatrix = Nothing
+End Function
+
+Private Property Get ILinearElement_StartNode() As Node2D
+    Set ILinearElement_StartNode = Me.StartNode
+End Property
