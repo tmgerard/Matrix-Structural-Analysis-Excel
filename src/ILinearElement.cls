@@ -17,14 +17,17 @@ Option Explicit
 Public Property Get ID() As Long
 End Property
 
+Public Property Let ID(ByRef value As Long)
+End Property
+
 Public Property Get StartNode() As Node2D
 End Property
 
 Public Property Get EndNode() As Node2D
 End Property
 
-Public Function K_Local() As Matrix
+Public Function LocalKMatrix() As Matrix
 End Function
 
-Public Function K_Global() As Matrix
+Public Function GlobalKMatrix() As Matrix
 End Function
