@@ -28,7 +28,7 @@ Private Sub Class_Terminate()
     End With
 End Sub
 
-Public Function Add(ByRef Node As Node2D) As Node2DCollection
+Public Sub Add(ByRef Node As Node2D)
     If this.Nodes.Count = 0 Then
         Node.ID = 0
         this.Nodes.Add Node
@@ -38,9 +38,7 @@ Public Function Add(ByRef Node As Node2D) As Node2DCollection
         Node.ID = lastNode.ID + 1
         this.Nodes.Add Node
     End If
-    
-    Set Add = this.Nodes
-End Function
+End Sub
 
 Public Function Count() As Long
     Count = this.Nodes.Count
@@ -50,7 +48,7 @@ Public Function Item(ByRef nodeIndex As Long) As Node2D
     Set Item = this.Nodes.Item(nodeIndex)
 End Function
 
-Public Function Remove(ByRef nodeIndex As Long) As Node2DCollection
+Public Sub Remove(ByRef nodeIndex As Long)
     Dim toRemove As Node2D
     Set toRemove = this.Nodes(nodeIndex)
     
@@ -63,6 +61,4 @@ Public Function Remove(ByRef nodeIndex As Long) As Node2DCollection
     For Each Node In this.Nodes
         If Node.ID > removeID Then Node.ID = Node.ID - 1
     Next Node
-    
-    Set Remove = this.Nodes
-End Function
+End Sub
