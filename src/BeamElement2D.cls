@@ -98,55 +98,55 @@ Public Function K_Local() As Matrix
     L = Me.Length
 
     Dim k1 As Double, k2 As Double, k3 As Double, k4 As Double, k5 As Double
-    k1 = 4 * E * I / L
-    k2 = 2 * E * I / L ^ 2
+    k1 = A * E / L
+    k2 = 12 * E * I / L ^ 3
     k3 = 6 * E * I / L ^ 2
-    k4 = 12 * E * I / L ^ 3
-    k5 = A * E / L
+    k4 = 4 * E * I / L
+    k5 = 2 * E * I / L ^ 2
     
     Dim matrixData(35) As Double
     ' row 1
     matrixData(0) = k1
-    matrixData(1) = k2
-    matrixData(2) = k3
-    matrixData(3) = -k3
+    matrixData(1) = 0
+    matrixData(2) = 0
+    matrixData(3) = -k1
     matrixData(4) = 0
     matrixData(5) = 0
     ' row 2
-    matrixData(6) = k2
-    matrixData(7) = k1
+    matrixData(6) = 0
+    matrixData(7) = k2
     matrixData(8) = k3
-    matrixData(9) = -k3
-    matrixData(10) = 0
-    matrixData(11) = 0
+    matrixData(9) = 0
+    matrixData(10) = -k2
+    matrixData(11) = k3
     ' row 3
-    matrixData(12) = k3
+    matrixData(12) = 0
     matrixData(13) = k3
     matrixData(14) = k4
-    matrixData(15) = -k4
-    matrixData(16) = 0
-    matrixData(17) = 0
+    matrixData(15) = 0
+    matrixData(16) = -k3
+    matrixData(17) = k5
     ' row 4
-    matrixData(18) = -k3
-    matrixData(19) = -k3
-    matrixData(20) = -k4
-    matrixData(21) = k4
+    matrixData(18) = -k1
+    matrixData(19) = 0
+    matrixData(20) = 0
+    matrixData(21) = -k1
     matrixData(22) = 0
     matrixData(23) = 0
     ' row 5
     matrixData(24) = 0
-    matrixData(25) = 0
-    matrixData(26) = 0
+    matrixData(25) = -k2
+    matrixData(26) = -k3
     matrixData(27) = 0
-    matrixData(28) = k5
-    matrixData(29) = -k5
+    matrixData(28) = k2
+    matrixData(29) = -k3
     ' row 6
     matrixData(30) = 0
-    matrixData(31) = 0
-    matrixData(32) = 0
+    matrixData(31) = k3
+    matrixData(32) = k5
     matrixData(33) = 0
-    matrixData(34) = -k5
-    matrixData(35) = k5
+    matrixData(34) = -k3
+    matrixData(35) = k4
     
     Dim kMatrix As Matrix
     Set kMatrix = New Matrix
@@ -155,6 +155,64 @@ Public Function K_Local() As Matrix
     Set K_Local = kMatrix
 End Function
 
+Public Function K_Global() As Matrix
+    Dim kLocal As Matrix, trans As Matrix
+    Set kLocal = Me.K_Local
+    Set trans = Transform
+    
+    ' TODO: need matrix multiplication and transpose functions
+    
+End Function
 
+Private Function GetMemberAngle() As Double
+    
+    ' define unit vector along positive x-axis to use as reference for the member rotation
+    Dim xAxisVec As Vector2D
+    Set xAxisVec = New Vector2D
+    With xAxisVec
+        .u = 1
+        .v = 0
+    End With
+    
+    Dim beamVec As Vector2D
+    Set beamVec = Me.GetSegment2D.DirectionVector
+    
+    Dim angle As Double
+    angle = xAxisVec.AngleValueTo(beamVec) ' angle return value between zero and pi
+    
+    ' adjust angle if in quadrant three or four
+    If beamVec.v < 0 Then angle = 2 * WorksheetFunction.Pi - angle
+    
+    GetMemberAngle = angle
+    
+End Function
+
+Private Function Transform() As Matrix
+
+    Dim c As Double, s As Double, theta As Double
+    theta = GetMemberAngle
+    c = Math.cos(theta)
+    s = Math.sin(theta)
+    
+    Dim trans As Matrix
+    Set trans = New Matrix
+    Set trans = trans.SetSize(6, 6)
+    
+    With trans
+        .ValueAt(0, 0) = c
+        .ValueAt(0, 1) = s
+        .ValueAt(1, 0) = -s
+        .ValueAt(1, 1) = c
+        .ValueAt(2, 2) = 1
+        .ValueAt(3, 3) = c
+        .ValueAt(3, 4) = s
+        .ValueAt(4, 3) = -s
+        .ValueAt(4, 4) = c
+        .ValueAt(5, 5) = 1
+    End With
+    
+    Set Transform = trans
+
+End Function
 
 
